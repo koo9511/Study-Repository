@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">이미지 - createPattern</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // 이미지 패턴 생성
+        var img = new Image();
+        img.src = 'pattern.jpg';
+        img.onload = function() {
+            var pattern = context.createPattern(img, 'repeat');
+            context.fillStyle = pattern;
+            context.fillRect(0,0,300,300);
+        };
+
+    </script>
+    
+</body>
+</html>

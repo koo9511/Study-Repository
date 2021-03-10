@@ -1,0 +1,83 @@
+<JDBC 실습>
+
+ * Book 테이블 만들기
+  컬럼 : 
+       book_id   number primary key, //seq_bid 시퀀스로 번호 발생 처리
+       title     varchar2(50) not null	 //책제목
+       author    varchar2(20) not null	 //저자명
+       publisher  varchar2(20) not null     //출판사
+       publish_date    date  not null	 //출판날짜
+       price      NUMBER not null	 //가격
+
+ * 샘플 데이터 입력함
+ 
+ * 프로젝트명 : bookManager
+ * 템플릿 클래스 작성하고, dao 에서 사용하도록 작성함 : 
+	common.JDBCTemp.java   : 싱글톤 디자인패턴 적용해서 구현함
+ * 실행용 클래스 : 
+	book.mvc.run.Main.java => book.mvc.view.BookMenu.java 의
+				displayMenu() 실행함
+	
+ * 데이터 저장용 엔티티 클래스 : 
+   		.java
+
+ * db 접근 처리용 클래스 : 
+	book.mvc.model.dao.BookDao.java
+ 	public int insertBook(Book b) : 새로운 레코드 정보를
+		전달받아 쿼리문에 적용, 테이블에 추가함		
+	public int updateBook(Book b) : 수정할 정보를
+		전달받아 테이블의 내용 변경함
+ 	public int deleteBook(int bid) : 삭제할 책아이디을 전달받아
+		테이블의 정보 삭제함
+	public ArrayList<Book> selectAllBooks() 
+		: 테이블의 모든 정보를 조회해서 리스트에 담아 리턴함
+	public ArrayList<Book> searchBookTitle(String bookTitle) 
+		: 책제목을 넘겨받아, 해당 도서조회해서 리스트에 담아 리턴
+	public Book selectBook(int bookId)
+		: 책 아이디를 전달받아 해당 도서 조회해서 객체에 담아 리턴
+
+  => book.mvc.controller.BookController.java
+	: 메뉴에서 전달된 정보를 dao로 넘기고, 결과 받아서 뷰 실행 처리
+
+	default 생성자
+
+	public void insertBook(Book b)   => dao의 insertBook(b) 호출
+	public void updateBook(Book b)  => dao의 updateBook(b) 호출
+	public void deleteBook(int bookId) => dao의 deleteBook(bid) 호출
+	public void searchBook(int bookId) => dao의 selectBook(bid) 호출
+	public void searchBookTitle(String bookTitle) 
+		=> dao의 searchBookTitle(bookTitle) 호출
+	public void selectAll() => dao의 selectAllBooks() 호출
+
+	* dao 의 메소드 실행하고 리턴된 결과에 따라
+	  성공시에는 BookMenu 의 출력용 메소드가 작동되게하고,
+	  실패시에는 에러메세지를 넘겨 출력되게 메소드 실행함	
+
+  => book.mvc.view.BookMenu.java
+	: 메뉴 방식으로 실행되게 함. 
+	각 메소드가 사용할 데이터는 별도의 입력용 메소드를 작성하고,
+	리턴된 객체나 값을 argument 로 사용할 것
+ 
+	public void displayMenu() : 메뉴 반복 출력 처리함
+
+	*** 도서 관리 프로그램 ***
+
+	1. 도서 추가	=> BookController 의 insertBook(Book객체) 호출
+	2. 도서 정보 수정	=> BookController 의 updateBook(Book객체) 호출
+	3. 도서 삭제	=> BookController 의 deleteBook(책아이디) 호출
+	4. 도서 아이디로 조회 => BookController 의 searchBook(아이디) 호출
+	5. 도서 제목으로 조회 => BookController 의 searchBookTitle(제목) 호출
+	6. 도서 목록 전체 조회 => BookController 의 selectAll() 호출
+	9. 끝내기
+	번호 선택 : 
+
+	public Book inputBook()	=> 새 도서정보 키보드 입력용
+	public Book inputBook(Book b)  => 수정도서정보 키보드 입력용
+	public int inputBookId()	=> 검색/삭제할 도서 아이디 입력용
+	public String inputBookTitle() => 도서제목 키보드 입력용
+	public void displayBooks(List<Book> list) => 도서목록 출력용
+	public void displayBook(Book b)	=> 도서 출력용
+	public void displayError(String message) => 에러메세지 출력용
+
+
+

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Transformations - scale</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = 'rgba(0,0,255,0.5)'
+        context.fillRect(5, 5, 50, 25);
+        // sacle 2배 확대
+        context.scale(2, 2);
+        context.fillRect(5, 5, 50, 25);
+
+    </script>
+    
+</body>
+</html>

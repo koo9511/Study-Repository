@@ -1,0 +1,82 @@
+html {font:medium sans-serif}
+body {margin-left:0;margin-right:0;}
+a {color: #049;;font-weight:bold;text-decoration:none}
+a:hover {text-decoration: underline}
+img {border:0}
+
+/* ------------------ 상단타이틀 ------------------ */
+body > header h1 a:visited {text-decoration:none;color:#FE1}
+h1 {float: left;padding:0 2%;margin:0;font-family: Georgia, serif;font-style:italic;line-height:1em;font-size: 380%;}
+body > header {background:#fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABlAgMAAADxHmFWAAAADFBMVEUAM5lccLgSP58AAAAaP+aoAAAACXBIWXMAAABIAAAASABGyWs+AAAAEUlEQVR42mNgoBFoAGIHemIAulkHgZMPx4IAAAAASUVORK5CYII=) repeat-x;
+font-weight: bold;
+color : #FFF;
+}
+body > header p {padding-left: 20px;margin-bottom:30px;font-family:Arial, sans-serif;clear:both}
+
+article, body > article {padding: 0 25px 0 50px;border-width:1px;border-style: outset;border-color:#6666FF}
+
+body > article {
+  border-radius: 1em;
+  -webkit-border-radius: 1em;}
+
+body > article header {font-size: 200%;margin-bottom:10px}
+body > article h3 {font-family:Georgia, serif;font-style: italic;font-size:xx-large;}
+body > article header h3 {margin:0;text-indent:-30px;border-bottom:1px solid #555}
+header time {font-size:x-small;display:block;text-align:right}
+article footer {font-family:Arial, serif;text-align: right;clear:right}
+
+hr {display: none}
+
+section, article {line-height:1.5;color:#000;margin:0em 220px 30px 30px}
+
+header + strong {float:right}
+header + svg {float:right}
+
+/* ------------------ 우배너 ------------------ */
+
+h2 {background: #039;color: #FFFF00;font-weight: bold;padding: 1em 1em .38em 1em;
+  border-radius:1em;
+  -webkit-border-radius:1em;}
+
+aside h2 {margin: 0.7em;font-family: Georgia, serif;font-size:130%;font-style:italic;padding-top: 0}
+aside h2:first-letter {font-size: 150%}
+
+nav h2, body > aside {
+  box-shadow: 0 0 5px #039;
+  -webkit-box-shadow: 0 0 5px #039;
+}
+
+body > aside {background-color: #cfd9ec;position:fixed;top:120px;right:10px;text-align:center;width:180px;z-index:5;
+  border-radius: 1em;
+  -webkit-border-radius: 1em;
+   border-width:1px;border-style:outset;
+}
+
+nav {margin:15px;font-family:Georgia, sans-serif;line-height:1.5em}
+nav ul {padding:0;list-style:none;}
+nav li {
+  -webkit-transition: font-size 0.5s;
+  transition: font-size 0.5s;
+}
+nav li:hover {font-size:xx-large;}
+
+/* --------------- 상단메뉴 --------------- */
+
+body > footer {color:#FFFF99;font-size:80%;position:absolute;top:4.1em;left:3em}
+footer ul {list-style:none}
+footer > ul > li {display:inline;padding:0.7em;float: left;/*float 이 있어야 마우스오버별 출력*/}
+footer ul ul {float:left; /*서브메뉴 감춤*/display: none;width:75px;}
+
+/*2011-06-14*/
+footer ul li:hover ul {display:block;/*마우스 대면 나오게함*/position:absolute;padding:10px;/*촐력메뉴여백*/background-color:#FFFFCC;border:1px solid #555;color:#000;
+  -webkit-border-bottom-left-radius: .5em;
+  -webkit-border-bottom-right-radius: .5em;
+  /*z-index: 5; 상황에따라 필요*/
+}
+
+footer ul li:hover ul ul {display: none;/*하위메뉴 감추기*/z-index:1}
+footer ul li:hover ul li:hover ul {margin-left:75px;margin-top:-15px;width:100px;
+  border-radius:.5em;
+  -webkit-border-radius:.5em;
+  display: block;/*마우스오버시 출력*/
+}

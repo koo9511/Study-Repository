@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">fillStyle & strokeStyle</p>
+    <canvas id="fillStyleCanvas" width="300" height="300"></canvas>
+    <canvas id="strokeStyleCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas1 = document.getElementById('fillStyleCanvas');
+        var canvas2 = document.getElementById('strokeStyleCanvas');
+        var context1 = canvas1.getContext('2d');
+        var context2 = canvas2.getContext('2d');
+        
+        // fillStyle
+        for(var i=0; i<6; i++) {
+            for(var j=0; j<6; j++) {
+                context1.fillStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' + Math.floor(255-42.5*j) + ',0)';
+                context1.fillRect(j*25,i*25,25,25);
+            }
+        }
+        
+        // strokeStyle
+        for(var i=0; i<6; i++) {
+            for(var j=0; j<6; j++) {
+                context2.strokeStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' + Math.floor(255-42.5*j) + ',0)';
+                
+                context2.beginPath();
+                context2.arc(12.5+j*25,12.5+i*25,10,0,Math.PI*2,true);
+                context2.stroke();
+            }
+        }
+    </script>
+    
+</body>
+</html>

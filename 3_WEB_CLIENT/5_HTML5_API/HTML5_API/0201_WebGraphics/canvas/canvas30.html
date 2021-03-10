@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Transformations - rotate</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // rotate(각도:degrees*Math.PI/180)
+        // 회전 중심점 : 0, 0
+        context.rotate(20*Math.PI/180);
+        context.fillStyle = 'green'
+        context.fillRect(50, 0, 100, 25);
+
+    </script>
+    
+</body>
+</html>

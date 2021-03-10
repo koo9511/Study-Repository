@@ -1,0 +1,125 @@
+java + database 
+  C (Create ) : 레코드 추가 생성 - insert into
+  R (Read ) : 원하는 조건의 레코드를 조회 - select
+  U (Update ) : 원하는 조건의 레코드를 수정 - update set
+  D (Delete ) : 원하는 조건의 레코드를 삭제 - delete
+
+	=> C, U, D : 성공 또는 실패에 대한 정수값을 리턴받음  
+		- executeUpdate()
+	=> R : ResultSet 을 리턴받음 - executeQuery()
+
+<JDBC 처리 절차>
+1. 드라이버 등록 : 해당 데이터베이스와 연결하기위해 사용할 클래스를 등록함.
+		자바 프로그램에 해당 클래스를 찾아서 등록함
+		- java.lang.Class 클래스를 사용함.
+		- forName() 메소드를 이용함.
+		Class.forName(데이터베이스용 클래스명);
+		=> ClassNotFoundException 발생할 수 있음
+		=> 클래스를 찾으면, 자동으로 DriverManager 에 등록함.
+
+2. 등록된 드라이버를 이용해서 데이터베이스와 연결함.
+  => DriverManager.getConnection(url, user, pwd) 사용함
+  => 제대로 연결이 성공하면, Connection 객체가 리턴됨.  => 받아줌
+	Connection 객체명 = DriverManager.getConnection(url, user, pwd);
+  => SQLException 반드시 처리함.
+
+3. Statement /PreparedStatement 객체 생성
+  : 쿼리문을 담아서 db 로 전송될 객체임.
+  => Connection  객체를 이용해서 만들어 줌.
+  => Statement 객체 = Connection객체.createStatement();
+	//객체 생성 후에 쿼리문을 실행 메서드에 담아서 작동시킴.
+
+	* Statement : 객체를 먼저 만들고, 완성된 쿼리문을 가지고 실행
+	* PreparedStatement : 미완성된 쿼리문을 가지고 객체를 만듦
+			그 다음에 쿼리문을 완성하고 실행함.
+
+  => PreparedStatement 객체생성
+	//먼저 미완성된 쿼리문장 작성 : ? 사용 
+		(값을 기록해야 되는 위치에 값 대신에 사용)
+
+	//객체 생성에 미완성된 쿼리문이 적용함.
+	PreparedStatement 객체 = 
+		Connection객체.prepareStatement(미완성된 쿼리문장);
+
+	//객체 생성 후에 미완성된 쿼리문의 ? 에 값을 대입함
+	PreparedStatement 객체.set자료형(?순번, 적용할 값);
+		* 값이 적용될 컬럼의 자료형과 일치되게 메소드명 사용함.
+
+	//실행함
+	=> 레퍼런스가 Statement 이면
+	ResultSet 결과변수 = 레퍼런스.executeQuery(query문장);
+	int 결과변수 = 레퍼런스.executeUpdate(query문장);
+	boolean 변수 = 레퍼런스.execute(query문장);
+
+	=> 레퍼런스가 PreparedStatement 이면
+	ResultSet 결과변수 = 레퍼런스.executeQuery();
+	int 결과변수 = 레퍼런스.executeUpdate();
+	boolean 변수 = 레퍼런스.execute();
+
+
+4. 쿼리문 작성하고, Statement 객체에 쿼리문 담아서 실행시킴
+  => 처리 결과를 받아줌
+  => insert, update, delete : int 변수명 = Statement객체.executeUpdate(쿼리문);
+			* 성공적으로 수행되면, 처리된 row number(행수)를 받음 (리턴값 > 0)
+				-> Connection 객체.commit();
+			* 실패하면 0 또는 음수가 리턴됨 ( ! 리턴값 > 0)
+				-> Connection 객체.rollback();
+  => select :  ResultSet 객체명 = Statement객체.executeQuery(쿼리문);
+			* null 이 리턴되면, 찾는 정보가 없다는 뜻
+
+5. 리턴받은 정보를 처리하는 방법
+ => 하나의 정보를 select 조회 했을 때
+
+	
+		if(ResultSet 객체.next())  //결과 정보에 접근함.
+		{
+		//바로 출력을 할 경우 ---------------------------------------------------------
+		System.out.println(ResultSet객체.get자료형("컬럼명"  or 컬럼의 순번));
+			** get자료형() 과 컬럼의 자료형이 일치해야 함.
+			* 컬럼의 자료형이 char, varchar2 -> getString()
+			*	       date -> getDate()
+			*	       정수 -> getInt()
+			*	       실수 -> getDouble()
+
+		//변수에 저장하고 처리할 경우  --------------------------------------------
+			변수 = ResultSet객체.get자료형("컬럼명");
+			* 자료형 반드시 일치 시킬 것
+
+		//객체(레퍼런스) 에 저장할 경우 ------------------------------------------
+		- ResultSet 의 정보를 저장할 클래스 만들기 : entity
+		- 생성시 초기값 적용
+			클래스명 객체명 = new 생성자(ResultSet객체.get자료형("컬럼명"),...);
+
+		- 객체 생성후 setter 이용
+			클래스명 객체명 = new 생성자();
+			객체명.set필드명(ResultSet객체.get자료형("컬럼명"));
+//**********************************************************************
+		- 한 개이상의 row 정보를 처리할 경우 : 컬렉션 이용함
+
+			ArrayList<UserEntity> list = new ArrayList<UserEntity>();
+			또는
+			HashMap<String, UserEntity> map = 
+				new HashMap<String, UserEntity>();
+			=> key의 자료형은 primary key로 설정된 컬럼의 자료형
+			=> value의 자료형은 vo 용 클래스
+
+			클래스명 객체명 = new 생성자();
+			객체명.set필드명(ResultSet객체.get자료형("컬럼명"));
+
+			>> 값들을 저장한 엔티티 객체를 컬렉션에 저장함.
+			list.add(entity객체명); 또는 map.put(key, 객체명);
+
+			return list;  => 해당 메소드의 리턴타입은 
+					public ArrayList<UserEntity> select(){}
+			또는 return map; 해당 메소드의 리턴타입은 
+					public HashMap<String, UserEntity> select(){}
+		}
+	}
+
+	
+6. 작업이 끝나면 사용한 객체를 반납한다. : close() 사용 ->SQLException 처리 요구함
+  => 생성 순서 반대로 close() 처리함
+	ResultSet 객체.close();
+	Statement 객체.close();
+	Connection 객체.close();
+

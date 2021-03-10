@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">라인 - lineCap</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        
+        var lineCap = ['butt', 'round', 'square'];
+        
+        // 가이드 라인
+        context.strokeStyle = '#09f';        
+        context.beginPath();
+        context.moveTo(10,10);
+        context.lineTo(140,10);
+        context.moveTo(10,140);
+        context.lineTo(140,140);
+        context.stroke();
+        
+        // lineCap
+        context.strokeStyle = 'black';
+        for(var i=0, len=lineCap.length; i<len; i++) {
+            context.lineWidth = 15;
+            context.lineCap = lineCap[i];
+            context.beginPath();
+            context.moveTo(25+i*50,10);
+            context.lineTo(25+i*50,140);
+            context.stroke();
+        }
+
+    </script>
+    
+</body>
+</html>

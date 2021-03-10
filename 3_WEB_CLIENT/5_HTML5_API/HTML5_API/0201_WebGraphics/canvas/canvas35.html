@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Context - save(), restore()</p>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+    <script>
+        /*
+            canvas는 drawing states의 stack을 유지함.
+            Drawing states는 아래와 같이 구성됨.
+                * 현재 transformation matrix
+                * 현재 clipping region
+                * 현재 속성값 : strokeStyle, fillStyle, globalAlpha, lineWidth, lineCap, lineJoin, miterLimit, shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor, globalCompositeOperation, font, textAlign, textBaseline
+                * 현재 path, bitmap은 drawing states가 아님
+                * path -> beginPath()로 rest
+                * bitmap는 canvas 속성이지 context 속성이 아님
+            save() : 현재의 drawing states를 stack에 저장
+            restor() : stack의 최상위 state로 원복
+        **/
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = '#FA6900';
+        context.shadowOffsetX = 5;
+        context.shadowOffsetY = 5;
+        context.shadowBlur    = 4;
+        context.shadowColor   = 'rgba(204, 204, 204, 0.5)';
+        context.fillRect(0,0,15,150);
+        // save()
+        context.save();
+        
+        context.fillStyle = '#E0E4CD';
+        context.shadowOffsetX = 10;
+        context.shadowOffsetY = 10;
+        context.shadowBlur    = 4;
+        context.shadowColor   = 'rgba(204, 204, 204, 0.5)';
+        context.fillRect(30,0,30,150);
+        context.save();
+        
+        context.fillStyle = '#A7DBD7';
+        context.shadowOffsetX = 15;
+        context.shadowOffsetY = 15;
+        context.shadowBlur    = 4;
+        context.shadowColor   = 'rgba(204, 204, 204, 0.5)';
+        context.fillRect(90,0,45,150);
+        context.save();
+        
+        // restore()
+        context.restore();
+        context.beginPath();
+        context.arc(185, 75, 22, 0, Math.PI*2, true);
+        context.closePath();
+        context.fill();
+        
+        context.restore();
+        context.beginPath();
+        context.arc(260, 75, 15, 0, Math.PI*2, true);
+        context.closePath();
+        context.fill();
+        
+        context.restore();
+        context.beginPath();
+        context.arc(305, 75, 8, 0, Math.PI*2, true);
+        context.closePath();
+        context.fill();
+        
+    </script>
+    
+</body>
+</html>

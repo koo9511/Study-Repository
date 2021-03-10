@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage API - removeItem()</p>
+    <button id="removeItem">성별 데이터 삭제</button>
+    <script>
+        
+        if(window.localStorage) {
+            // localStorage getItem
+            localStorage.setItem('sex', '남자');
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+        
+        function removeSex() {
+            localStorage.removeItem('sex');
+        }
+        
+        $('#removeItem').on('click', function() {
+            removeSex();
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Web SQL Database Test</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Creading and Opening Database</p>
+    <button id="open">open database</button><br/>
+    <button id="create">create table</button>&nbsp;&nbsp;&nbsp;
+	<button id="insert">insert</button><br/>
+    <button id="drop">drop table</button><br/>
+    <button id="change">change Version</button><br/>
+
+	<h3>추가 또는 변경할 자동차 정보를 입력하시오.</h3>
+	<label>id : <input type="text" id="pid"></label><br>
+	<label>제조사 : <input type="text" id="pmaker"></label><br>
+	<label>제품명 : <input type="text" id="pname"></label><br>
+	<label>출시날짜 : <input type="date" id="pdate"></label><br>
+
+	<button id="add">add insert</button>&nbsp;&nbsp;&nbsp;
+    <button id="update">update</button>&nbsp;&nbsp;&nbsp;
+    <button id="delete">delete</button><br/>
+	<button id="select">select</button><br/>
+
+	<h3>현재 저장된 자동차 정보</h3>
+    <div id="output"></div>
+	<table id="ptable" border="1"></table>
+	
+	
+    <script>
+
+        var sqlDatabase;
+        
+        var openSqlDB = function() {
+            // ★★★ Creating and Opening Database : 데이터베이스를 open하거나 create함.
+            // openDatabase(string databaseName, string version, string description, number database size, optional callback)
+            sqlDatabase = openDatabase('sqlDB', '1.3', 'my first web sql database', 2*1024*1024);
+            console.log(sqlDatabase);
+        };
+        
+        // create Table
+        var createTB = function() {
+            // ★★★ transaction : 트랜젝션 시작
+            // Database.transaction(function callback, function errorCallback, function successCallback)
+            sqlDatabase.transaction(
+                function(tranx) {
+                    // ★★★ executeSql : 지정한 SQL 실행
+                    // SQLTransaction.executeSql(sql, args, successCallback, errorCallback)
+                    tranx.executeSql('CREATE TABLE IF NOT EXISTS product (id integer primary key, maker, product_name, productDate)');
+                },
+                function(error) {
+                    alert('create Table 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('create Table 성공');
+                }
+            );
+        };
+        
+        // Drop Table
+        var dropTB = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+                    tranx.executeSql('DROP TABLE IF EXISTS product');
+                },
+                function(error) {
+                    alert('Drop Table 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('Drop Table 성공');
+                }
+            );
+        };
+        
+        // Insert
+        var insertCol = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+                    tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (1, "Hyundai", "아반떼", "20110210")');
+                    tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (2, "Kia", "카렌스", "20110210")');
+                    tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (3, "Hyundai", "소나타", "20110210")');
+                    tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (4, "Kia", "K5", "20110210")');
+                    tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (5, "GM", "크루즈", "20110210")');
+                },
+                function(error) {
+                    alert('Insert 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('Insert 성공');
+                }
+            );
+        };
+        
+        // Select
+        var selectCol = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+                    tranx.executeSql('SELECT id, maker, product_name, productDate FROM product', [], function(tranx, results) {
+                        var rows = results.rows;
+                        
+						document.getElementById('ptable').innerHTML = "<tr><th>id</th><th> 제조사</th><th> 제품명</th><th> 출시날짜</th></tr>";						
+
+						for(var i=0, len=rows.length; i<len; i++) {
+							var rowItem = results.rows.item(i);
+
+							document.getElementById('ptable').innerHTML += "<tr><td>" + rowItem['id'] + "</td><td> " + rowItem['maker'] + "</td><td>" + rowItem['product_name'] + "</td><td> " + rowItem['productDate'] + "</td></tr>";
+
+							}
+						
+                        
+                    });
+                },
+                function(error) {
+                    alert('Select 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('Select 성공');
+                }
+            );
+        };
+        
+        // Update
+        var updateCol = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+                    tranx.executeSql('UPDATE product SET product_name="K7" WHERE product_name="K5" AND maker="Kia"', [], function(tranx, results) {
+                        $('#output').text('UPDATE된 rows : ' + results.rowsAffected);
+                    });
+                },
+                function(error) {
+                    alert('Update 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('Update 성공');
+                }
+            );
+        };
+        
+        // Delete
+        var deleteCol = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+                    tranx.executeSql('DELETE FROM product WHERE id=5', [], function(tranx, results) {
+                        $('#output').text('DELETE된 rows : ' + results.rowsAffected);
+                    });
+                },
+                function(error) {
+                    alert('Delete 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('Delete 성공');
+                }
+            );
+        };
+        
+        // 데이터베이스 스키마 버전관리
+        var changeVer = function() {
+            sqlDatabase.changeVersion('1.3', '1.4',
+                function(tranx) {
+                },
+                function(error) {
+                    alert('Change Version 에러발생 : ' + error.message);
+                },
+                function() {
+                    $('#output').text('sqlDB Version update : ' + sqlDatabase.version);
+                    alert('Change Version 성공');
+                }
+            );
+        };
+
+		//add insert
+		var addInsertCol = function() {
+            sqlDatabase.transaction(
+                function(tranx) {
+					tranx.executeSql('INSERT INTO product(id, maker, product_name, productDate) VALUES (?, ?, ?, ?)', [ ($('#pid').val() * 1), $('#pmaker').val(), $('#pname').val(), $('#pdate').val()]);
+                    
+                },
+                function(error) {
+                    alert('add Insert 에러발생 : ' + error.message);
+                },
+                function() {
+                    alert('add Insert 성공');
+                }
+            );
+        };
+        
+        $('#open').on('click', openSqlDB);
+        $('#create').on('click', createTB);
+        $('#drop').on('click', dropTB);
+        $('#insert').on('click', insertCol);		
+        $('#select').on('click', selectCol);
+        $('#update').on('click', updateCol);
+        $('#delete').on('click', deleteCol);
+        $('#change').on('click', changeVer);
+
+		$('#add').on('click', addInsertCol);
+
+    </script>
+</body>
+</html>

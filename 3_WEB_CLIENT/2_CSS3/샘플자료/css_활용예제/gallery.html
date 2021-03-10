@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 사진 갤러리</title>
+  <style type="text/css">
+	/* 썸네일이미지를올려놓을갤러리스타일*/
+	#gallery {
+		border: 10px solid #1D0C16; /* 굵은테두리*/
+		height: 300px; /* 높이*/
+		width: 450px; /* 너비*/
+		margin-left: auto; /* 여백자동*/
+		margin-right: auto;
+		overflow: visible; /* 오버플로일경우visible로*/
+		background: #272229; /* 배경색*/
+		-webkit-box-shadow: #272229 10px 10px 20px; /* 박스그림자*/
+		-moz-box-shadow: #272229 10px 10px 20px;
+		filter: progid:DXImageTransform.Microsoft.Shadow(color='#272229', Direction=135, Strength=10);
+		box-shadow: #272229 10px 10px 20px;
+	}
+
+	/* 썸네일목록전체스타일*/
+	#gallery ul{
+		margin-left:-30px; /* 갤러리가운데에콘텐츠가올수있도록*/
+	}
+
+	/* 썸네일각항목에대한스타일*/
+	#gallery ul li {
+		list-style:none; /* 불릿없앰*/
+		display:inline-table; /* 테이블스타일로배치*/
+		padding:10px;/* 안여백은각각10px로*/
+	}
+
+	/* 평소큰이미지.pic 에대한스타일*/
+	#gallery ul li .pic{
+		-webkit-transition: all 0.6s ease-in-out; /* 웹킷브라우저에서트랜지션효과가나타나도록*/
+		opacity:0; /* 페이드아웃효과*/
+		visibility:hidden; /* 처음에는보이지않게*/
+		position:absolute; /* 고정위치*/
+		margin-top:10px; /* 상단여백*/
+		margin-left:-20px; /* 왼쪽으로20픽셀이동해서*/
+		border:1px solid black; /* 검은색테두리그림*/
+		-webkit-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+		-moz-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+		filter:progid:DXImageTransform.Microsoft.Shadow(color='#272229', Direction=135, Strength=5); /* 박스그림자*/
+		box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+	}
+
+	/*마우스 오버 효과주기*/
+	#gallery ul li .small:hover{
+		cursor:pointer;
+	}
+
+	/* 썸네일이미지위로마우스오버했을때큰이미지의스타일* */
+	#gallery ul li:hover .pic {
+		width:320px; /* 너비*/
+		height:240px; /* 높이*/
+		opacity:1; /* 불투명하게*/
+		visibility:visible; /* 화면에보임*/
+		float:right; /* 오른쪽으로플로팅*/
+	}
+</style>
+ </head>
+
+ <body>
+  <h2>사진 갤러리 만들기</h2>
+  <hr/>
+  <div id="gallery">
+	  <ul>
+		  <li> <img src="images/ph1_s.jpg" class="small" width="120" height="90"> <img src="images/ph1.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="images/ph2_s.jpg." class="small" width="120" height="90"> <img src="images/ph2.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="images/ph3_s.jpg" class="small" width="120" height="90"> <img src="images/ph3.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="images/ph4_s.jpg" class="small" width="120" height="90"> <img src="images/ph4.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="images/ph5_s.jpg" class="small" width="120" height="90"> <img src="images/ph5.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="images/ph6_s.jpg" class="small" width="120" height="90"> <img src="images/ph6.jpg" class="pic"> 
+		  </li>
+	  </ul>
+  </div>
+ </body>
+</html>

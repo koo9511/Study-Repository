@@ -1,0 +1,74 @@
+<오라클 11g 설치하기>
+
+* 오라클이 이미 설치되어 있는 경우, 제거하기
+ 1. 제어판 > 관리도구 > 서비스 : 오라클 관련 서비스 모두 중지시킴
+ 2. 시작메뉴 > 보조프로그램 > 명령프롬프트 
+	> 마우스 우클릭 : 관리자 권한으로 실행 선택함
+ 3. 오라클 폴더 아래 / deinstall> deinstall.bat 실행함.
+	데이터베이스명 : orcl 또는 xe
+	> y > enter......... > 삭제 완료 메세지 확인함.
+ 4. 시스템 리부팅함
+ 5. 오라클 설치 폴더 삭제함(c:\oracle, c:\program files\oracle)
+	 > 메뉴 항목도 삭제함
+ 6. regedit (레지스트리 편집기) 실행함
+	=> 오라클 관련 항목을 찾아서 삭제함
+	HKEY_LOCAL_MACHINE/SOFTWARE/ORACLE key
+	HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/
+					Services/Ora*
+
+ 7. 휴지통 제거 > 리부팅
+ 8. 오라클 설치하기 : 설치시 암호 반드시 기억할 것
+
+
+* 오라클 11g homepage URL
+http://127.0.0.1:8080/apex/f?p=4950:1:1558457694193351
+
+sys 또는 system 으로 로그온 상태에서.....
+* 사용자 계정 lock 풀기
+SQL> alter user 계정 identified by 암호 account unlock;
+	=> 연결해 봄
+
+* 새로운 사용자 계정과 암호 만들기
+SQL> create user student identified by 암호;
+
+* 권한 설정하기
+SQL> GRANT CONNECT  TO  student;
+SQL> GRANT RESOURCE TO  student;
+또는
+SQL> GRANT CONNECT , RESOURCE TO  student;
+
+* 새 계정으로 연결하기
+SQL> conn student/암호
+connected	//연결 성공함
+
+* USER 확인
+SQL> SHOW USER
+
+* 사용자 계정 삭제하기
+SQL> DROP USER 사용자계정 CASCADE;
+
+* 오라클에서 스크립트 실행하기
+SQL> start [경로포함]파일명.sql(엔터)
+또는
+SQL> @ [경로포함]파일명.sql(엔터)
+	** start의 단축명령어 : @
+	** 오라클 명령어 중 단축문자로 실행할 수 있는 명령어를
+	   알아두면 편리함 **
+
+* 오라클 db 셋팅 정보 확인하기
+SQL> select * from v$nls_parameters;
+	=> NLS_LANGUAGE : KOREAN
+	=> NLS_CHARACTERSET : AL32UTF8
+
+* 문자셋 변경하기
+SQL> update sys.props$ 
+     set value$='KO16KSC5601' 
+     where name='NLS_NCHAR_CHARACTERSET'; 
+
+* 언어셋 변경하기
+SQL> update sys.props$ 
+     set value$='AMERICAN_AMERICA.KO16KSC5601' 
+     where name='NLS_LANGUAGE'; 
+
+
+

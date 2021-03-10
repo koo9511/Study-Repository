@@ -1,0 +1,196 @@
+<네트워크(Network)>
+	: 자바에서는 서버/클라이언트 방식의 네트워크 프로그래밍 기술을
+	 제공함
+	- 서버(Server) : 서비스 제공용 컴퓨터
+	- 클라이언트(Client) : 서비스 사용 컴퓨터
+	=> 서버용 프로그램과 클라이언트용 프로그램을 각각 작성해야 함
+	=> java.net 패키지에서 제공됨
+
+* 관련 용어
+ - ip 주소 : 컴퓨터에 부여된 네트워크 상에서의 컴퓨터 식별번호
+	=> . 으로 구분되며, 4개의 값으로 구성
+	  각 값은 0~255 사이의 값으로 표현됨 (32비트 주소체계임)
+		예> 123.45.6.225
+	=> 관련 클래스 : InetAddress
+		      Inet4Address (IP v.4 에 대한 주소처리용) //32bit
+			>> 약 42억개의 주소를 가짐
+			>> A,B,C,D 등급으로 나뉨
+		      Inet6Address (IP v.6 에 대한 주소처리용) //128bit
+			>> 3.4 X 10의 38승 개의 주소를 가짐
+
+ - URI(Uniform Resource Identifier)
+  : 인터넷에 있는 자원을 나타내는 유일한 주소이다. 
+    URI는 인터넷에서 요구되는 기본조건으로서 인터넷 프로토콜에 항상 붙어 다닌다.
+
+ - 프로토콜 (HTTP 혹은 FTP) + : + // + 호스트이름 + 주소
+	예: http://ko.wikipedia.org
+   위의 프로토콜 형태는 URI의 한 종류인 URL 형식의 표현 방법입니다.
+
+ - URI의 하위개념으로 URL, URN 이 있다.
+
+ - URL(Uniform Resource Location)
+   : 네트워크 상에서의 제공되는 서비스 위치 
+    또는 웹 문서의 각종 서비스를 제공하는 서버들에 있는 파일의 위치를 표시하는 표준을 말한다.
+
+	=> 프로토콜://호스트이름/
+		예> http://www.naver.com
+	=> 프로토콜://ip주소:포트번호/에플리케이션이름/
+		예> http://127.0.0.1:80/notice/
+	=> 프로토콜://도메인명/파일명.확장자/
+		예> ftp://www.microsoft.com/driver.zip/
+	=> 프로토콜://도메인명/에플리케이션이름/폴더명/폴더명/클래스명?변수명=값&변수명=값
+		예> http://localhost:8080/notice/list?userid=admin
+		(클래스명 뒤의 ?다음의 내용을 쿼리스트링이라고 함
+			getQuery()에 의해 리턴받을 수 있음)
+
+	=> 관련 클래스 : java.net.URL	
+
+ - URN(Uniform Resource Name)
+  : 리소스(자원)의 이름
+
+ - 프로토콜(protocol)
+   : 컴퓨터간에 정보를 주고받을 때의 통신방법에 대한 규칙과 약속.
+
+    통신규약이라 함은 상호간의 접속이나 전달방식, 통신방식, 주고받을 자료의 형식, 오류검출방식, 코드변환방식, 전송속도 등에 대하여 정하는 것을 말한다. 일반적으로 기종(機種)이 다른 컴퓨터는 통신규약도 다르기 때문에, 기종이 다른 컴퓨터간에 정보통신을 하려면 표준 프로토콜을 설정하여 각각 이를 채택하여 통신망을 구축해야 한다. 대표적인 표준 프로토콜의 예를 든다면 인터넷에서 사용하고 있는 TCP/IP가 이에 해당된다.
+
+ - HTTP [ hypertext transfer protocol ]
+  : 인터넷에서, 웹 서버와 사용자의 인터넷 브라우저 사이에 문서를 전송하기 위해 사용되는 통신 규약을 말한다
+
+ - FTP [ file transfer protocol ]
+  : 인터넷을 통해 한 컴퓨터에서 다른 컴퓨터로 파일을 전송할 수 있도록 하는 방법과, 그런 프로그램을 모두 일컫는 말이다
+
+ - 텔넷 [ telecommunication network ]
+  : 인터넷을 통하여 원격지의 호스트 컴퓨터에 접속할 때 지원되는 인터넷 표준 프로토콜
+
+ - TCP/IP (Transmission Control Protocol)
+  : 인터넷 네트워크의 핵심 프로토콜이다. 
+   인터넷에서 전송되는 정보나 파일들이 일정한 크기의 패킷들로 나뉘어 
+   네트워크상 수많은 노드들의 조합으로 생성되는 경로들을 거쳐 분산적으로 전송되고,
+   수신지에 도착한 패킷들이 원래의 정보나 파일로 재조립되도록 하는 게 바로 
+   TCP/IP의 기능이다
+
+   IP 프로토콜 위에서 연결형 서비스를 지원하는 전송계층 프로토콜로, 
+   인터넷 환경에서 기본으로 사용한다. 
+
+   TCP에서 제공하는 주요 기능은 다음과 같다.
+	? 연결형 서비스를 제공한다.
+	? 전이중(Full Duplex) 방식의 양방향 가상 회선을 제공한다.
+	? 신뢰성 있는 데이터 전송을 보장한다
+
+
+ - UDP [ user datagram protocol ] 
+  : 인터넷에서 정보를 주고받을 때, 서로 주고받는 형식이 아닌 한쪽에서 일방적으로 
+   보내는 방식의 통신 프로토콜이다.  
+
+   UDP는 인터넷상에서 서로 정보를 주고받을 때 
+   정보를 보낸다는 신호나 받는다는 신호 절차를 거치지 않고, 
+   보내는 쪽에서 일방적으로 데이터를 전달하는 통신 프로토콜이다.
+ 
+   보내는 쪽에서는 받는 쪽이 데이터를 받았는지 받지 않았는지 확인할 수 없고, 
+   또 확인할 필요도 없도록 만들어진 프로토콜을 말한다.
+
+[TCP 소켓 프로그래밍 순서]
+ : 서버용 프로그램과 클라이언트용 프로그램을 각각 작성해야 함
+
+ <서버용 프로그램>
+   1. 서버의 포트번호를 정함
+   2. 서버용 소켓 객체를 생성함
+	ServerSocket 레퍼런스 = new ServerSocket(포트번호);
+   3. 클라이언트쪽에서 접속 요청이 오길 기다림
+   4. 접속 요청이 오면 요청을 수락하고 해당 클라이언트에 대한 소켓 객체 생성함
+	Socket 클라이언트소켓레퍼런스 = 서버소켓레퍼런스.accept();
+   5. 연결된 클라이언트와 입출력 스트림을 생성함
+	InputStream input스트림레퍼런스 = 
+		클라이언트소켓레퍼런스.getInputStream(클라이언트소켓레퍼런스);
+	OutputStream output스트림레퍼런스 = 
+		클라이언트소켓레퍼런스.getOutputStream(클라이언트소켓레퍼런스);
+
+   6. 보조스트림을 붙여 성능을 개선해도 됨. 
+	바이트스트림을 문자스트림으로 변경해도 됨.
+	예를 들면
+	//입력용 스트림
+	BufferedReader 레퍼런스 = new BufferedReader(
+		new InputStreamReader(input스트림레퍼런스));
+	//출력용 스트림
+	PrintWriter 레퍼런스 = new PrintWriter(output스트림레퍼런스);
+
+   7. 스트림을 통한 읽고 쓰기함
+	읽기용레퍼런스.read() or 읽기용레퍼런스.readLine()
+	쓰기용레퍼런스.println()
+	*** 참고 : 버퍼 이용시 출력의 경우 println() 메소드 사용 후 
+		쓰기용레퍼런스.flush();	//버퍼비우기
+	   반드시 사용함
+		
+   8. 통신을 종료하려면,
+	입력스트림레퍼런스.close();
+	출력스트림레퍼런스.close();
+	소켓레퍼런스.close();
+
+ <클라이언트용 프로그램>
+   1. 서버가 정한 포트번호와 서버의 IP 주소가 필요함
+   2. 클라이언트용 소켓 객체 생성함
+	Socket 소켓레퍼런스 = new Socket(서버 IP, 포트번호);
+	//객체 생성시 서버와 자동 연결 요청함
+	//연결이 실패하면, null 리턴됨
+	=> 연결을 끊고나서, 다시 연결을 원할 때는 connect() 메소드 사용함.
+   3. 서버와의 입출력 스트림을 오픈함
+	InputStream input스트림레퍼런스 = 
+		클라이언트소켓레퍼런스.getInputStream(클라이언트소켓레퍼런스);
+	OutputStream output스트림레퍼런스 = 
+	      클라이언트소켓레퍼런스.getOutputStream(클라이언트소켓레퍼런스);
+
+   4. 보조스트림을 붙여 성능을 개선해도 됨. 
+	바이트스트림을 문자스트림으로 변경해도 됨.
+	예를 들면
+	//입력용 스트림
+	BufferedReader 레퍼런스 = new BufferedReader(
+		new InputStreamReader(input스트림레퍼런스));
+	//출력용 스트림
+	PrintWriter 레퍼런스 = new PrintWriter(output스트림레퍼런스);
+
+   5. 스트림을 통한 읽고 쓰기함
+	읽기용레퍼런스.read() or 읽기용레퍼런스.readLine()
+	쓰기용레퍼런스.println()
+	*** 참고 : 버퍼 이용시 출력의 경우 println() 메소드 사용 후 
+		쓰기용레퍼런스.flush();	//버퍼비우기
+	   반드시 사용함
+
+   6. 통신을 종료하려면,
+	입력스트림레퍼런스.close();
+	출력스트림레퍼런스.close();
+	소켓레퍼런스.close();
+	
+
+[UDP 소켓 프로그래밍] --------------------------------------------------------------
+ : UDP소켓 프로그래밍에서는 DatagramSocket과 DatagramPacket을 사용
+- UDP는 연결지향적이지 않으므로 연결요청을 받아줄 서버소켓이 필요없다.
+- 두 DatagramSocket간에 데이터(DatagramPacket)를 주고 받는다.
+
+<서버용>
+	1. 포트번호를 정함
+	   int port = 1024 이상의 정수값;
+	2. DatagramSocket 객체 생성함
+	   DatagramSocket 소켓레퍼런스 = new DatagramSocket(port);
+	3. 연결할 클라이언트의 ip 주소를 가진 InetAddress 객체 생성
+	   InetAddress 레퍼런스 = InetAddress.getByName("client ip주소");
+	3. 전송할 메세지를 byte[] 로 바꿈
+	   String 클래스의 getBytes() 메소드를 사용함
+	4. 전송할 메세지를 DatagramPacket 객체에 담음
+	   DatagramPacket 패킷레퍼런스 = new DatagramPacket(byte[], 
+			배열크기, InetAddress 레퍼런스);
+	5. 소켓레퍼런스를 사용해서 메세지 보냄
+	   소켓레퍼런스.send(패킷레퍼런스);
+	6. 소켓 close()
+
+<클라이언트용>
+	1. 서버가 보낸 메세지를 받을 byte[] 을 준비함
+	2. DatagramSocket 객체 생성함
+	   DatagramSocket 소켓레퍼런스 = new DatagramSocket();
+	3. 메세지를 DatagramPacket 객체 준비함
+	   DatagramPacket 패킷레퍼런스 = new DatagramPacket(byte[], 
+					배열크기);
+	4. 소켓레퍼런스를 사용해서 메세지 받음
+	   소켓레퍼런스.receive(패킷레퍼런스);
+	5. byte[]로 받은 메세지를 String으로 바꾸어 출력확인
+	   new String(byte[])
+	6. 소켓 close();

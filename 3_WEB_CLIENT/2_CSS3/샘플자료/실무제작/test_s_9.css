@@ -1,0 +1,83 @@
+@charset "utf-8";
+
+html, body, div, span, em, img, ul, li, article, aside, menu, nav, section {margin:0;padding:0;border:0;}
+
+body, select, input, textarea {font: 14px/1.3em Arial, sans-serif;}
+
+body {background:-webkit-linear-gradient(-80deg, rgba(255, 255, 255, 0), #FFEEFF 500px), -webkit-repeating-linear-gradient(-35deg, #CC99FF 0, #FFFFCC 10px, #000 20px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px, #ccc 10px)}
+
+a, a:active {color:#FF33FF}
+
+nav {background:-webkit-linear-gradient(top, #555 20%, #000 95%);position: absolute;left: 0;right: 0;top: 10px;-webkit-box-shadow: rgba(20,20,20, .35) 0 5px 10px}
+
+#nav {height: 40px;left: 43%;position: relative;text-align: right;width: 400px;z-index: 1;}
+
+#nav a {display:inline-block;padding: 0 10px;text-decoration: none;line-height: 40px;font-size: 1.2em;margin-left:18px;}
+
+#nav li {display: inline}
+
+#nav a:hover {color: #FFFF99}
+
+.container {margin: 0 auto;position:relative;width: 750px}
+header {height: 70px;position: relative}
+
+.title {margin: 0;padding: 18px 0 0 20px;}
+.toplogo {height: 80px;margin-top: -2px;width: 220px;-webkit-box-shadow: #000 0 0 10px, #ccc 0 0px 5px inset;background: #222;border: 1px solid #555;-webkit-border-radius: 0 0 8px 8px;display: block;text-decoration: none;}
+.logofoot {text-transform: uppercase;font-size:.85em;padding:5px 0 0 15px;text-shadow: #ccc 0 -1px 1px;white-space: nowrap;}
+.logofoot span {font-size:1.5em;}
+.cokwo {position: absolute;left:250px;top:60px;}
+.cokwo q {display: block;font-size: 1em}
+.cokwo cite {font-style: normal;opacity: .5;}
+.cokwo cite:before {content: 'nomal : ';}
+
+#content {padding-top: 3em;}
+
+#primary {float: left;padding-bottom: 1em;width: 750px;}
+#what-is {float: left;width: 290px;}
+article cite {white-space: nowrap;}
+p.intro {font-size: 1.5em;line-height: 1.2em;}
+code {background: rgba(217, 30, 118, .3);border: 1px solid rgba(0,0,0, .2);display: inline-block;padding: 3px;}
+#rightbox {background:-webkit-gradient(linear, 0 0, 0 150, from(#000), to(#555));border: 2px solid #ccc;-webkit-border-radius: 10px;padding: 10px;height: 180px;}
+.sect_min {float: right;width: 430px;}
+#rightbox h1 {margin: 0;}
+#rightbox h1 a {text-decoration: none;}
+#rightbox aside {float: left;width: 50%;font-size: 1em;color:#FFFFCC;margin-top: 1.6em;}
+#rightbox .ulfoota {float: right;width: 38%;}
+#rightbox .ulfoota li {display: inline;}
+.ulfoota-link {display: block;margin: 5px 0 15px;}
+
+.baner {display: inline-block;margin-bottom: 8px;-webkit-border-radius: 7px;height: 38px;padding: 7px 0;text-align: center;text-decoration: none;width: 160px;background-color: #FF00FF;background-image:-webkit-radial-gradient(50% 17%, ellipse farthest-corner, rgba(255,255,255,.3), transparent);-webkit-box-shadow: inset rgba(255,255,255,.3) 0 3px 0 1px, inset rgba(0,0,0,.5) 0 -3px 8px, rgba(0,0,0,.3) 0 3px 0;color: #fff;font-size: 1.2em;letter-spacing: 1.2px;}
+
+.baner.cook {background: #333;-webkit-box-shadow:inset rgba(255,255,255,.3) 0 3px 2px 1px, inset rgba(255,255,255,.1) 0 33px 1px -5px, inset rgba(0,0,0,.3) 0 -5px 15px, inset rgba(255,255,255,.2) 0 0 0 1px, rgba(0,0,0,.3) 0 3px 0;}
+
+.baner span {display: block;font-size: .8em;letter-spacing: 0;line-height: 15px;text-transform: capitalize;}
+
+.baner:hover {background: red;}
+.baner.cook:hover {background-color: #555;}
+
+#primary_a {float: left;padding-bottom: 3em;width: 750px;}
+
+#right_min {float: right;}
+#right_minbin li {list-style: none;}
+#right_minbin .ic {background: rgba(204,0,204, .6);border-radius: 10px;display: block;height: 38px;line-height: 38px;margin: 5px 0 0;color: #fff;text-align: center;text-shadow: #555 0 1px 0;width: 280px;-webkit-transition: width .3s;-webkit-box-shadow: rgba(0,0,0, .7) 0 2px 10px;}
+
+#right_minbin .kitri_a {background: rgba(153,0,204, .3);}
+#right_minbin .kitri_b {background: rgba(153,0,204, .5);}
+#right_minbin .kitri_c  {background: rgba(153,0,204, .7);}
+
+#right_minbin li:hover .ic {width: 250px;}
+
+#right_minbin li:hover .kitri_a, #right_minbin li:hover .kitri_b, #right_minbin li:hover .kitri_c { background: red;}
+
+#latest-news h1 {margin: 0;}
+#latest-news footer {font-size: .85em;opacity: .5;}
+#footerpmk {clear: both;background: #333;}
+#kikkdi {background: #ccc;padding: 10px 0;text-align: center;}
+
+#transition_on a:not(kitri) {border-bottom: 1px solid #ccc;text-decoration: none;-webkit-transition: all .5s ease-out;}
+
+#transition_on a img {border: 1px solid red;float: left;margin:17px 30px 0 0;-webkit-transition: border-color .1s ease-out;}
+
+#transition_on a:hover {border-color: #d9d9d9;margin-left: -50px;padding-left: 50px;}
+
+#transition_on a:hover img {border-color: #ccc;}

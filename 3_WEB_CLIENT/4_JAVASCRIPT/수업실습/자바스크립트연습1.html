@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">  
+  <title>자바스크립트 연습1</title>
+  <script type="text/javascript">
+  <!--
+	function changeImage(){
+		document.getElementById("image1").src = "images/Android.gif";
+	}
+
+	function changeCSS(){
+		var x = document.getElementById("demo3");
+		x.style.color = "#ff00cc";
+		x.style.fontSize = "24px";
+		x.style.backgroundColor = "yellow";
+		x.style.border = "3px double black";
+	}
+  //-->
+  </script>
+ </head>
+ <body>
+  <h2>자바스크립트 작성 위치</h2>
+  <p id="demo1">자바스크립트 소스는 태그의 속성에 바로 작성할 수도 있다. on이벤트 속성에 작성 가능함</p>
+  <button type="button" onclick="document.getElementById('demo1').innerHTML='onclick 속성에 자바스크립트 소스 직접 작성한 경우임.';">클릭하세요</button><br>
+  <hr>
+  <h2>자바스크립트 소스를 script 태그 안에 함수 단위로 작성한 경우</h2>
+  <p id="demo2">script 태그의 작성위치는 head, body 어디에든 사용 가능함. 대상 태그 아래에 작성한 경우임.</p>
+	<button type="button" onclick="myFunction1();">클릭하세요2</button><br>
+	<script type="text/javascript">
+	<!--
+		function myFunction1(){
+			document.getElementById("demo2").innerHTML = "해당 태그 아래에 script 태그 안에 작성된 myFunction1() 함수를 실행시켰음.";
+		}
+	//-->
+	</script>
+	<hr>
+	<h2>head 영역에 script 태그 추가하고, 해당 함수를 작성해 놓은 경우</h2>
+	<img id="image1" src="images/button.jpg" width="150" height="150" border="0" alt="" onclick="changeImage();"><br>
+	<p>그림을 클릭하면 해당 img 태그의 src 속성 값을 바꾸는 changeImage() 함수가 실행됨.</p>
+	<hr>
+	<p id="demo3">아래 버튼을 클릭하면 스타일시트 css 속성이 바뀜.</p>
+	<button type="button" onclick="changeCSS();">스타일바꾸기</button>
+ </body>
+</html>

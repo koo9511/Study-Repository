@@ -1,0 +1,21 @@
+자바스크립트 & 정규식
+https://developer.mozilla.org/ko/
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/%EC%A0%95%EA%B7%9C%EC%8B%9D
+
+제이쿼리
+http://api.jquery.com/
+
+jstl
+http://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/
+
+마이바티스
+http://www.mybatis.org/mybatis-3/ko/index.html
+
+spring framework 4.2.5.RELEASE API
+http://docs.spring.io/spring/docs/current/javadoc-api/
+
+spring framework Reference Documentation
+http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
+
+log4j
+https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/package-summary.html

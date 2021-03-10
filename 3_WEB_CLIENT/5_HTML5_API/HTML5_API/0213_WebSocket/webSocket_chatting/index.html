@@ -1,0 +1,178 @@
+<html lang="kr">
+<head>
+	<meta charset="EUC-KR">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<title>KOREAHTML5 webSocket</title>
+	<style>
+		body{margin:0;padding:0;}
+		*{font-family:'Malgun Gothic','dotum';}
+		#wrapper{width:448px;height:558px;display:block;border:1px solid #cfd4e0;background:url('./images/html5_bg.png') 0 0 repeat-x;position:relative;}
+		#wrapper .logo{position:absolute;top:0;left:0;}
+		#wrapper .tlt{position:absolute;top:8px;left:33px;margin:0;padding:0;font-size:12px;font-weight:bold;color:#41444b;}
+		#wrapper .clsbtn{position:absolute;top:0;right:0;cursor:pointer;}
+		#chrome{height:34px;width:100%;margin:0;padding:0;}
+		#newbie{height:28px;width:100%;margin:0;padding:0;color:#f1652a;font-size:12px;text-indent:10px;vertical-align:middle;}
+		#newbie img{vertical-align:bottom;margin-left:6px;margin-top:6px;}
+		#newbie span{vertical-align:middle;margin-top:6px;}
+		#msgCon{width:426px;height:362px;overflow-x:hidden;overflow-y:scroll;margin:12px 0 0 13px;}
+		p{font-size:12px;line-height:1.5;}
+		p.inout{color:#868686;}
+		p.commn{color:#333333;padding-left:10px;text-indent:-12px;}
+		#inputer{margin-top:25px;position:relative;}
+		#inputer .inputer{width:79px;height:82px;display:table-cell;vertical-align:middle;color:#333333;font-size:12px;text-align:center;}
+		#inputer .inputer_ui{width:360px;height:35px;background:url('./images/html5_inputer_smal.png') 0 0 repeat-x;position:absolute;right:9px;top:24px;}
+		.text{border:0px solid red;width:290px;height:35px;padding:0;margin:0;float:left;background-color:transparent;padding-left:10px;}
+		.sbmit{width:58px;height:35px;float:left;}
+	</style>
+<title>Insert title here</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	var welcomeMsg ="";
+	var server;
+	var ws;
+	var userIP = "";
+	var getIP;
+	var nickname;
+	var msgCon;
+	var uNick;
+	var msg;
+	var myIP = "";
+	window.onload=function(){
+	
+		if(window.WebSocket){
+			
+			var i = parseInt(Math.random()*10000);
+			nickname = "손님"+i;
+			document.getElementById("nick").innerHTML = nickname
+			conServer();
+			
+		}else{
+			alert("당신의 브라우저는 해당기술을 지원하지 않습니다.\n 상위 버전 브라우저를 이용하세요.\n IE10, 크롬, 파이어폭스, 오페라, 사파리를 이용 바랍니다");	
+			document.getElementById("body").style.display="none";
+		}
+	
+	}
+	
+	$.ajax({
+		type: "POST",
+		contentType: "application/x-www-form-urlencoded",
+		//dataType: "html",
+		url: './ajaxTest.jsp',
+		//data: $("#regForm").serialize(),
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert(textStatus + " / " +errorThrown);
+		},
+		//complete : function(data) { // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.   },
+		success: function (data){
+			userIP=data;
+			
+		}
+	});
+
+	
+	function conServer(){
+	// 	nickname=document.getElementById("nick").value;
+		document.getElementById("nick").disabled="disabled";
+		document.getElementById("sendTxt").style.display ="";
+		document.getElementById("con").innerHTML="보내기";
+		msgCon=document.getElementById("msgCon");
+		server ="ws://27.102.196.101:8002";
+		ws = new WebSocket(server);
+		
+		ws.onopen=function(e){
+			alert(" KOREA HTML5 WebSocket 채팅서버에 접속 되었습니다. \n 관리자 사칭에 주의하세요.\n 관리자는 금전적 요구를 절대 하지 않습니다.-KISA-");
+			document.getElementById("welcomeSpan").innerHTML += nickname+"님 접속을 환영합니다.";
+		}
+		
+		ws.onmessage=function(e){
+			
+			if(e.data.search("new connection¿")!=-1){
+				e.data = e.data.replace("new connection¿","");
+			}else if(e.data.search("msg::@#@#")!=-1 && e.data.search("ip::@#@#") != -1){
+				
+				uNick=e.data.split("msg::@#@#",2)[0];
+				getIP=uNick.split("ip::@#@#")[1];
+				uNick=uNick.split("ip::@#@#")[0];
+				msg = e.data.split("msg::@#@#",2)[1];
+				
+				
+				if(nickname==uNick && getIP == userIP){
+					//msgCon.innerHTML +="<strong><font color=orange> "+uNick+"</font></strong>("+userIP+")▶ "+msg+"<br>";
+					msgCon.innerHTML +="<p class=\"commn\"><strong>ㆍ "+uNick+"("+userIP+")</strong> : "+msg+"</p>";
+				}else{
+	// 				msgCon.innerHTML +="<strong>"+ uNick+"</strong>("+getIP+")▶ "+msg+"<br>";
+					msgCon.innerHTML +="<p class=\"commn\"><strong>ㆍ "+uNick+"("+userIP+")</strong> : "+msg+"</p>";
+				}
+				
+				
+				if(msgCon.scrollHeight>362){
+					msgCon.scrollTop+=100;
+				}
+				
+			}else{
+				msgCon.innerHTML += "<p class=\"inout\">"+e.data+"</p>";				
+			}
+		}
+		
+		ws.onclose = function(e){
+			document.getElementById("msgCon").innerHTML+="서버와의 접속이 끊겼습니다.";
+			
+		}
+		
+	}
+	
+	function disconServer(){
+		alert("접속이 종료되었습니다.");
+		if(server!="") ws.onclose();
+		server = "";
+		ws = new Worker(server);
+	}
+	
+	function sendMsg(){
+		var sendText = document.getElementById("sendTxt");
+		if(server!="" && sendText.value.trim() != ""){
+			ws.send("chat::"+nickname+"ip::@#@#"+userIP+"msg::@#@#"+ sendText.value);
+			sendText.value="";
+			sendText.focus();
+			enterFlag = true;
+		}else{
+			sendText.focus();
+		}
+		
+	}
+	
+	function checkKey(event){
+		if(event.keyCode == 13){
+			sendMsg();	
+		}
+	}
+	 
+	</script>
+	</head>
+<body>
+	<section id="wrapper">
+		<section id="chrome">
+			<img src="./images/html5_logo.png" class="logo" />
+			<h1 class="tlt">KOREA HTML5 Web Socket</h1>
+			<img src="./images/html5_clsbtn.png" class="clsbtn" onclick="window.close();"/>
+		</section>
+		<section id="newbie">
+			<img src="./images/html5_face.png" />
+			<span id="welcomeSpan"></span>
+		</section>
+		<section id="chat">
+			<div id="msgCon">
+				
+			</div>	
+		</section>
+		<section id="inputer">
+			<label class="inputer"><span id="nick"></span> </label>
+			<div class="inputer_ui">
+				<input type="text" name="text" id="sendTxt" onkeyup="checkKey(event)" maxlength="255" class="text" />
+				<input type="image" src="./images/blank.png" class="sbmit" id="con" onclick="sendMsg();" />
+			</div>
+		</section>
+	</section>
+</body>
+</html>

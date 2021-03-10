@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Create and Delete Object Store</p>
+    <button id="delete">1. delete IndexedDB</button><br/>
+    <button id="create">2. create Object Store</button><br/>
+    <button id="deleteObjStore">3. delete Object Store</button>
+    <script>
+        
+        var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;    // IDBFactory object
+        var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+        var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+        var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+            IDBCursor.PREV = IDBCursor.PREV || "prev";
+            IDBCursor.NEXT = IDBCursor.NEXT || "next";
+            
+        var dbName = 'userDB';
+        var dbVersion = 1;
+        var database;
+
+        var createIdxDB = function() {
+            var request = indexedDB.open(dbName, dbVersion);
+            
+            request.onsuccess = function(event) {
+                database = this.result;
+                alert('IndexedDB 오픈 완료');
+                database.close();
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 오픈 중 에러 발생');
+            };
+            request.onupgradeneeded = function(event) {
+                // ★★★ Creating ObjectStore : 객체 저장소를 생성
+                // IDBDatabase.createObjectStore(string name, any optionalParameters);
+                // optionalParameters : string keyPath, boolean autoIncrement(레코드가 객체 저장소에 추가되는 대로 key value를 자동 증가)
+                // return IDBObjectStore object
+                var objectStoreUser = this.result.createObjectStore('user', {keyPath:'userId', autoIncrement:true});
+                var objectStoreAdmin = this.result.createObjectStore('admin', {keyPath:'id', autoIncrement:true});
+                /*
+                var objectStoreUser = event.currentTarget.result.createObjectStore('user', {keyPath:'no', autoIncrement:true});
+                var objectStoreAdmin = event.currentTarget.result.createObjectStore('admin', {keyPath:'id', autoIncrement:true});
+                */
+            };
+        };
+        
+        var deleteObjStore = function() {
+            var request = indexedDB.open(dbName, dbVersion + 1);
+            
+            request.onsuccess = function(event) {
+                this.result.close();                
+            };
+            request.onupgradeneeded = function(event) {
+                // ★★★ Deleting ObjectStore : 객체 저장소를 삭제
+                // 객체 저장소 삭제는 데이터베이스와의 컨넥션이 닫힌 상태에서 versionchange 트랜잭션 내에서만 호출될 수 있음.
+                // IDBDatabase.deleteObjectStore(string name);
+                // return void
+                this.result.deleteObjectStore('user');
+                alert('user 객체 저장소 삭제 완료');
+            };
+        };
+
+        var deleteIdxDB = function() {
+            var request = window.indexedDB.deleteDatabase(dbName);
+            
+            request.onsuccess = function(event) {
+                alert('IndexedDB 삭제 완료');
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 삭제 중 에러 발생');
+            };
+        };
+
+        $('#create').on('click', createIdxDB);
+        $('#deleteObjStore').on('click', deleteObjStore);
+        $('#delete').on('click', deleteIdxDB);
+        
+    </script>
+</body>
+</html>

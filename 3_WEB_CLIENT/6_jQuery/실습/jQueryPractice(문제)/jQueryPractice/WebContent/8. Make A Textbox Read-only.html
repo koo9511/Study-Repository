@@ -1,0 +1,28 @@
+	<html>
+<head>
+<title>Make A Textbox Read-only</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+/**
+ * 대상 : div 내부 input
+ * 기능 : 속성을 readonly로 변경 
+ * 함수 : attr()
+ */
+	function run() {
+		$('div input').attr('readonly',true);
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(255, 255, 255); width: 150px; height: 100px; float: left; border: 1px solid rgb(34, 34, 34); background-color: rgb(245, 222, 179); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		#target<br>
+		<br>
+		<input type="text" data-role="none" value="make me readonly!"
+			style="margin: 5px; color: rgb(34, 34, 34);">
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

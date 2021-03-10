@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">그라디언트 - createLinearGradient</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // 그라디언트 생성
+        var rectGradient = context.createLinearGradient(0,0,0,150);
+        rectGradient.addColorStop(0, 'orange');
+        rectGradient.addColorStop(0.5, 'white');
+        rectGradient.addColorStop(0.5, 'blue');
+        rectGradient.addColorStop(1, 'white');
+        
+        context.fillStyle = rectGradient;
+        context.fillRect(10,10,130,130);
+        
+        // 그라디언트 생성
+        var strokeGradient = context.createLinearGradient(0,50,0,95);
+        strokeGradient.addColorStop(0.5, 'black');
+        strokeGradient.addColorStop(1, 'rgba(0,0,0,0)');
+        
+        context.strokeStyle = strokeGradient;
+        context.strokeRect(50,50,50,50);
+
+    </script>
+    
+</body>
+</html>

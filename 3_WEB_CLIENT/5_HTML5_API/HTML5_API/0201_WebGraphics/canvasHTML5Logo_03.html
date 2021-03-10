@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 LOGO 그리기 - 완성</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        drawBackground(canvas);
+        
+        context.translate(200, 200);
+        context.scale(0.5, 0.5);
+
+        drawLogo(context);
+        
+        // 배경 그리는 함수
+        function drawBackground(canvas) {
+
+            context.save();
+            context.scale(canvas.width, canvas.height);
+            
+            var grad = context.createRadialGradient(0.5, 0.5, 0.125, 0.5, 0.5, 0.75);
+            grad.addColorStop(0.1, 'rgb(170, 180, 190)');
+            grad.addColorStop(0.9, 'rgb(50, 60, 70)');
+            
+            context.fillStyle = grad;
+            context.fillRect(0, 0, 1, 1);
+
+            context.beginPath();
+            context.translate(0.5, 0.5);
+            
+            for(var i=0; i<60; i++) {
+                context.rotate(1 / 60 * Math.PI * 2);
+                context.lineTo(i % 2 ? 0.15 : 0.75, 0);
+            }
+            
+            context.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            context.fill();
+            context.restore();
+        }
+        
+        // 로고 그리는 함수
+        function drawLogo(context) {
+
+            // 로고 좌표
+            var logo = [
+                    [40,460], [0,0], [450,0], [410,460], [225,512]
+                ],
+                five0 = [
+                    [225,208], [225,265], [295,265], [288,338], 
+                    [225,355], [225,414], [341,382], [357,208]
+                ],
+                five1 = [
+                    [225,94], [225,150], [362,150], [367,94],
+                ],
+                five2 = [
+                    [225,208], [151,208], [146,150], [225,150], 
+                    [225,94], [84,94], [85,109], [99,265], [225,265]
+                ],
+                five3 = [
+                    [225,355], [162,338], [158,293], [128,293], 
+                    [102,293], [109,382], [225,414]
+                ];
+
+            // 컨텐스트 상태 저장
+            context.save();
+            // 좌표 영역을 가운데로 조정
+            context.translate(-255, -256);
+            
+            // 로고 백그라운드 채움
+            context.beginPath();
+            makePath(context, logo);
+            context.fillStyle = '#e34c26';
+            context.fill();
+
+            /*
+            // 로고의 중앙 크기를 줄임
+            context.save();
+            context.translate(255, 256);
+            context.scale(0.8, 0.8);
+            context.translate(-255, -256);
+            
+            // 로고의 오른쪽 절반 클리핑
+            context.beginPath();
+            context.rect(225, 0, 225, 512);
+            context.clip();
+            
+            // 오른쪽 절반을 밝고 사이즈를 줄임
+            context.beginPath();
+            makePath(context, logo);
+            context.fillStyle = '#f06529';
+            context.fill();
+            
+            // 컨텐스트를 원래대로 복원
+            context.restore();
+
+			// 숫자 5 를 흰색으로 채움
+			context.beginPath();
+			makePath(context, five0);
+			makePath(context, five1);
+			context.fillStyle = "#ffffff";
+			context.fill();
+			
+			// 숫자 5를 밝은 회색으로 채움
+			context.beginPath();
+			makePath(context, five2);
+			makePath(context, five3);
+			context.fillStyle = "#ebebeb"
+			context.fill();
+			
+			// 컨텐스트를 원래대로 복원
+			context.restore();
+        */
+        }
+        
+        // 헬퍼 함수
+        function makePath(context, points) {
+            context.moveTo(points[0][0], points[0][1]);
+            for(var i=1, len=points.length; i<len; i++) {
+                context.lineTo(points[i][0], points[i][1]);
+            }
+        }
+        
+    </script>
+</body>
+</html>

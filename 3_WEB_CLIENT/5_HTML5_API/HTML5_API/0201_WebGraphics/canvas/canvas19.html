@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">이미지 - import images</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // import 이미지
+        var img = new Image();
+        img.src = 'chart.jpg';
+        img.onload = function() {
+            // draw 이미지
+            context.drawImage(img, 0, 0);
+            
+            context.beginPath();
+            context.moveTo(60,96);
+            context.lineTo(70,66);
+            context.lineTo(103,76);
+            context.lineTo(170,15);
+            context.lineTo(190,15);
+            context.lineTo(230,80);
+            context.stroke();
+        };
+
+    </script>
+    
+</body>
+</html>

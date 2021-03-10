@@ -1,0 +1,75 @@
+[상속 다형성 실습문제]
+
+<문제 1>
+패키지명 : inherit.polymorphism.model
+부모 클래스명 : Shape  --------------------------------------
+추상메서드 :
+	abstract public double area(); //면적 계산 리턴용
+	abstract public double perimeter(); //둘레 계산 리턴용
+
+파생클래스 1 : Rectangle  -----------------------------------
+Field : double width, heigth;
+Method : getter/setter 작성
+생성자 작성 : default, 가로,세로 값 초기화 생성자
+
+파생클래스 2 : Circle  -----------------------------------------
+Field : 원주율은 Math.PI 사용
+	double radius;
+Method : getter/setter 작성
+생성자 작성 : default, 반지름값 초기화 생성자
+
+패키지명 : inherit.polymorphism.controlloer
+테스트 클래스 : TestShape  ---------------------------------
+메인에서 다형성 사용 원객체와 사각형객체 생성하고,
+면적과 둘레 출력
+	{
+	Shape s;
+
+	s = new Circle(15.5);
+	syso("원면적 : " + s.area());
+	syso("원둘레 : " + s.perimeter());
+
+	s = new Rectangle(34.5, 42.7);
+	syso("사각형면적 : " + s.area());
+	syso("사각형둘레 : " + s.perimeter());
+	}
+
+
+
+
+<문제 2> //------------------------------------------------------------------------------------------
+위의 Shape 클래스와 같은 추상메소드를 가진 IShape 인터페이스를 만드시오.
+=> area(), perimeter() 추상메소드 선언함
+Circle 과 Rectangle 의 상속을 IShape으로 바꾸시오.
+테스트용 클래스 : TestIShape
+	구현 내용은 문제 1과 동일함.
+
+
+
+
+<문제 3> 다형성 연습 //-----------------------------------------------------------------------------------------
+클래스명 : inherit.polymorphism.model.Triangle.java
+=> IShape 상속받고, 메소드 오버라이딩 처리
+	필드 : 	- base:double 	//밑변
+            	- height:double 	//높이
+생성자 : 	default 생성자, 
+	매개변수 있는 생성자(밑변, 높이를 초기화시키도록 작성)
+메소드 : + area():double            //삼각형의 넓이 = (밑변 * 높이) /2
+           + getHypotenuse():double     
+	//빗변길이 = Math.sqrt(밑변*밑변+높이*높이);
+           + perimeter():double      //둘레길이 = 밑변 + 높이 + 빗변길이
+
+테스트클래스 : oop.controller.TestPolyPractice3.java
+public static void main(String[] args) 
+{
+	IShape[] iarr = new IShape[5];
+
+	//5개의 객체를 무작위로 생성함(Circle, Rectangle, Triangle)	
+	//for loop 문으로 각 객체의 면적과 둘레를 출력 처리함
+	//단, Triangle 객체는 빗변길이도 출력 처리함	
+}
+
+
+
+
+

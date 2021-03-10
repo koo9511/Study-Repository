@@ -1,0 +1,33 @@
+1. 자바 개발환경 구축
+  => jdk(java development kit) 다운 설치
+ => 오라클사 홈페이지에 가서 다운 설치 : www.oracle.com
+ => downloads 메뉴에서 'java for developers' 선택
+ => JAVA SE(Standard Edition) 최신 버전으로 os 환경에 맞춰 다운받고, 실행 설치함
+ => 참고할 기술문서도 함께 다운받음 : java documentation
+
+ => java vm(virtual machine : 가상기계) 
+    : jdk + jre(java runtime environment)
+    - 운영체제(OS : Operating System) 위에서 구동됨
+      windows 64비트 운영체제 위에서 java vm 이 실행되게 된다는 의미임
+
+ => jdk 명령어를 컴퓨터 어디서나 사용할 수 있도록 하기 위해
+    시스템 환경변수 path 에 jdk\bin 까지의 경로 등록하기
+    - 파일탐색기(window explorer) >> 컴퓨터 : 마우스 오른쪽 클릭
+	>> 속성 선택 >> 왼쪽의 '고급 시스템 설정' 선택
+	>> 환경변수 클릭 >> 시스템 변수 영역의 'Path' 변수 선택
+	>> 편집 버튼 클릭 >> 맨 뒤쪽에 ; (새미콜론) 추가
+	>> ......jdk....\bin 경로 복사 붙여넣기함
+	>> 확인 버튼 
+
+ => 확인 : 화면 좌측 하단 '시작' 영역에서 마우스 오른쪽 클릭
+	>> 명령 프롬프트 선택
+	>> 프롬프트 영역에서 java 와 javac 입력 >> 엔터함
+	>> 각 명령의 도움말 화면이 나타나면 path 등록 성공한 것임
+	   또는 프롬프트에서 path 입력 >> 엔터 해 봄
+
+=> 통합개발용 도구 : eclipse 다운 설치  
+    - www.eclipse.org >> os 환경과 jdk 버전에 맞는 zip 파일 다운 받음
+   	>> 압축 풀고 폴더 안의 'eclipse.exe' 실행하면 됨
+	>> 실행을 편하게 하기 위해 실행파일을 작업표시줄에 표시되게 함
+
+

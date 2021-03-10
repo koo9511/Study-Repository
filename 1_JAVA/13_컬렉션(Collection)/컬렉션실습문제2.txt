@@ -1,0 +1,100 @@
+[컬렉션 연습]
+
+<문제 1>
+ : Set 계열 클래스와 Ramdom 사용
+ - 클래스명 : collection.practice1.Lotto.java
+	>> main() 메소드 포함
+ - 메소드 추가 : public static void lottoDisplay(){}
+	>> 구현내용
+	1. 1 ~ 45 사이의 정수를 중복되지 않게, 6개 발생시켜
+	2. 오름차순정렬 처리하여 Set 계열에 보관하고 
+	3. int[]로 바꾸어 출력함.
+
+
+<문제 2>
+ - 클래스명 : collection.practice2.Book
+	//Field
+	- bNo : String	//도서번호
+	- category : int //도서분류코드(1.인문/2.자연과학/3.의료/4.기타)
+	- title : String	//책제목
+	- author : String	//저자
+
+	//기본생성자, 매개변수 있는 생성자, getter and setter 작성함
+	//toString() 오버라이딩함
+	//compare() 오버라이딩함, category 순 오름차순 정렬함.
+
+ - 클래스명 : BookManager
+	//Field
+	- bookList : HashMap	//도서번호를 키로 사용함
+
+	//기본생성자 : 리스트객체 생성함
+	//매개변수있는 생성자 : 다른 리스트를 전달받아. 
+	//		bookList 객체의 초기값으로 생성함
+
+	//Method
+	+ addBook(book:Book) : void	//리스트에 객체 추가
+	+ deleteBook(book:Book) : void	//리스트에서 객체 제거
+	+ searchBook(String bTitle) : Book	
+		//도서명이 일치하는 객체의 찾아 리턴
+		//객체가 리스트에 없으면, null 리턴함
+	+ displayAll():void		//목록정보 모두 출력
+	+ sortedBookList():Book[]
+		// 해당 카테고리순 오름차순정렬해서 객체배열 리턴함
+	+ printBookList(Book[] br) : void
+		//객체 배열 출력, for each 문 사용
+
+	
+ - 클래스명 : TestSilsub2   >> main() 포함
+	>> menu() 메소드 추가함
+		=> 다음 내용이 출력되게 함
+		=> BookManager 클래스 객체 생성함
+
+	*** 도서 관리 프로그램 ***
+
+	1. 새 도서 추가	//addBook() 실행
+	2. 도서정보 정렬후 출력 //sortedBookList() 실행, printBookList() 실행
+	3. 도서 삭제	//deleteBook() 실행
+	4. 도서 검색	//searchBook() 실행
+	5. 전체 출력	//displayAll() 실행
+	6. 끝내기
+
+	>>추가, 삭제, 검색에 필요한 키정보는 키보드로 입력받도록 함
+	>> 끝내기 메뉴 선택 전까지는 메뉴 반복 실행되도록 처리함
+
+[문제 3]
+ - 테스트 클래스 : collection.practice3.TestSilsub3.java
+	main() 포함
+ - 메소드 추가 : public Student[] readFile(){}
+	//구현 내용
+	1. Properties 객체 생성하고, score.txt 파일의 내용을 읽어
+	2. 리스트 만듦
+	3. 키를 사용하여, 객체정보를 Student[] 에 저장하여 리턴함
+	  => ", " 으로 문자열 분리처리
+	  => 분리된 문자열을 각 자료형 필드의 값으로 형변환 대입 저장함
+	  => 세 과목의 합계와 평균을 구해서 각 필드에 기록함
+
+ - 메소드 추가 : public void printConsole(Student[] sr){}
+	1. 전달받은 값 출력
+	2. 각 객체의 국어합계, 영어합계, 수학합계를 구하고
+	3. 과목별 평균점수를 출력함
+ - 메소드 추가 : public void saveXMLFile(Student[] sr){}
+	1. "student.xml" 파일에 번호필드를 key로 객체가 가진 값 기록 저장함.
+
+ - Student 클래스 작성
+	//Field
+	- int sno;
+	- String sname;
+	- int kor, eng, mat, tot, avg;
+	//생성자, getter, setter, toString() 오버라이딩 처리
+
+
+
+
+
+
+
+
+
+
+
+

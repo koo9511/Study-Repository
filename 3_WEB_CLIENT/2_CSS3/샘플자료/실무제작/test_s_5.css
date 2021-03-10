@@ -1,0 +1,134 @@
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,caption, tbody, tfoot, thead {margin: 0;padding: 0;border: 0;outline: 0;font-size: 100%;vertical-align: baseline;background: transparent;}
+
+body {line-height: 1}
+ul, ol {list-style: none;}
+a {color:#CC3300}
+a:hover {color:#FFFF00}
+body {width:970px;margin:20px auto 20px auto;position:relative;font-family:Georgia, serif;border-left:solid 5px white;border-right:solid 5px white;}
+
+body > header {height:180px}
+body > header .jab_a  {position:absolute;top:10px;left:300px;font-size:38px;line-height:35px;color:#0000CC;}
+
+body > header .jab_a strong {display:block;font-size:50px;font-weight:normal;position:relative;top:-7px;}
+
+body > nav > p.em {position:absolute;top:150px;text-align:center;font-size:15px}
+body > nav > p.em a {text-decoration:none;margin:0 15px;}
+body > nav {float:left;width:150px}
+body > nav > ul {text-transform:uppercase;font-weight:bold}
+body > nav ul li {position:relative}
+body > nav li > a {background-color:#FF9900}
+body > nav ul a {display:block;color:white;text-decoration:none;font-size:13px;padding:15px 0 15px 10px;}
+
+body > nav li.on_kitri-naveef > a,
+body > nav li.current_page_ancestor > a,
+body > nav li.current_page_parent > a {background-color:#FF0066}
+
+body > nav > ul:hover > li.on_kitri-naveef > a,
+body > nav > ul:hover > li.current_page_ancestor > a,
+body > nav > ul:hover > li.current_page_parent > a {background-color:#FF9900}
+
+body > nav ul a:hover {background-color:#FF0066}
+
+body > nav > ul > li > ul {position:absolute;left:5px;top:0;opacity:0.0;border-left:solid 5px white;width:150px;
+-webkit-transition-property:left, width, opacity;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-property:left, width, opacity;
+	-moz-transition-duration: 0.25s;
+	transition-property:left, width, opacity;
+	transition-duration: 0.25s;
+}
+
+body > nav > ul > li:hover > ul {left:150px;top:0;z-index:5;width:170px;opacity:0.5;}
+
+body > nav > ul > li > ul:hover {opacity:0.8}
+
+aside#kitri-form {float:left;width:150px;color:white;border-top:solid 5px white;text-transform:uppercase;font-size:15px;position:relative}
+aside#kitri-form form {padding:10px}
+aside#kitri-form form dl {margin-bottom:10px}
+aside#kitri-form input {width:128px;margin-bottom:13px;height:18px;border:solid 1px white}
+aside#kitri-form label {position:relative;top:38px}
+aside#kitri-form legend {font-size: 15px;font-style:italic;width:150px;text-transform:lowercase}
+aside#kitri-form legend b {text-transform:uppercase;font-style:normal;font-weight:normal}
+aside#kitri-form legend b.so {display:block;margin-left:45px;margin-top:5px;white-space:normal;font-size:25px;font-weight:bold}
+
+aside#kitri-form button {font-family:Georgia;background-color:#FFFF00;border:solid 3px white;width:94%;color:red;text-transform:uppercase;font-size:15px;cursor:pointer}
+aside#kitri-form button:hover {background-color:#33CCFF}
+
+aside#kitri-form form fieldset dl {height:170px;opacity:0.8;}
+
+body > article {position:relative;float:right;	border-left:150px solid #3399FF;margin-left:-150px;line-height:1.5em;font-size:15px;}
+
+body.home > article {padding-left:5px;width:815px;}
+body.home section.jab_b {background-image:url(images/HTML5-baner.jpg);padding-left:400px;height:500px;}
+
+body.home section.jab_b p.olient-ate,
+body.home section.jab_b p.jab_c,
+body.home section.jab_b p.olient-on,
+body.home section.jab_b p.kitri-gogo {border-left:solid 5px white;}
+body.home section.jab_b p {background-color:#3399FF;border-top:solid 5px white;color:white}
+body.home section.jab_b p a {color:white;text-decoration:none;}
+body.home section.jab_b p:first-child {border-top:0}
+body.home section.jab_b p.olient-ate {height:90px;position:relative;}
+body.home section.jab_b p.olient-ate a {text-shadow:0 0 21px #444;background-color:#3399FF}
+body.home section.jab_b p.olient-ate a:hover {background-color:#4D5F8C;text-shadow:0 0 10px white;}
+body.home section.jab_b p.olient-ate a b.olient-ate {font-size:35px;line-height:0.3em;position:absolute;left:30px;top:30px}
+body.home section.jab_b p.jab_c {height:140px;position:relative}
+body.home section.jab_b p.jab_c a {text-shadow:0 0 13px #000;display:block;width:100%;height:100%;
+	-webkit-transition-property:text-shadow;
+	-webkit-transition-duration: 1s;
+	-moz-transition-property:text-shadow;
+	-moz-transition-duration: 1s;
+	transition-property:text-shadow;
+	transition-duration: 1s;
+	}
+body.home section.jab_b p.jab_c a b.good {position:absolute;left:33px;top:15px;font-size:30px}
+
+body.home section.jab_b p.jab_c a b.morning {font-size:30px;font-weight:normal;left:70px;position:absolute;top:35px}
+
+body.home section.jab_b p.jab_c a b.Myoung-su {font-size:60px;position:absolute;left:30px;top:80px}
+
+body.home section.jab_b p.olient-on {height:166px;position:relative}
+body.home section.jab_b p.olient-on img + img,
+body.home section.jab_b p.olient-on img + span {border-left:solid 5px white}
+body.home section.jab_b span.olient-alq-comov {height:166px;width:200px;position:absolute;right:0;top:0}
+body.home section.jab_b span.olient-alq-comov a {display:block;width:100%;height:100%;text-shadow:0 0 20px #555;background-color:#3399FF
+
+	-webkit-transition-property:background-color, text-shadow;
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-property:background-color, text-shadow;
+	-moz-transition-duration: 0.5s;
+	transition-property:background-color, text-shadow;
+	transition-duration: 0.5s;}
+body.home section.jab_b span.olient-alq-comov a:hover {background-color:#4D5F8C;text-shadow:0 0 15px white}
+
+body.home section.jab_b span.olient-alq-comov a b.olient-alq {font-size:15px;font-weight:normal;left:10px;top:10px;position:absolute;}
+
+body.home section.jab_b span.olient-alq-comov a b.comov {font-size:20px;position:absolute;left:10px;top:95px}
+
+body.home section.jab_b span.olient-alq-comov a b.comovdetails {font-size:12px;font-weight:normal;position:absolute;top:130px;right:13px;}
+
+body.home section.jab_b span.olient-alq-comov a b.olient-alq::before {content:"abcde : "}
+
+body.home section.jab_b p.kitri-gogo  {line-height:96px;text-align:center;font-size:30px;text-shadow:0 0 15px white}
+
+body.home > article #olient-a1 {background-color:#FF9900;color:white;padding:10px;border-top:solid 5px white;height:100px}
+
+body.home > article #olient-a1 a.more {color:white}
+
+body > footer {clear:both;background:#ccc;height:100px;border-top:solid 5px white}
+
+body > footer p.foot-menu {text-align:center;text-transform:uppercase;padding-top:20px;margin-bottom:10px;color:#FF9900}
+
+body > footer > ul {text-align:center;text-transform:uppercase;font-size:13px}
+body > footer > ul li {display:inline;padding:0 7px}
+body > footer > ul li a  {text-decoration:none}
+body > footer > ul li a:hover {text-decoration:underline}
+
+body > footer .vcard .ccb {color:#000;position:absolute;left:10px;bottom:-15px;font-size:13px;font-family:Arial,sans-serif}
+
+body > footer .credits {position:absolute;bottom:-10px;right:0;font-size:11px;font-family:Arial,sans-serif;color:#555}
+
+body > footer .locations {text-transform:uppercase;font-size:13px;width:180px}
+body > footer .vcard a {text-decoration:none}
+body > footer .locations {position:absolute;top:50px;right:0}
+body > footer .locations .vcard {display:block;margin-bottom:10px;}

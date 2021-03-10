@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">JSON Encode And Decode</p>
+    <script>
+        
+        if(window.localStorage) {
+            
+            var lectureInfo = {
+                'Lecture' : 'HTML5 Education',
+                'Date' : '2013-04-28'
+            };
+            
+            // JSON Encode
+            localStorage.setItem('lectureInfo', JSON.stringify(lectureInfo));
+            
+            // JSON Decode
+            var storageLectureInfo = JSON.parse(localStorage.getItem('lectureInfo'));
+            
+            for(var prop in storageLectureInfo) {
+                if(storageLectureInfo.hasOwnProperty(prop)) {
+                    $('<p>' + prop + ' : ' + storageLectureInfo[prop] + '</p>').appendTo(document.body);
+                }
+            }
+
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+    </script>
+    
+</body>
+</html>

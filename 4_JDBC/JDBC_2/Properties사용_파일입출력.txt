@@ -1,0 +1,108 @@
+<Properties 를 이용한 파일 입/출력 처리>
+ : 리소스 파일을 만들어서 문자열을 별도로 정의해 놓고 사용하고자 할 때,
+  또는 웹에서 설정 내용 중 가변적인 항목을 외부 파일에 따로 저장해 놓을 때 사용함
+ => 예를 들면, 설정파일의 내용을 따로 저장한 config.properties
+	    에러 내용들을 따로 저장한 error.properties 등
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+1. Properties 파일 작성법
+  : 텍스트 파일로 작성함
+
+	#주석
+	키=값
+
+  => 줄단위로 읽어서 구분자를 기준으로 key와 value를 구분합니다.
+  => 구분자는 다음이 가능합니다.
+	=, :, space ,tab	
+  => 파일명.properties 로 저장함
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+2. Properties 파일 읽어 들이기
+ : Properties Class에 load 메소드를 이용해서 텍스트 설정 파일을 읽어 올 수 있습니다.
+
+
+[PropertyTest.java]
+import java.util.Properties;
+import java.io.FileInputStream;
+
+public class PropertyTest {
+
+        public static void main(String[] args) {
+    		Properties properties = new Properties();
+		HashMap<String,String> map = new HashMap<String,String>();
+
+    		try {
+        		properties.load(new FileInputStream("파일명.properties"));
+        		properties.list(System.out);	//콘솔에 properties 목록 출력		
+
+			Set<String> set = prop.stringPropertyNames();
+         		for(String name : set)
+       			{
+           			map.put(save_name, prop.getProperty(key_name));
+        		} 
+
+			for(int n = 0 ; n < map.size(); n++) 
+			{
+      				String val = map.get(save_name); 
+				System.out.println(save_name + "=" + val);
+   			}
+    		} catch (FileNotFoundException e) {
+        		e.printStackTrace();
+    		} catch (IOException e) {
+        		e.printStackTrace();
+    		}
+	}
+}
+
+
+  => properties 파일의 디폴트 인코딩 방식이 ISO8859-1 임
+     원래 properties파일에는 유니코드가 지원되지 않으므로, ascii로 읽게 됨.
+     그래서 영어 이외의 언어에는 native2ascii를 이용하여 변환하여 저장을 해야 함.
+
+	파일저장경로>native2ascii myproperty.prop new_myproperty.prop
+
+  => 불편하기 때문에 이클립스에서 properties 에디터 플러그인 같은것을 설치해서 사용함.
+	http://propedit.sourceforge.jp
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+3. Properties 파일에 기록하기
+
+[PropertyTest2.java]
+import java.util.Properties;
+import java.io.FileOutputStream;
+
+public class PropertyTest2 {
+
+        public static void main(String[] args) {
+    		Properties properties = new Properties();
+		HashMap<String,String> map = new HashMap<String,String>();
+
+    		try {	
+			//맵에 추가함
+         		for(int i=0; i < n; i++)
+       			{
+           			map.put(key_name, value);
+        		} 
+
+			Set<String> set = map.keySet();//map에서 key의 정보만 따로 분리할 때 
+
+			for(String key_name : set) 
+			{
+      				String val = map.get(key_name); 
+				properties.setProperty(key_name , val);//properties 작성
+   			}
+
+			properties.list(System.out);	
+        			properties.store(new FileOutputStream("파일명.properties"));//파일로 저장
+        		
+    		} catch (FileNotFoundException e) {
+        		e.printStackTrace();
+    		} catch (IOException e) {
+        		e.printStackTrace();
+    		}
+	}
+}
+

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>IndexedDB - 실습</title>
+<!-- jQuery CDN -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    
+    var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+    var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+    var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+    var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+        IDBCursor.PREV = IDBCursor.PREV || "prev";
+        IDBCursor.NEXT = IDBCursor.NEXT || "next";
+        
+    var dbName = 'PeopleDB';
+    var dbVersion = 1;
+    var database;
+    
+    var peopleData = [
+        { name: "김희선", email: "jenny@company.com" },
+        { name: "김동희", email: "don@company.com" }
+    ];
+    
+    $(function() {
+    
+        initDb();
+        
+        // 레코드 추가
+        $("#btnAddRecord").on('click', function() {
+            var name = $('#txtName').val();
+            var email = $('#texEMail').val();
+            
+            var tranx = database.transaction('people', 'readwrite');
+            var objStore = tranx.objectStore('people');
+            
+            var request = objStore.add({name:name, email:email});
+            request.onsuccess = function(event) {
+                alert('레코드 추가 성공');
+            };
+        });
+        
+        // 레코드 삭제
+        $("#btnDeleteRecord").on('click', function() {
+            var id = $('#txtID').val() * 1;
+            
+            var tranx = database.transaction('people', 'readwrite');
+            var objStore = tranx.objectStore('people');
+            
+            var request = objStore.delete(id);
+            request.onsuccess = function(evnet) {
+                alert('레코드 삭제 성공');
+            };
+        });
+        
+        $('#btnReset').on('click', function() {
+            initDb();
+        });
+        
+        // 객체 저장소 삭제
+        $("#btnDeleteObjStore").on('click', function() {
+            var request = indexedDB.deleteDatabase(dbName);
+            request.onsuccess = function(event) {
+                alert('객체 저장소 삭제 성공');
+            };
+            request.onblocked = function(event) {
+                database.close();
+            };
+        });
+        
+        // 프린트
+        $("#btnPrint").on('click', function() {
+            var output = $('#printOutput');
+            outputContent = '';
+            
+            var tranx = database.transaction('people', 'readwrite');
+            var objStore = tranx.objectStore('people');
+            
+            var request = objStore.openCursor();
+            request.onsuccess = function(event) {
+                var cursor = event.target.result;
+                console.log(cursor)
+                if(cursor) {
+                    outputContent += '고객ID가 ' + cursor.key + '인 고객명은 ' + cursor.value.name + '입니다.<br/>';
+                    cursor.continue();
+                } else {
+                    console.log('더이상 존재하지 않네요.');
+                }
+                output.html(outputContent);
+            };
+        });
+
+        // 초기화
+        function initDb() {
+            var request = indexedDB.open(dbName, dbVersion);  
+            request.onsuccess = function (evt) {
+                database = request.result;                                                            
+            };
+            request.onerror = function (evt) {
+                console.log("에러 발생 : " + evt.target.errorCode);
+            };
+            request.onupgradeneeded = function (evt) {                   
+                var objectStore = evt.currentTarget.result.createObjectStore(
+                         "people", { keyPath: "id", autoIncrement: true });
+
+                objectStore.createIndex("name", "name", { unique: false });
+                objectStore.createIndex("email", "email", { unique: true });
+
+                for (i in peopleData) {
+                    objectStore.add(peopleData[i]);
+                }
+            };
+        }
+    
+    });    
+</script>
+</head>
+<body>
+    <div id="container">
+        <label for="txtName">
+            고객명 :
+        </label>
+        <input type="text" id="txtName" name="txtName" />
+        <br />
+        <label for="txtEmail">
+            Email :
+        </label>
+        <input type="email" id="txtEmail" name="txtEmail" />
+        <br />
+        <input type="button" id="btnAddRecord" value="고객 추가" />
+        <br /><br /><br />
+        <label for="txtID">
+            고객ID :
+        </label>
+        <input type="text" id="txtID" name="txtID" />
+        <br />
+        <input type="button" id="btnDeleteRecord" value="고객 삭제" />
+        <br /><br /><br />
+        <input type="button" id="btnReset" value="초기화" />
+        <input type="button" id="btnDeleteObjStore" value="고객데이터 삭제" />
+        <input type="button" id="btnPrint" value="고객명단 프린트" />
+        <br />
+        <div id="printOutput"></div>
+    </div>
+</body>
+</html>

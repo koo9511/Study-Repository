@@ -1,0 +1,139 @@
+<JDBC (Java DataBase Connetion)>
+ : 자바에서 db와 연동하여 입/출력 처리하도록 제공되는 기능
+ - JDBC 버전은 현재 3 임.
+
+1. 오라클 jdbc 드라이버 파일 다운 받기
+  : www.oracle.com/download
+
+ - oracle 7 : classes111.zip
+ - oracle 8 : classes12.zip
+ - oracle 9i : ojdbc14.jar
+ - oracle 10g : ojdbc14.jar
+ - oracle 11g : ojdbc6.jar
+ 또는
+  : 오라클 설치 폴더 아래 jdbc/lib 폴더 안의 ojdbc*.jar 파일을 복사.
+
+2. 드라이버 파일 복사하기
+ - jdk 설치 폴더 \jre\lib\ext 폴더 아래에 복사해 넣음
+ 또는
+ - 이클립스의 작성중인 프로젝트에 Library 추가함.	
+
+3. 데이터베이스 연결 프로그램 작성
+ - 1. Driver 등록 작업
+   2. DBMS 와 연결
+   3. DB 용 클래스 객체 생성 
+	: 쿼리문 담을 객체, resultset 담을 객체
+	(Statement, PreparedStatement), (ResultSet)
+   4. 실행 시킬 쿼리(Query)문 작성 => 객체에 저장
+   5. SQL 전송 : 쿼리문 실행
+   6. 결과 받기 : 받은 결과 처리, 트렌젝션 관리
+   7. 닫기 
+
+
+**1. 드라이버 등록  -------------------------------------------------------------
+  (오라클일때)
+  Class.forName("oracle.jdbc.driver.OracleDriver");
+	
+  (mysql 일때)
+  Class.forName("org.gjt.mm.mysql.Driver");
+
+  (mssql 일때)
+  Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
+
+  (CUBRID 일때)
+  Class.forName(“cubrid.jdbc.driver.CUBRIDDriver”);
+
+//forName 메소드는 반드시 ClassNotFoundException 을 처리해야 함
+//클래스를 찾아서 DriverManager 에 등록시키는 작업임
+
+
+**2. 데이터베이스와 연결 작업  ---------------------------------------------
+  연결정보를 담을 Connection 인터페이스가 필요
+  연결처리를 하기위한 DriverManager 클래스가 필요
+  => java.sql 패키지에서 제공됨(import)
+
+	Connection conn = null;
+
+	conn = DriverManager.getConnection(url, id, pwd);
+  (오라클일때/ 자신의 컴퓨터일때)
+	conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:sys", "", "");
+	- url : jdbc:oracle:thin:@db의 ip 번호:포트번호:접속할 db명
+	- id : 사용자 아이디
+	- pwd : 암호
+
+	* 자신의 컴퓨터(localhost) 
+	* localhost 고유 ip : 127.0.0.1
+
+***public static Connection getConnection(String url,
+                                       String user,
+                                       String password)
+                                throws SQLException
+
+//Connection 인터페이스 : java.sql 패키지에서 제공됨
+//Connection 레퍼런스가 해당 db 연결정보를 가지게 됨
+Connection conn = DriverManager.getConnection(url, db_user, db_passwd);
+//getConnection 메소드 : SQLException 을 반드시 핸들링해야 함
+//데이터베이스 연결이 성공하면 conn 이 db 정보를 가짐
+//데이터베이스 연결이 실패하면 conn 은 null 을 받음
+
+
+* 3. db 접속이 성공했다면, 쿼리문이 실행되도록 처리함 ---------------------
+   : Statement / PreparedStatement 클래스 - 쿼리문 담아둘 클래스임
+   => Statement 객체 생성은 new 사용안함
+      db와 연결시키기 위해서 conn 객체를 사용함
+
+	Statement 레퍼런스 = conn.createStatement();
+
+  => 쿼리문 작성 : select, insert into, update, delete
+ 	String query = "쿼리문 작성";
+
+  => 쿼리문 실행 : Statement 메서드 사용
+      - executeQuery(query) : select 문에서 사용
+	ResultSet rs = stmt.executeQuery(query);
+
+      - excuteUpdate(query) : insert, update, delete 문에서 사용
+	
+** 4. 결과 처리
+  - select 처리 결과 : ResultSet 이 받아서 처리
+	
+	while(rs.next())
+	{
+	  자료형 변수 = rs.get자료형("컬럼명");
+	  .....
+	}
+
+  - DML 문 처리 결과 : int 값 반환됨(성공: 1 또는 양수, 실패: 0 또는 -1)  
+
+
+** 5. 연결 끊기 (닫기)
+  : 나중에 만든 것 먼저 닫음
+
+	rs.close();
+	stmt.close();
+	conn.close();
+
+//--------------------------------------------------------------------
+싱글톤(Singleton) 패턴
+ : 하나의 인스턴스만 할당해서, 
+  어디서든 그 인스턴스에 접근하도록 하기위해 사용
+
+=> static 메소드와 static 필드로만 구성된 클래스 일 때
+   : import static 패키지명.클래스명.스태틱메소드명 | *;
+	- static 메소드 사용은 원래 클래스명.메소드명(전달값);
+   - 스태틱 메소드나 필드 사용시 : 메소드명(값); 또는 필드명 으로 사용
+	=> 클래스명 안 붙이고 사용하게 됨
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

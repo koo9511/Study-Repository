@@ -1,0 +1,9 @@
+<실습>
+ => webSqlDatabase02.html 파일을 이용
+ => 파일명 : webDBTest.html
+
+ => 각 컬럼값을 입력받는 input 양식을 table 로 추가함
+ => input 양식을 통해 입력된 값들을 insert / update 처리에 적용함
+ => 테이블에 insert/update/delete 된 결과들을 바로바로 페이지 아래쪽에
+    table 을 추가해서 각 칸에 컬럼별로 출력되게 함
+ 

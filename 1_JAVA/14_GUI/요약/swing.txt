@@ -1,0 +1,1343 @@
+자바 GUI의 개요
+--------------------------------------------------------------------------------
+1. 자바는 GUI(Graphics User Interface)프로그래밍의 기반을 되는 클래스들을 
+	AWT에서 제공한다.
+
+2. AWT(Abstract Window Toolkit) : GUI를 위한 라이브러리 모음이다.
+
+3. 자바 AWT는 패키지 형태로 제공되므로 이를 사용하기 위해서는 
+  import명령어를 사용해 java.awt.*;식으로 자신의 프로그램에 포함시켜야 한다.
+
+
+자바 컨테이너 클래스
+--------------------------------------------------------------------------------
+컨테이너(Container)
+Container클래스 : Component클래스의 하위 클래스로서 추상 클래스이며, 
+화면 구성을 위한 여러가지 컴포넌트들을 화면에 배치하고 구성하는 역할을 한다.
+종류 : Frame, Windows, Dialog, Panel클래스들이 있다.
+주요메소드
+- add(Component) : 컨테이너에 인자로 주어진 컴포넌트를 추가한다.
+- remove(component) : 지정 컴포넌트를 컨테이너에서 삭제한다.
+- removeAll() : 컨테이너의 모든 컴포넌트를 삭제한다.
+- locate(x,y) : 지정위치에 컴포넌트를 위치시킨다.
+- setLayout(LayoutManager) : 컨테이너에 적용할 레이아웃 매니저를 설정
+- setSize(x,y) : 컨테이너를 지정크기로 설정한다
+
+1. 패널(Panel) 
+- 패널은 다른 컨테이너의 내부에서 사용할 수 있는 컨테이너이다.
+- 여러개의 컴포넌트들을 이 패널에 넣어 그룹화하여 사용할 때 유용하다.
+- Applet 클래스는 Panel의 하위 클래스이므로 애플릿은 기본으로 패널을 지닌다.
+
+[패널의 구성 예제]
+Panel p=new Panel();
+p.add("Center",new Button("ducki"));
+
+2. 윈도우(window)
+- 경계선과 메뉴바를 갖지 않는 최상위 라벨의 윈도우로서 주로 Popup윈도우로 사용
+
+3. 프레임(Frame)
+- 경계선과 타이틀, 메뉴바를 가질 수 있는 상위 레벨 윈도우이다.
+- 자바 애플리케이션에서 기본 컨테이너로 사용된다.
+
+[프레임의 구성 예제] 
+Frame f=new Fram("dukci Frame");
+
+4. 다이얼로그(Dialog)
+- 사용자 입력을 받을 수 있는 대화상자 등을 만드는데 사용되는 윈도우로
+모듈 컴포넌트이다. 
+
+[다이얼로그 구성 예제]
+class dukciDialog extends Diaog{
+public dukciDialog(Frame f){
+다이얼로그 안에 컴포넌트 배치
+....
+}
+public static void main(String args[]){
+Frame f=new Frame();
+dukciDialog DD=new dukciDialog(f);
+...
+}
+}
+
+5. 파일 다이얼로그 
+- 파일 시스템으로부터 파일을 선택하는데 사용되는 다이얼로그이다.
+
+
+자바 컴포넌트 클래스 (1)
+--------------------------------------------------------------------------------
+자바 컴포넌트 클래스(1)
+Component클래스 : Button, Label, List, Scrollbar, TextField, TextArea, 
+choice등 컨테이너에 포함시킬 수 있는 컴포넌트들이다.
+- new라는 연산자를 통해 객체를 생성할 수 있다.
+new Button("dukci");
+주요 메소드 
+disable() : 컴포넌트를 비활성화시킨다.
+enable() : 컴포넌트를 활성화시킨다.
+setVisible(true) : 컴포넌트를 보이게 한다.
+setVisible(false) : 컴포넌트를 감춘다.
+
+1. 버튼(Button)
+- 버튼은 말대로 누름에 반응하는 버튼이다.
+
+[버튼의 생성]
+Button b=new Button("dukci");
+add(b);
+
+2. 캔버스(Canvas)
+- 캔버스는 기본적으로 무언가를 그리기 위한 컴포넌트이다.
+
+[캔버스 생성] 
+import java.awt.*;
+class dukciCanvas extends Canvas{
+public void pant(Graphics g){
+g.drawString("이것은 캔버스이다.", 15, 15);
+}
+}
+
+3. 체크 박스(CheckBox)
+- on/off 상태의 버튼으로 체크박스 그룹과 함께 사용
+
+[체크 박스의 생성]
+CheckboxGroup g=new CheckboxGroup();
+add(new CheckBox("1",g,true));
+add(new CheckBox("2",g,false));
+add(new CheckBox("3",g,true));
+
+4. 초이스(Choice)
+- 하나의 버튼으로서 여러개의 선택을 하고자 할 때 사용한다.
+
+[초이스 생성]
+Choice c=new Choice();
+c.addItem("java");
+c.addItem("info");
+c.addItem("shop");
+add(c);
+초이스를 선택하면 등록된 항목 중 하나를 선택할 수 있다.
+
+
+자바 컴포넌트 클래스 (2)
+--------------------------------------------------------------------------------
+자바 컴포넌트 클래스 (2)
+
+5. 라벨(Label)
+- 라벨은 임의의 위치에서 읽기만이 가능한 라인 텍스트를 구성하는 컴포넌트이다.
+
+[라벨의 생성]
+Label Ll=new Label("ducki Label 1");
+Label L2=new Label("dukci Label 2 ");
+add(L1);
+add(L2);
+
+6. 리스트(List)
+- 리스트는 스크롤이 가능한 텍스트 아이템을 구성하는 컴포넌트이다.
+
+[리스트의 생성] 
+List l=new List(3,false);
+l.addItem("one");
+l.addItem("two");
+l.addItem("three");
+add(l)
+
+7. 텍스트 필드(TextField) / 텍스트 에리어(TextArea)
+
+TextField
+- 한라인의 사각형 텍스트 컴포넌트이다.
+
+[TextField의 생성]
+TextField tf=mew TextField("기본으로 들어갈 문자열",10);
+인자 10은 텍스트 필드의 길이를 나타낸다.
+
+TextArea
+- 사용자가 지정한 만큼의 텍스트 영역을 만들어 사용할 수 있는 컴포넌트이다.
+
+[TextArea의 생성]
+TextArea ta=new TextArea("기본 문자열", 10, 20);
+두 번째 인자는 세로의 크기를
+세 번째 인자는 가로의 크기를 나타냄
+
+8. 스크롤바(Scrollbar)
+- 스크롤바를 이용하여 보이지 않는 부분을 볼 수 있다.
+- 스크롤이 가능한 켄버스를 만드는 데 사용된다.
+
+[스크롤바의 생성]
+수평 스크롤바
+Scrollbar sb=new Scrollbar(Scrollbar.HORIZONTAL,0,10,0,255));
+add(sb);
+수직 스크롤바
+Scrollbar sb=new Scrollbar(Scrollbar.VERTICAL,10,0,255,0));
+add(sb);
+
+9. 메뉴 컴포넌트(Menu)
+- 메뉴를 가질 수 있는 컨테이너에 메뉴 컴포넌트를 만들 수 있다.
+- 애플리케이션에서 메뉴를 구성하기 위해서는 MenuItem을 가진 MenuBar와 Menu를 생성해야 한다.
+
+[메뉴의 생성]
+MenuBar mb=new MenuBar();
+Menu m1=new Menu("File"):
+
+Menu m2=new Menu("New");
+m2.add(new MenuItem("Document"));
+m2.add(new MenuItem("Message"));
+m1.add(m2);
+
+m1.add(new MenuItem("Open"));
+m1.add(new MenuItem("Save as"));
+setMenuBar(mb);
+
+
+간단한 Frame만들기
+--------------------------------------------------------------------------------
+간단한 Frame만들에 봅니다. 
+실제로 작성하시여 테스트 해 보세요.
+
+import java.awt.*; // Frame의 기본적인 정보를 상속하여 사용하기 위해 import함
+
+public class myFrame {
+public static void main (String args[]) {
+Frame f = new Frame("subject"); // Frame을 선언하고 타이틀바에 제목을 줌
+f.setLayout(new GridLayout(1,2)); // Frame에서 기본으로 사용할 Layout을 설정
+f.add(new Button("Button 1")); // Button1이라는 Button객체를 Frame에 추가
+f.add(new Button("Button 2")); // Button2이라는 Button객체를 Frame에 추가
+
+f.validate(); // Frame안에서 Component들의 갱신될 경우 이것들을 볼 수 있게 화면을 재갱신합니다.
+f.setSize(200,200); // Frame의 크기를 지정크기로 설정합니다.
+f.setVisible(true); // Frame안에 Component들를 실제로 화면 출력합니다.
+}
+}
+
+
+시스템 색으로 배경색 설정하기
+--------------------------------------------------------------------------------
+현재 시스템에서 사용하고 있는 색으로 배경색을 설정하는 방법에 대해 알아봅니다. Frame를 만드는 방법은 이전의 글을 보신 분은 쉽게 알 수 있을 것입니다. 이곳에서 중요한 것은 SystemColor.control이라는 final변수를 사용하여 기존의 시스템에서 현재 사용되고 있는 시스템 칼라는 쉽게 얻을 수 있다는 것입니다. 
+그런 후에 setBackgroung()메소드를 사용하여 현재 Frame안의 Canvas의 배경색을 바꿀 수 있습니다.
+Canvas는 Frame안에 포함될 수 있는 Component들을 표현할 수 있는 Container입니다.
+
+[사용예제]
+import java.awt.*;
+
+public class Sys {
+public static void main (String args[]) {
+Frame f = new Frame ();
+Canvas b = new Canvas ();
+b.setBackground (SystemColor.control); //시스템 칼라로 배경색 설정
+f.add (b);
+f.setSize (200, 200);
+f.show();
+}
+}
+
+
+전체 화면의 크기 얻기
+--------------------------------------------------------------------------------
+전체화면의 크기(Toolkit)를 얻는 방법을 알아봅니다. Toolkit객체는 보통 아래와 같이 시스템 정보를 얻는데 사용될 수 있습니다. Toolkit클래스의 getScreenSize()메소드를 호출하여 현재 설정되어 있는 스크린의 사이즈를 쉽게 얻을 수 있습니다.
+
+[사용예제]
+import java.awt.*;
+public class ScreenSize{
+public static void main(String[] args) {
+Toolkit tk=Toolkit.getDefaultToolkit(); // tk객체에 시스템 정보를 삽입
+System.out.println(tk.getScreenSize()); // 스크린의 크기를 얻음
+}
+}
+
+
+사용 가능한 Font 모두 알아내기
+--------------------------------------------------------------------------------
+사용 가능한 Font 모두 알아내기와 폰트 설정하는 법을 알아봅니다.
+우선 폰트를 사용하기 위해서는 현재 자신의 시스템에 설치되어 있는 Font의 종류를 알아야만 하고 그것을 토대로 하나를 골라 Font를 설정할 수 있습니다.
+이전에 올릴 글에서도 말한바 있지만 Toolkit클래스는 시스템의 정보를 얻을 때 주로 사용될 수 있습니다. 아래 경우는 Toolkit객체에서 getFontList()pthem를 호출하여 현재 시스템에서 사용 가능한 폰트를 전부 얻어 String배열에 저장하는 방법을 사용하였습니다.
+중요한 메소드 세가지를 살펴보도록 합니다.
+String[] fontNames = GraphicsEnvironment.
+	getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+현재 시스템에서 사용 가능한 폰트를 문자열로 얻습니다.
+컴포넌트레퍼런스.setFont(font=new Font(names[i], Font.PLAIN, 15));
+지정한 폰트로 Font의 글자체를 설정합니다.
+font.getName()
+Font클래스의 getName()메소드는 현재 설정된 Font의 폰트이름을 얻을 수 있다.
+
+[사용예제]
+import java.awt.*;
+
+public class FontList extends Frame{
+public FontList(){
+setLayout(new FlowLayout());
+Button but;
+Font font;
+GraphicsEnvironment ge = 						GraphicsEnvironment.getLocalGraphicsEnvironment();
+String[] fontNames = ge.getAvailableFontFamilyNames();
+
+for (int i=0;i<fontNames.length;i++){
+but=new Button();
+but.setFont(font=new Font(names[i], Font.PLAIN, 15));
+but.setLabel((i+1)+"번째 폰트이름은 "+font.getName());
+add(but);
+}
+}
+
+public static void main(String[] argv)
+{
+FontList f=new FontList(); // FontList클래스의 객체를 생성합니다.
+f.setBounds(100, 100, 300, 400); // 적절한 위치에 Frame를 나타냅니다.
+f.setVisible(true);
+}
+}
+
+
+Frame에 Image를 그려보자
+--------------------------------------------------------------------------------
+자바 Application프로그램인 Frame에 Image를 그려보는 방법을 알아봅니다.
+애플릿의 경우 Image의 객체를 생성하고 getImage()메소드를 이용해 쉽게 
+Image 파일을 얻어 paint(Graphics g)메소드를 사용해 그림을 그릴 수 있지만 
+단독으로 실행되는 Application프로그램의 경우는 아래와 같은 방법으로 Frame에 
+그림을 그릴 수 있습니다.
+아래 코드에서 중요한 점은 
+	Toolkit.getDefaultToolkit().getImage("dukci.gif");를 사용하여 
+그림의 이미지를 Image객체에 저장할 수 있다는 것입니다. 
+Toolkit클래스는 시스템에 대한 많은 정보를 얻을 수도 있고 또한 아래 코드와 같이 
+다양한 기능을 제공합니다.
+캔버스에서 실질적인 이미지를 그린 다음 Main의 Frame에 첨가시킨다. 
+즉, Canvas는 이미지 등을 포함할 수 있는 Container로서 
+이곳에 실질적으로 그림을 그려 더 큰 Container인 Frame에 
+다시 포함시키는 것입니다.
+
+import java.awt.*;
+
+class frameImage {
+public static void main(String args[]) {
+Frame f= new Frame("Dukci frameImage Window");
+f.setSize(300, 400);
+Image img= Toolkit.getDefaultToolkit().getImage("dukci.gif");
+CanvasImage canImage= new CanvasImage(img);
+f.add(canImage);
+f.setVisible(true);
+}
+}
+
+------------------------------------------------------------------
+
+import java.awt.*;
+
+class CanvasImage extends Canvas {
+Image img1;
+
+public CanvasImage( Image img){
+super();
+img1=img;
+}
+
+public void paint(Graphics g){
+
+g.drawImage(img1,10,10,this);
+
+}
+}
+
+
+Frame에 Menu만들기
+--------------------------------------------------------------------------------
+Frame에 Menu만드는 방법을 알아봅니다.
+메뉴를 만드는 방법은 다음과 같은 순서를 따릅니다.
+1. import java.awt.*; // awt패키지의 Frame나 Menu의 기본 기능을 상속하여 사용
+2. Menu가 들어가 MenuBar의 객체를 만듭니다.
+3. 실제 사용할 메뉴를 만듭니다.
+4. MenuBar애 Menu를 추가합니다.
+5. MenuBar를 메뉴를 지닐수 있는 Containet인 Frame에 포함시킵니다.
+
+아래 코드를 보시고 작성해 보세요.
+
+[사용예제]
+import java.awt.*; 
+
+class menuTest extends Frame {
+public menuTest() { 
+setBackground(SystemColor.control);
+
+MenuBar menu = new MenuBar();
+Menu top = new Menu("Java Info Shop dukci");
+top.add(new MenuItem("Java"));
+top.add(new MenuItem("Info"));
+top.add(new MenuItem("Shop"));
+menu.add(top);
+setMenuBar(menu);
+
+setSize(200,200);
+setVisible(true);
+}
+
+public static void main(String args[]) {
+menuTest mt = new menuTest();
+}
+}
+
+
+현재 사용중인 Layout알아내기
+--------------------------------------------------------------------------------
+현재 사용중인 Layout알아내는 방법을 알아봅니다.
+
+1. Frame클래스의 getLayout()메소드를 호출함으로서 현재 Frame에서 사용하고 있는 Layout를 알아볼 수 있습니다.
+2. 반대로 현재 Frame에 특정 Layout으로 설정을 할려면 Frame클래스의 setLayout()메소드를 이용하시면 됩니다.
+
+[사용예제]
+mport java.awt.*;
+import java.applet?.*;
+
+class dukciGetLayout{
+public static void main(String args[]){
+Frame f=new Frame("dukciGetLayoutTest"); 
+f.setLayout(new BorderLayout()); // Layout설정
+System.out.println(f.getLayout()); // Layout얻기
+}
+}
+
+
+FlowLayout에 대해 알아보자
+--------------------------------------------------------------------------------
+FlowLayout에 대해 알아봅니다.
+Flow 레이아웃은 컨테이너에 컴포넌트들을 가로나 세로방향의 줄 단위로 배치한다. 만약 구성 요소들이 들어갈 Container의 크기가 작다고 판단이 되면 자동으로 다음 라인으로 줄을 넘기여 배치하게 됩니다. FlowLayout은 각 줄 안에서 정렬위치를 결정 할 수 있는 alignment 값을 가지고 있다. alignment의 기본값은 "CENTER" 이고, 이것은 Component들을 Container의 중앙에 정렬시킵니다. Panel 컨테이너는 디폴트로 Flow 레이아웃을 이용한다.
+아래 코드는 실제로 FlowLayout로 Layout를 설정하는 코드입니다. 이전의 글에 있던 코드들에 첨가해 보시면 효과를 얻으실 수 있습니다.
+
+[예제 코드]
+setLayout(new FlowLayout());
+add(new Button("1"));
+add(new Button("2"));
+add(new Button("3")).hide();
+
+
+BorderLayout에 대해 알아보자
+--------------------------------------------------------------------------------
+BorderLayout대해 알아보도록 합니다.
+BorderLayout은 컨테이너에 컴포넌트들의 위치를 "동/서/남/북/중앙"중에서 하나를 지정해서 사용할 수 있다. 모든 가장 자리의 요소들은 필요한 크기만큼 배열되고, 중앙에 있는 요소는 만은 여백을 사용한다.
+setLayout(new BorderLayout());
+add("North", new Button("North"));
+add("Center", new Button("Center"));
+add("South", new Button("South"));
+add("West", new Button("West"));
+add("East", new Button("East"));
+동서남북 그리고 중앙 배치에 사용합니다.
+
+참고로 전부 사용하지 않고 일부만을 사용할 경우에는 Center는 꼭 사용하시고 Center를 기준으로 다른 Coponent들을 배치히시면 됩니다. 일부 사용시 Center배치를 사용하지 않으면 원하는 배치의 결과를 얻기 어렵습니다.
+
+[사용예제]
+import java.awt.*;
+
+class boderTest {
+public static void main(String arhs[]){
+Frame f=new Frame("dukci BorderLayoutTest");
+f.setLayout(new BorderLayout()); // BorderLayout 설정하는 부분
+
+f.add("North",new Button("North")); // 북쪽에 버튼 배치
+f.add("Center",new Button("Center")); // 중앙에 버튼 배치
+f.add("West", new Button("West")); // 서쪽에 버튼 배치
+f.add("East", new Button("East")); // 동쪽에 버튼 배치
+f.add("South", new Button("South")); // 남쪽에 버튼 배치
+f.setSize(300,300);
+f.setVisible(true);
+}
+}
+
+
+GridLayout에 대해 알아보자
+--------------------------------------------------------------------------------
+Grid 레이아웃 대해 알아봅니다.
+
+Grid 레이아웃은 컴포넌트들을 가로, 세로의 일정 수만큼 배치하고자 할 경우에 주로 사용합니다. 컴포넌트들의 위치는 맨 윗 줄부터 시작해서 왼쪽에서 오른쪽으로 움직이며 각 줄을 이동합니다. add()메소드를 호출하는 순서에 따라 컴포넌트의 위치가 달라집니다. Grid 레이아웃을 생성하기 위해서는 행과 열을 지정해야한다. 각 행과 열의 크기가 동일하기 때문에 Grid 레이아웃에서는 각 컴포넌트는 동일한 크기를 갖는다.
+GridLayout에서 주의하실 점은 앞에 있는 인수가 행, 즉 Y방향으로의 Component의 개수를 나타내는 것이고 뒤에 오는 인수가 열, 즉 X방향의 Component의 갯수를 나타내는 것이라는 것을 명심하세요.
+[일반적인 형식]
+setLayout(new GridLayout(3,1));
+add(new Button("Java"));
+add(new Button("Info"));
+add(new Button("Shop"));
+
+/*f.setLayout(new GridLayout(y,x)); 
+y값이 세로의 수를 나타낸다.
+x값이 가로의 수를 나타낸다. */
+
+[사용예재] 
+import java.awt.*;
+
+class GridLayoutTest {
+public static void main(String arhs[]){
+Frame f=new Frame("dukci GridLayoutTest");
+f.setLayout(new GridLayout(2,2)); 
+f.add(new Button("Button 1"));
+f.add(new Button("Button 2")); 
+f.add(new Button("Button 3"));
+f.add(new Button("Button 4")); 
+f.setSize(300,300);
+f.setVisible(true);
+}
+}
+
+
+Popup Menu만들기
+--------------------------------------------------------------------------------
+Applet?, Frame이벤트 발생시 Popup Menu나타내기
+Frame이나 Applet?의 영역에 마우스를 누를경우 Popup메뉴가 나타난다.
+
+import java.awt.*;
+import java.applet?.*;
+import java.awt.event.*;
+
+public class PopupTest extends Applet implements ActionListener {
+PopupMenu popup;
+
+public void init() { 
+MenuItem mi;
+popup = new PopupMenu("dukci Popup Menu Test");
+popup.add(mi = new MenuItem ("Java"));
+mi.addActionListener (this);
+
+popup.add(mi = new MenuItem("Info"));
+mi.addActionListener (this);
+
+popup.add(mi = new MenuItem("Shop")).setEnabled(false);
+mi.addActionListener (this);
+popup.addSeparator();
+
+popup.add(mi = new MenuItem ("Paste"));
+mi.addActionListener (this);
+
+popup.add(mi = new MenuItem("Delete")).setEnabled(false);
+mi.addActionListener (this);
+popup.addSeparator();
+
+popup.add(mi = new MenuItem ("Select All"));
+mi.addActionListener (this);
+add (popup);
+setSize(200, 200);
+enableEvents (AWTEvent.MOUSE_EVENT_MASK);
+}
+protected void processMouseEvent (MouseEvent e) {
+if (e.isPopupTrigger())
+popup.show(e.getComponent(), e.getX(), e.getY());
+super.processMouseEvent (e);
+}
+public void actionPerformed(ActionEvent e) {
+System.out.println (e);
+}
+}
+
+
+Popup Menu의 종료 이벤트 처리
+--------------------------------------------------------------------------------
+Popup Menu의 종료 이벤트 처리를 할려면 아래와 같은 코드를 첨가하면 됩니다.
+1. Popup메뉴중에 Quit라는 메뉴를 넣고
+2. 이 메뉴가 선택될 경우 System.exit(0);를 호출하여 종요시킵니다.
+
+MenuItem quit = new MenuItem("Quit");
+fileMenu.add(quit);
+quit.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent ev){
+System.exit(0); 
+}
+});
+
+
+ScrollPane을 포함하는 Frame
+--------------------------------------------------------------------------------
+// ScrollPane을 포함하는 Frame을 application으로 만듦
+// frame의 크기가 작더라도 전체 Canvas를 볼 수 있도록 ScrollBar를 자동으로 제공
+
+구현원리 
+1. Canvas객체를 하나 생성하고
+2. ScrollPane의 개체에 Canvas객체를 더하고
+3. 그 ScrollPane를 Frame에 포함시키면 
+4. 결국 Frame가 ScrollPane를 가진 셈이 된다.
+
+import java.awt.*;
+
+class dukciPane extends Frame {
+dukciPane() {
+ScrollPane sp = new ScrollPane();
+paneCanvas c = new paneCanvas();
+sp.add(c);
+add(sp);
+}
+
+public static void main(String[] arg) {
+dukciPane p = new dukciPane();
+p.setSize(400,400);
+p.setVisible(true);
+}
+} 
+
+------------------------------------------------
+
+import java.awt.*;
+
+class paneCanvas extends Canvas {
+public void paint(Graphics g) {
+g.drawRect(2,2,600,400);
+}
+}
+
+
+
+Image Pixel의 RGB픽셀값 얻기 소스
+--------------------------------------------------------------------------------
+Image Pixel의 RGB픽셀값 얻기[PixelGrabber]
+
+import java.awt.*;
+import java.awt.image.*;
+import java.applet?.*;
+
+public class ImageOscope extends Applet? {
+Image image;
+int imgw, imgh;
+MediaTracker tracker;
+PixelGrabber garbber;
+int[] pixels;
+
+public void init() {
+image=getImage(getDocumentBase(),"dukci.gif");
+tracker=new MediaTracker(this);
+tracker.addImage(image,0);
+try{
+tracker.waitForID(0);
+} catch(InterruptedException e) {}
+
+imgw=image.getWidth(this);
+imgh=image.getHeight(this);
+pixels=new int[imgw*imgh];
+
+PixelGrabber garbber = new PixelGrabber(image,0,0,imgw,
+imgh,pixels,0,imgw);
+try {
+garbber.grabPixels();
+} catch(InterruptedException exception) {
+System.out.println("Error getting pixels");
+}
+}
+
+public boolean handleEvent(Event e) {
+if(e.id==Event.MOUSE_DOWN) {
+int pixel=pixels[e.y*imgw+e.x];
+int alpha=(pixel>>24) & 0xff;
+int red=(pixel>>16) & 0xff;
+int green=(pixel>>8) & 0xff;
+int blue=(pixel) & 0xff;
+showStatus("R=" +red+ "G=" +green+ "B=" +blue);
+}
+return false;
+}
+
+public void paint(Graphics g) {
+int imgw=image.getWidth(this);
+int imgh=image.getHeight(this);
+
+if (imgh==0 && imgw==0) {
+try {
+tracker.waitForID(0);
+} catch(InterruptedException e) {}
+}
+g.drawImage(image,0,0,this);
+}
+}
+
+
+List만들기 
+--------------------------------------------------------------------------------
+List만들기 
+
+List component 생성
+List list = new List( n, true); 
+parameter n : 스크롤 하기 전에 보여지는 라인 수
+true : 여러 개를 선택할 수 있도록 한다는 뜻
+
+getSelectedItems() 메소드를 사용하면 선택된 리스트의 문자열을 return 받을 수 있습니다.
+
+import java.applet?.*;
+import java.awt.*;
+import java.io.*;
+
+public class ListSelect extends Applet? {
+public void init() {
+List l=new List(4, false);
+l.addItem("Item1");
+l.addItem("Item2");
+l.addItem("Item3");
+l.addItem("Item4");
+l.addItem("Item5");
+l.addItem("Item6");
+l.addItem("Item7");
+l.addItem("Item8");
+add(l);
+}
+
+public boolean handleEvent(Event e) {
+if(e.id==Event.LIST_SELECT) {
+System.out.println("target = " + e.target);
+System.out.println("when = " + e.when);
+System.out.println("id = " + e.id);
+System.out.println("x = " + e.x);
+System.out.println("y = " + e.y);
+System.out.println("key = " + e.key);
+System.out.println("modifieres = " + e.modifiers);
+System.out.println("clickCount = " + e.clickCount);
+System.out.println("arg = " + e.arg);
+System.out.println("evt = " + e.evt);
+}
+return false;
+}
+public static void main(String argv[]) {
+Frame f = new Frame("ListSelect");
+Applet? a = new ListSelect();
+a.init();
+a.start();
+f.add("Center", a);
+f.pack();
+f.show();
+}
+}
+
+
+List의 항목 이름 얻기
+--------------------------------------------------------------------------------
+List의 항목 이름 얻기
+
+[구현]
+List클래스의 getItem()메소드에 인자로서 순서를 주어지면 그 항목에 대한 Item이름을 문자열로서 되돌립니다.
+
+import java.awt.*;
+
+class dukciListItemName {
+public static void main(String args[]) {
+Frame f=new Frame();
+
+List s;
+s=new List(4,true);
+s.addItem("java");
+s.addItem("info");
+s.addItem("shop");
+
+f.add(s);
+f.setSize(300,200);
+f.setVisible(true);
+
+System.out.println(s.getItem(2));
+System.out.println(s.getItem(3));
+}
+}
+
+
+DoubleClicker를 구현하는 소스
+--------------------------------------------------------------------------------
+DoubleClicker를 구현하는 예제
+
+import java.awt.*;
+import java.applet?.*;
+
+
+public class DoubleClicker extends Applet?
+{
+// The string to display after a single click.
+static private String singleClickString = "Hello JavaWorld!";
+
+// The string to display after a double click!
+static private String doubleClickString = "Happy April Fools!";
+
+// Which of the two strings should be displayed?
+private boolean displayDoubleClickString = false;
+
+
+// The number of milliseconds that should bound a double click.
+static private long mouseDoubleClickThreshold = 300L;
+
+// The previous mouseUp event's time.
+private long mouseUpClickTime = 0;
+
+
+// mouseUp() will be called once per mouse button *release*.
+// We treat all clicks as a single click unless the second click
+// event happens within the threshold set above.
+public boolean mouseUp (Event e, int x, int y)
+{
+long eventTime = e.when;
+long timeDiff;
+
+// Make sure the event times difference is a positive number.
+// Note that this is due to the fact that the time value on a
+// long of machines is a 64-bit *unsigned* value but, alas,
+// Java doesn't have unsigned numbers so at a certain point
+// the values roll over into the very high negative numbers
+// which then actually *decrease* (recall that Java mandates a
+// two's complement arithmetic).
+timeDiff = eventTime - mouseUpClickTime;
+if (timeDiff < 0)
+timeDiff = -timeDiff;
+
+// Display the event time information.
+showStatus ("Current event :" + eventTime +
+": Previous event :" + mouseUpClickTime +
+": Difference :" + timeDiff + ":");
+
+// Did this click happen with the given time bound?
+if (mouseDoubleClickThreshold > timeDiff)
+{
+// Yep, display the double click message.
+displayDoubleClickString = true;
+
+// Clear out the previous event time so that we don't get
+// confused in our count.
+// Note that this means that triple, quadruple,
+// etc. clicks will *not* be condensed into a double
+// click. If you want that sort of behavior change this
+// to: mouseUpClickTime = eventTime;
+mouseUpClickTime = 0;
+}
+else
+{
+// Nope, just a single click so make sure that we display
+// the single click message.
+displayDoubleClickString = false;
+
+// Update the event time holder.
+mouseUpClickTime = eventTime;
+}
+
+// Force a repaint so we can see what's happening.
+repaint();
+
+// We've handled the event.
+return true;
+}
+
+
+public void paint (Graphics g)
+{
+// Let's muck about with the fonts.
+Font font = new Font("Times Roman", Font.PLAIN, 20);
+FontMetrics fm = getFontMetrics(font);
+g.setFont (font);
+
+// Figure out the width of the string to be displayed.
+int displayStringWidth;
+if (displayDoubleClickString)
+displayStringWidth = fm.stringWidth (doubleClickString);
+else
+displayStringWidth = fm.stringWidth (singleClickString);
+
+// Let's center the string in the window, just for kicks.
+int x = (this.size().width - displayStringWidth) / 2;
+int y = (this.size().height - fm.getHeight()) / 2;
+
+if (displayDoubleClickString)
+g.drawString (doubleClickString, x, y);
+else
+g.drawString (singleClickString, x, y);
+}
+
+}
+
+
+파일을 읽어 List에 항목을 추가하기
+--------------------------------------------------------------------------------
+파일을 읽어 라인단위로 List에 항목을 추가하기
+
+import java.applet.Applet;
+import java.io.*;
+import java.awt.*;
+import java.net.*;
+
+public class dukciItemAdd extends Applet {
+List list;
+URL url;
+InputStream is;
+BufferedInputStream bis;
+DataInputStream dis;
+String str;
+
+public void init() {
+list = new List(5,false);
+add(list);
+list.reshape(35,70,350,200);
+list.setForeground(Color.blue);
+list.setFont(new Font("Helvetica", Font.PLAIN, 12));
+
+try {
+url = new URL(getDocumentBase(), "dukci.txt");
+} catch (MalformedURLException e) {
+System.out.println("URL 주소 오류: " + url);
+}
+
+try {
+is = url.openStream();
+bis = new BufferedInputStream(is);
+dis = new DataInputStream(bis);
+while ((str = dis.readLine()) != null) {
+list.addItem(str);
+}
+}catch(IOException e) {
+System.out.println("파일 입출력 오류: " + e.getMessage());
+}
+finally {
+repaint();
+}
+}}
+
+
+setColor()로 Color설정
+--------------------------------------------------------------------------------
+setColor()로 Color설정
+
+// g.setColor(Color.black);와 같이 setColor()메소드 안에 칼라의 아름을 적어주어 글자색 등을 변경할 수 있습니다.
+
+import java.awt.*;
+
+class dukciColorTest extends Frame {
+public static void main (String[] arg) {
+dukciColorTest dc=new dukciColorTest();
+}
+
+dukciColorTest(){ 
+setSize(600,400);
+setVisible(true);
+setLayout(null); 
+setForeground(Color.pink);
+}
+
+public void paint(Graphics g) {
+g.setColor(Color.black);
+g.drawString("black color",30,100);
+g.setColor(Color.red);
+g.drawString("red color",30,140);
+g.setColor(Color.blue);
+g.drawString("blue color",30,180); 
+setForeground(Color.gray);
+}
+}
+Password Field만들기 
+--------------------------------------------------------------------------------
+Password Field만들기 
+
+import java.awt.*;
+
+public class dukciPasswdText{
+public static void main(String args[]){
+Frame f=new Frame("dukci Passwd Test Test");
+TextField tf=new TextField("",10);
+f.setLayout(new FlowLayout());
+f.add ( new Label ("Password"));
+f.add (tf);
+tf.setEchoCharacter('*');
+f.setSize(200,200);
+f.setVisible(true);
+}
+}
+
+// setEchoCharacter('*'); 로 설정을 해주면 됩니다.
+
+// TextField 에서 치는 문자가 전부 * 로 보입니다.
+// 패스워드 입력시 유용하게 쓰입니다.
+
+
+이벤트의 종류, 등록방법
+--------------------------------------------------------------------------------
+모든 이벤트의 종류 / 이벤트 등록방법
+
+자바에서의 이벤트핸들링
+
+마우스 이벤트의 상속구조는 아래와 같습니다.
+Class java.awt.event.MouseEvent 
+java.lang.Object
+|
++----java.util.EventObject
+|
++----java.awt.AWTEvent
+|
++----java.awt.event.ComponentEvent
+|
++----java.awt.event.InputEvent
+|
++----java.awt.event.MouseEvent 
+
+ Listener라는 인터페이스들이 사용됩니다.
+이들은 java.awt.event 패키지 안에 Listener라는 이름으로 구성돼있습니다.
+종류로는 ActionListener, AdjustmentListener, ComponentListener, 
+ContainerListener, FocusListener, ItemListener, KeyListener, 
+MouseListener, MouseMotionListener, TextListener, WindowListener등이 있습니다.
+이들 인터페이스들을 객체화해서 각 컴포넌트들에 붙이면 됩니다. 
+이들을 붙이는 방법으로 각 컴포넌트마다 정의돼있는 addListener라는 메소드를 쓰게 되는데요.
+
+컴포넌트객체.addListener(Listener객체);
+
+이런 식으로 해주면 됩니다. addListener 메소드도 종류가 있는데, 
+addMouseListener, addKeyListener 등 목적에 맞게 쓰면 됩니다.
+한 컴포넌트에 어떠한 이벤트가 발생하면 그 객체에 붙어있는 
+Listener객체들에게 이벤트객체를 넘기게 됩니다. 
+그 이벤트객체를 핸들링하는 메소드들이 Listener인터페이스안에 선언되어 있음. 
+그 메소드들을 오버라이딩해줌으로써 핸들링이 가능하게 됨.
+
+1. 객체에 Listener를 붙이는 방법
+컴포넌트객체.add이벤트이름Listener(Listener객체);
+
+2. Event의 종류
+* java.awt.event 패키지 ------------------------------------
+- ActionEvent, 
+  1. actionPerformed(ActionEvent) 
+- AdjustmentEvent, 
+  1. djustmentValueChanged(AdjustmentEvent)
+- ComponentEvent,
+  1. componentMoved(ComponentEvent) 
+  2. componentHidden(ComponentEvent) (no 1.0 equivalent) 
+  3. componentResized(ComponentEvent) (no 1.0 equivalent) 
+  4. componentShown(ComponentEvent) (no 1.0 equivalent) 
+- ContainerEvent, 
+  1. componentAdded(ContainerEvent) 
+  2. componentRemoved(ContainerEvent) 
+- FocusEvent, 
+  1. focusGained(FocusEvent) 
+  2. focusLost(FocusEvent) 
+- InputEvent, 
+- ItemEvent, 
+  1. itemStateChanged(ItemEvent) 
+- KeyEvent,
+  1. public void keyReleased(KeyEvent e) 
+  2. public void keyTyped(KeyEvent e) 
+  3. public void KeyPressed(KeyEvent e) 
+- MouseEvent, 
+  1. public void mousePressed(MouseEvent e)
+  2. public void mouseReleased(MouseEvent e) 
+  3. public void mouseClicked(MouseEvent e) 
+  4. public void mouseEntered(MouseEvent e) 
+  5. public void mouseExited(MouseEvent e) (no 1.0 equivalent) 
+- MouseMotionListener
+  1. mouseDragged(MouseEvent) 
+  2. mouseMoved(MouseEvent) 
+- PaintEvent, 
+- TextEvent, 
+  1. textValueChanged(TextEvent) 
+- WindowEvent
+  1. windowClosing(WindowEvent) 
+  2. windowOpened(WindowEvent) 
+  3. windowIconified(WindowEvent) 
+  4. windowDeiconified(WindowEvent) 
+  5. windowClosed(WindowEvent) (no 1.0 equivalent) 
+  6 . windowActivated(WindowEvent) (no 1.0 equivalent) 
+  7. windowDeactivated(WindowEvent) (no 1.0 equivalent) 
+
+3. hi-level event listener와 low-level listener의 리스트
+
+3가지의 hi-level event listener interface
+  1. ActionListener
+  2. AdjustmentListener
+  3. ItemListener
+
+6가지의 low-level event listener interface
+  1. ComponentListener
+  2. FocusListener
+  3. KeyListener
+  4. MouseListener
+  5. MouseMotionListener
+  6. WindowListener
+
+TextListener와 ContainerListener가 추가
+
+
+Frame에서 windowClosing처리예제
+--------------------------------------------------------------------------------
+[WindowAdapter] Frame에서 windowClosing처리예제
+
+WindowAdapter를 사용한 예제입니다.
+Adapter를 사용할 경우에는 자신에게 필요한 Event처리부분만을 구현해 주면 됩니다.
+Adapter인터페이스에 이미 다른 것들이 모두 구현되어 있습니다.
+
+import java.awt.*;
+import java.awt.event.*;
+
+class dukciEventQueueTest{ 
+public static void main(String[] args){ 
+Frame f = new Frame();
+f.addWindowListener( new WindowAdapter() { 
+	//Frame을 Event 항목에 추가
+	public void windowClosing(WindowEvent ev) { 
+	//Event항목 중에 windowClosing()사용
+	System.exit(0); // Frame 종료
+	// 혹은 f.dispose();
+	}
+});
+f.setSize(300, 300);
+f.setVisible(true);
+}
+} 
+
+
+마우스 이벤트 발생 위치 알아내기
+--------------------------------------------------------------------------------
+MouseListener에서 마우스 이벤트 발생 위치 알아내기
+
+public void mousePressed(MouseEvent e){
+if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+}
+}
+public void mouseClicked(MouseEvent e){
+if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+}
+}
+public void mouseReleased(MouseEvent e){
+if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+}
+if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+}
+}
+public void mouseEntered(MouseEvent e){
+System.out.println("프레임 안으로 들어옴");
+}
+public void mouseExited(MouseEvent e){
+System.out.println("프레임 밖으로 나감");
+}
+
+
+가상 이미지 그리기
+--------------------------------------------------------------------------------
+가상 이미지 그리기
+
+- 이미지 객체를 생성한후 그곳에 이미지 화일을 넣는 것이 아니라 프로그램내에서 직접 메쏘드를 사용하여 그림을 그려보는예제입니다.
+1. createImage()메쏘드를 사용하여 일정크기의 이미지 객체를 생성합니다.
+
+2. 가상 이미지의 Graphics객체를 gr에 저장시키고 gr의 색깔을 설정한후 사각형을 그림
+
+import java.awt.*;
+import java.applet?.*;
+
+public class MonImage extends Applet? {
+
+public void paint(Graphics g) {
+Image image1;
+Image image2;
+Graphics gr;
+
+image1 = createImage(100,100);
+image2 = createImage(100,100);
+
+gr = image1.getGraphics();
+gr.setColor(Color.red);
+gr.fillRect(25,25,50,50);
+
+gr = image2.getGraphics();
+gr.setColor(Color.black);
+gr.fillRect(0,0,100,100);
+gr.drawImage(image1,0,0,null); // Superposition d'image
+
+g.drawImage(image2,0,0,null);
+show();
+}
+
+
+시스템(Dos, Unix)명령어 사용 예제
+--------------------------------------------------------------------------------
+시스템(Dos, Unix)명령어 사용 예제[Runtime]에 대해 알아봅니다.
+
+1. Runtime클래스이 객체는 시스템에 관련된 명령어를 자바 코드에서 사용할 수 있게 해주는 기능을 지녔습니다.
+2. Process클래스의 객체는 Runtime등을 통해 실제로 자바 코드에서 실행할 시스템 명령어 등을 저장할 수 있는 기능을 제공합니다.
+3. 아래에서는 windows95사용자들을 위해 v3를 자바로 테스트 해보는 프로그램을 간단히 작성해 본 것입니다.
+4. Process p에 저장된 시스템 명령어를 getInputStream()메소드를 사용하여 읽어들어 in객체에 저장합니다.
+5. 그런 후 System.out.flush()메소드를 사용함으로서 실제 시스템 명령어를 자바 프로그램에서 사용하실 수 있습니다.
+
+import java.io.*;
+
+class dukciexec {
+public static void main(String args[]) {
+Runtime r = Runtime.getRuntime();
+Process p = null;
+
+try {
+p = r.exec("C:\util\v3.exe");
+DataInputStream in = new DataInputStream( p.getInputStream() );
+String temp = null;
+while ( ( temp = in.readLine() ) != null ) {
+System.out.println(temp);
+}
+System.out.flush();
+}
+catch(IOException ioe) {
+System.out.println("nerr execute : ");
+System.out.println(ioe);
+}
+}
+}
+
+
+Double Buffering이용하기
+--------------------------------------------------------------------------------
+Double Buffering이용하기
+
+Double Buffering은 가상의(버퍼를 이용) 그래픽 공간을 만들어 사용하는 것이다.
+Double Buffering을 사용하는 이유는 이미지 등을 URL이나 local지역의 파일에서 읽어 브라우저 등에 표현하기 전에 완전한 이미지를 가상의 그래픽 공간에 우선 출력을 하고 완전히 출력이 된 후에 사용자가 볼 수 있는 브라우저와 같은 곳에 한꺼번에 일시 표현하기 위해 주로 쓰인다.
+Graphics클래스는 추상클래스이기 때문에 객체를 직접 생성할 수 없다. 따라서 Image클래스에 있는 getGraphics()메소드를 이용하여 Graphics객체를 얻는다.
+
+다음은 Double Buffering을 구현하기 위한 단계이다.
+
+1] Buffer에 저장할 공백의 이미지를 만듭니다.
+
+Image bufImg=createImage(x,y);
+
+2] 만들어진 이미지 객체의 getGraphice()메쏘드를 사용하여 graphics객체를 얻는다.
+
+graphics myG=bufImg.getGraphics();
+
+3] Buffer에 원하는 작업을 합니다.
+
+public void init(){
+myG.setFont(..);
+myG.drawString(...); 
+...
+}
+
+4] 최종적으로 drawImage()메쏘드를 사용하여 처리된 이미지를 출력합니다.
+
+public void paint(Graphics g){
+g.drawImage(bufImg,0,0,this);
+}
+
+
+
+ Canvas컴포넌트 생성
+--------------------------------------------------------------------------------
+ Canvas컴포넌트 생성
+
+
+ Canvas(캔버스)
+
+- Canvas는 사각형, 원, text문자열등을 그릴 수 있는 지역을 의미합니다.
+즉, 그래픽 컴포넌트입니다.
+- 애플릿의 경우에는 Canvas의 서브클래스 객체이므로 애플릿에서는 그림을 자유롭게 그릴 수 있습니다.
+
+생성자 
+Canvas()
+메쏘드 
+public void paint(Graphics g)
+
+기본 Canvas paint()메쏘드를 재정의(override)하여 Canvas의 서브클래스로서 사용할 수 있습니다.
+---------------------------------------------------------------
+[예제 코드]
+---------------------------------------------------------------
+import java.applet.*;
+import java.awt.*;
+public class CanvasWidget extends Applet {
+public void init()
+{
+DrawingRegion region = new DrawingRegion(100,50);
+add(region);
+}
+}
+
+class DrawingRegion extends Canvas {
+int w,h;
+public DrawingRegion(int ww, int hh) {
+w=ww;
+h=hh;
+resize(w,h);
+}
+public void paint(Graphics g)
+{
+g.drawRect(0,0,w-1,h-1); // draw border
+g.drawString("A Canvas", 20,20);
+}
+}
+---------------------------------------------------------------
+
+
+Checkbox컴포넌트 생성
+--------------------------------------------------------------------------------
+ Checkbox컴포넌트 생성
+
+---------------------------------------------------------------
+3. Checkbox(체크박스)
+
+- Checkbox는 사용자가 선택표시를 할 수 있는 선택 라벨을 가진 작은 박스입니다.
+
+- 여러 가지의 속성이나 값 중에서 어느 하나 또는 여러 개를 선택할 필요가 있을 때 체크박스를 이용하면 쉽게 구현할 수 있습니다.
+
+- 한번에 오직 하나의 속성만 선택할 수 있도록 CheckboxGroup안에 하나 이상의 Checkbox를 그룹화 할 수도 있습니다
+
+
+생성자 
+Checkbox()
+// 라벨 없이 선택이 안되는 Checkbox를 생성
+
+Checkbox(String name)
+// name이라는 라벨만 선택되어지는 Checkbox를 생성
+
+Checkbox(String name, CheckboxGroup, boolean state)
+// 체크박스를 CheckboxGroup안에 name이라는 라벨로 표시
+
+메쏘드 
+String getLabel()
+// 라벨의 이름을 얻음
+
+String setLabel(String name)
+// 라벨의 이름을 설정
+
+boolean getState()
+// 체크박스의 현재 상태를 알려줍니다.
+
+void setState(boolean st)
+// 체크되어있는지 아닌지를 boolean형으로 표시
+
+CheckboxGroup getCheckboxGroup()
+// Checkbox가 CheckboxGroup에 속해 있는지 알림
+
+void setCheckboxGroup(CheckboxGroup g)
+// Checkbox의 CheckboxGroup를 g 만듬
+---------------------------------------------------------------
+
+[예제 코드]
+---------------------------------------------------------------
+import java.applet.*;
+import java.awt.*;
+public class CheckboxWidget extends Applet {
+public void init()
+{
+Checkbox m = new Checkbox("Allow Mixed Case");
+add(m);
+}
+}
+---------------------------------------------------------------
+
+
+문자열 배열의 List항목 자동 추가
+
+----------------------------------------------------------
+import java.awt.*;
+import java.applet.*;
+
+public class TestList extends Applet {
+List testList = new List(10, false);
+String names[] = {"java item", "info item", "shop item"};
+
+public void init() {
+for (int i = 0; i < names.length; i++)
+testList.addItem(names[i]);
+
+Panel p = new Panel();
+p.add(testList);
+add(p);
+}
+}
+-------------------------------------------------------------
+
+[HTML]
+----------------------------------------------
+<applet? code="TestList.class" width=300 height=300>
+</applet?>
+-----------------------------------------------

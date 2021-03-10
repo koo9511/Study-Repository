@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Select Change Background</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+/**
+ * 대상 : 2번째 div (인덱스 1)
+ * 기능 : background 변경
+ * 함수 : eq(), css()
+ */
+
+	function run() {
+		$('div').eq(1).css("background","gray");
+	}
+</script>
+
+</head>
+
+<body>
+	<div class="target"
+		style="color: rgb(102, 102, 102); width: 180px; height: 40px; border: 1px solid rgb(170, 170, 170); background-color: rgb(255, 240, 245); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		div.target<br>
+		<span
+			style="display: none; color: rgb(255, 255, 255); background-color: rgb(255, 165, 0); margin: 1px; border: 1px solid rgb(34, 34, 34); padding: 5px; background-position: initial initial; background-repeat: initial initial;">span</span>
+	</div>
+	<div class="target"
+		style="color: rgb(102, 102, 102); width: 180px; height: 40px; border: 1px solid rgb(170, 170, 170); background-color: rgb(255, 240, 245); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		div.target<br>
+		<span
+			style="display: none; color: rgb(255, 255, 255); background-color: rgb(255, 165, 0); margin: 1px; border: 1px solid rgb(34, 34, 34); padding: 5px; background-position: initial initial; background-repeat: initial initial;">span</span>
+	</div>
+	<div class="target"
+		style="color: rgb(102, 102, 102); width: 180px; height: 40px; border: 1px solid rgb(170, 170, 170); background-color: rgb(255, 240, 245); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		div.target<br>
+		<span
+			style="display: none; color: rgb(255, 255, 255); background-color: rgb(255, 165, 0); margin: 1px; border: 1px solid rgb(34, 34, 34); padding: 5px; background-position: initial initial; background-repeat: initial initial;">span</span>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

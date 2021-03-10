@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">라인 - lineJoin</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        
+        var lineJoin = ['round', 'bevel', 'miter'];
+        context.lineWidth = 10;
+
+        // lineJoin
+        for(var i=0, len=lineJoin.length; i<len; i++) {
+            context.lineJoin = lineJoin[i];
+            context.beginPath();
+            context.moveTo(-5,5+i*40);
+            context.lineTo(35,45+i*40);
+            context.lineTo(75,5+i*40);
+            context.lineTo(115,45+i*40);
+            context.lineTo(155,5+i*40);
+            context.stroke();
+        }
+    </script>
+    
+</body>
+</html>

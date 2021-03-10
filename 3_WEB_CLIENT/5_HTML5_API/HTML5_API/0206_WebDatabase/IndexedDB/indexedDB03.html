@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Create and Open, Delete IndexedDB</p>
+    <button id="delete">1. delete IndexedDB</button><br/>
+    <button id="create">2. create IndexedDB</button>    
+    <script>
+
+        var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;    // IDBFactory object
+        var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+        var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+        var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+            IDBCursor.PREV = IDBCursor.PREV || "prev";
+            IDBCursor.NEXT = IDBCursor.NEXT || "next";
+
+        var dbName = 'userDB';
+        var dbVersion = 1;
+        var database;
+
+        var createIdxDB = function() {
+
+            // ★★★ Creating and Opening IndexedDB
+            // 비동기로 데이터베이스와의 컨넥션을 생성
+            // versionchange 수행후 컨넥션을 동일한 이름의 데이터베이스가 있으면 데이터베이스와 컨넥션을 연결하고
+            // 없으면 주어진 이름으로 데이터베이스를 생성하고 success 이벤트 실행
+            // 데이터베이스의 버전이 명세된 버전보다 높다면 에러를 발생함.
+            // IDBFactory.open(string name, integer version);
+            // return IDBOpenDBRequest object
+            var request = indexedDB.open(dbName, dbVersion);    // IDBOpenDBRequest object
+
+            request.onsuccess = function(event) {
+                database = this.result;    // IDBDatabase object
+                alert('IndexedDB 오픈 완료');
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 오픈 중 에러 발생');
+            };
+            request.onupgradeneeded = function() {
+                alert('versionchange 수행');
+            };
+        };
+        
+        var deleteIdxDB = function() {
+            // ★★★ Deleting IndexedDB
+            // 비동기로 데이터베이스를 삭제
+            // IDBFactory.deleteDatabase(string name);
+            // return IDBOpenDBRequest object
+            // 데이터베이스와 컨넥션이 열려 있으면 blocked 이벤트 실행하고 컨넥션이 닫힌 이후에 삭제함.(IDBDatabase.close())
+            var request = indexedDB.deleteDatabase(dbName);    // IDBOpenDBRequest object
+
+            request.onsuccess = function(event) {
+                alert('IndexedDB 삭제 완료');
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 삭제 중 에러 발생');
+            };
+            request.onblocked = function() {
+                alert('Blocked!')
+            }
+        };
+
+        $('#create').on('click', createIdxDB);
+        $('#delete').on('click', deleteIdxDB);
+
+    </script>
+</body>
+</html>

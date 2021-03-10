@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Audio - 지원 확인</p>
+    <script>
+
+        //*
+        if(!!document.createElement('audio').canPlayType) {
+            alert('audio가 지원되는 브라우저입니다.');
+        } else {
+            alert('audio가 지원되지 않는 브라우저입니다.');
+        }
+        // */
+        
+        /* Modernizr
+        if(Modernizr.audio) {
+            alert('audio가 지원되는 브라우저입니다.');
+        } else {
+            alert('audio가 지원되지 않는 브라우저입니다.');
+        }
+        // */
+        // */
+    </script>
+    
+</body>
+</html>

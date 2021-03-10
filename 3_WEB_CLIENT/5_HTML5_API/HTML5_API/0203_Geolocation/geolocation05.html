@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation</title>
+    <!-- jQuery CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Modernizr CDN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Position Options</p>
+    <button id="btnGeolocation">확인</button>
+    <script>
+        // ★★★★ Position Options
+        var options = {
+            enableHighAccuracy : true,
+            maximumAge : 6000,    // 항상 캐싱된 위치를 얻고자 할때 maximunAge : Infinity
+            timeout : 45000
+        };
+        
+        $(function() {
+            $('#btnGeolocation').on('click', getGeoloaction);
+        });
+        
+        function getGeoloaction() {
+            if(!!window.navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, handleError, options);
+            } else {
+                $('#comment').html('Geolocation을 지원하지 않는 브라우저입니다.');
+            }
+        }
+        
+        // successCallback
+        function showPosition(position) {
+            $('#comment').html('위도 : ' + position.coords.latitude + '<br>' + '경도 : ' + position.coords.longitude);
+        }
+        
+        // errorCallback
+        function handleError(error) {
+            // 에러처리
+			alert(error);
+        }
+    </script>
+</body>
+</html>

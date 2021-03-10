@@ -1,0 +1,151 @@
+
+IDBEnviroment
+    Description
+        클라이언트 데이터베이스 접근 객체, window 객체에 의해 구현
+    Attributes
+        indexDB(readonly IDBFactory)
+
+IDBFactory
+    Description
+        데이터베이스 접근 객체, 글로벌 indexedDB 객체의 의해 구현, IndexedDB API의 entry point
+    Methods
+        open(string name) return IDBOpenDBRequest
+        open(string name, long version) return IDBOpenRequest
+        deleteDatabase(string name) return IDBOpenRequest
+    Attributes
+    
+IDBOpenDBRequest
+    Description
+        데이터베이스 open 요청 객체
+    Attributes
+        onblocked(function)
+        onupgradeneeded(function)
+    Event Handlers
+        onblocked
+        onupgradeneeded
+
+IDBDatabase
+    Description
+        데이터베이스 컨넥션 객체, 데이터베이스와의 트랜젝션을 위한 유일한 방법 
+    Methods
+        createObjectStore(string name, object optionalParameters) return IDBObjectStore
+        deleteObjectStore(string name) return IDBRequest
+        setVersion(string version) return IDBVersionChangeRequest : deprecated
+        transaction(any storeName, short mode) return IDBTransaction
+        close() return void
+    Attributes
+        name(readonly string)
+        version(readonly long)
+        objectNames(readonly stringList)
+
+IDBObjectStore
+    Description
+        객체 저장소 객체
+    Methods
+        add(any value, optional any key) return IDBRequest
+        clear() return void
+        count(optional any key) return IDBRequest
+        createIndex(string name, string keyPath, IDBIndexParameters optionalPrameters) return IDBIndex
+        delete(any key) return IDBRequest
+        deleteIndex(string indexName) return void
+        get(any key) return IDBRequest
+        index(string name) return IDBIndex
+        openCursor(IDBKeyRange range, optional short direction) return IDBRequest
+        put(any value, optional key) return IDBRequest
+    Attributes
+        indexNames(readonly stringList)
+        keyPath(readonly string)
+        name(readonly string)
+        transaction(readonly IDBTransaction)
+        autoIncrement(readonly boolean)
+        
+        ★ add()와 put()의 차이 : add -> insert, put -> insert or update
+        
+IDBRequest
+    Description
+        비동기 데이터베이스와 데이터베이스 객체 요청의 결과 객체
+    Attributes
+        result(readonly any)
+        error(readonly error)
+        source(readonly object)
+        transaction(readonly IDBTransaction)
+        readyState(readonly enum)
+        onerror(function)
+        onsuccess(function)
+    Constants
+        done : 2
+        pending : 1
+    Event Handlers
+        onerror
+        onsuccess
+        
+IDBTransaction
+    Description
+        트랜젝션 객체, 데이터베이스와의 트랜젝션 생성, 범위(scope) 명세
+    Methods
+        abort() return void
+        objectStore(string name) return IDBObjectStore
+    Attributes
+        db(readonly IDBDatabase)
+        mode(readonly string)
+        error(readonly error)
+        onabort(function)
+        oncomplete(function)
+        onerror(function)
+    Constants
+        READ_ONLY : 'readonly' (0 in chrome)
+        READ_WRITE : 'readwtire' (1 in chrome)
+        VERSION_CHANGE : 'versionchange' (2 in chrome)
+    Event Handlers
+        onabort
+        oncomplete
+        onerror
+        
+IDBIndex
+    Description
+        메타데이터의 인덱스 접근 객체
+    Methods
+        get(any key) return IDBRequest
+        getKey(any key) return IDBReqeust
+        count(optional key) return IDBReqeust
+        openCursor(any ? range, optional short direction) return IDBRequest
+        openKeyCursor(any ? range, optional short direction) return IDBRequest
+        
+IDBKeyRange
+    Description
+        key 범위 정의
+    Methods
+        bound(any lower, any upper, optional boolean lowerOpen, optional boolean upperOpen) return IDBKeyRange
+        only(any key) return IDBKeyRange
+        lowerBound(any bound, optional boolean open)
+        upperBound(any bound, optional boolean open)
+    Attributes
+        lower(readonly any)
+        upper(readonly any)
+        lowerOpen(readonly boolean)
+        upperOpen(readonly boolean)
+    
+IDBCursor
+    Description
+        객체 저장소와 인덱스를 순회
+    Methods
+        update(any value) return IDBRequest
+        advance(long count) return void
+        continue(optional key) return void
+        delete() return IDBRequest
+    Attributes
+        source(readonly object)
+        direction(readonly string)
+        key(readonly any)
+        primaryKey(readonly any)
+    Contants
+        NEXT : 'next'
+        NEXTUNIQUE : 'nextunique'
+        PREV : 'prev'
+        PREVUNIQUE : 'prevunique'
+        
+       
+      
+        
+        //http://html5-demos.appspot.com/static/html5storage/index.html
+        //http://html5demos.com/

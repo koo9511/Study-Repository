@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage StorageEvent</p>
+    <script>
+        $(window).on('storage', function(event) {
+            $('<p>key : ' + event.originalEvent.key + '</p>').appendTo(document.body);
+            $('<p>oldValue : ' + event.originalEvent.oldValue + '</p>').appendTo(document.body);
+            $('<p>newValue : ' + event.originalEvent.newValue + '</p>').appendTo(document.body);
+            $('<p>url : ' + event.originalEvent.url + '</p>').appendTo(document.body);
+        });
+        
+    </script>
+    
+</body>
+</html>

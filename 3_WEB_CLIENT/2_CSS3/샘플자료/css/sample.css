@@ -1,0 +1,92 @@
+@charset "utf-8";
+/*연습용 css 파일*/
+
+/*html, body, h2, h3, h4, ul, ol, hr */ 
+* {
+	margin: 10px;
+	padding: 0px;
+	/*border: 1px solid black;*/
+}
+
+body { font-size: 10pt;}
+
+ol {
+	font-family: serif;
+	font-size: 20pt;
+	list-style: none;
+	text-decoration: overline;
+}
+
+p#design {
+	background-color: black;
+	color: white;	
+	text-align: left;
+	height: 150px;
+	width: 300px;
+	vertical-align: middle;
+	line-height: 200%;
+	text-indent: 20px;
+	white-space: normal;
+	position: relative;	/*상대적인 위치를 사용함*/
+	/*원래 해당 태그가 표시될 위치를 기준으로 
+	  상/하/좌/우로 이동시킬수 있게 하겠다는 의미임*/
+	left: 50px;
+	top: 50px;
+	z-index: 3;
+}
+
+/*div 태그안에 사용된 p태그에 적용*/
+div p {
+	background-color: yellow;
+	color: blue;
+	font-style: italic;
+	font-weight: bold;
+	letter-spacing: 5px;
+/*	border-width: 3px;*/
+/*	border-style: dotted;*/
+/*	border-color: green;*/
+	border-top: 5px red solid;
+	border-bottom: 7px blue dashed;
+	border-left: 3px orange dotted;
+	border-right: 3px solid green;
+}
+
+a:link {
+	color: green;
+	text-decoration: none;
+	font-size: 14pt;
+	background-color: yellow;
+	visibility: visible;
+	cursor: help;
+}
+
+a:hover {
+	color: pink;
+	background-color: olive;
+	cursor: default;
+	position: relative;
+	left: 30px;
+	top: 10px;
+}
+
+div#uml {
+	text-transform: capitalize;
+	background-image: url("../images/back.jpg");
+	background-size: 15px;
+	background-repeat: repeat;
+	width: 300px;
+	height: 150px;
+	z-index: 2;
+	border: 3px solid white;
+	position: relative;
+	left: -10px;
+	top: -20px;
+}
+
+div#level1 {
+	width: 100%;
+	height: 400px;
+	background-color: gray;
+	z-index: 0;
+	border: 3px solid black;
+}

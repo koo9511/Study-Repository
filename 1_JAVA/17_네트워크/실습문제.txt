@@ -1,0 +1,118 @@
+[네트워크 실습문제]
+
+[문제 1]
+ - 패키지 : net.multi.chatting.server
+ - TCPServer 클래스를 멀티 스래딩 기능이 작동되게 내용 수정함
+ - 클래스명 수정 : TCPServerMulti
+	
+ - 수정내용 : 
+	1. 접속 가능한 클라이언트의 아이디와 암호를 Map 객체에 저장함
+	=> User 클래스 작성함
+	   //Field
+	   - userid : String	//아이디
+	   - userpwd : String	//암호
+	   - nickName : String	//닉네임
+
+	   //Constructor : default, 매개변수 있는 생성자 작성
+	   //getter and setter 작성함
+
+	=> HashMap<String, User> 객체를 필드로 선언함
+	=> 로그인한 클라이언트들의 소켓 정보를 관리함
+	   >> 동기화가 적용된 컬렉션 클래스를 사용함
+		: Vector 클래스 사용함
+		 (ArrayList 와 유사하나, 동기화처리가 된 클래스임)
+	=> TCPServerMulti 클래스 생성자 추가함
+	   >> 생성자 안에 접속할 사용자들에 대한 User 객체 정보를 
+	      객체배열로 저장한 다음, 맵 객체에 저장하도록 처리함
+	      키는 사용자의 아이디로 함
+
+	   샘플데이터>
+		userid	userpwd		nickName
+		-------------------------------------------------
+		user01	pass01		smileman
+		user02	pass02		prittywoman
+		user03	pass03		javajjang
+		test123	test123		testboy
+		p1234	p1234		pick
+
+	=> loginCheck(id, pwd) 메소드 추가
+	   첫번째로 전송된 정보로 회원인지 확인하고, 회원이 맞으면
+	   메세지 전송으로 넘어가고, 회원이 아니면 스트림을 닫도록 처리
+
+	=> public String loginCheck(String id, String pwd)
+		>> 구현내용 : 
+		전달된 아이디와 암호가 저장된 정보에 존재하는지
+		확인해서 등록된 회원일 때는 닉네임을 리턴처리함
+		존재하지 않으면 null 리턴함
+
+	2. 클라이언트가 보낸 메세지를 콘솔에 출력하는 메소드 작성
+	public void displayMsg(String clientMessage){}
+
+
+
+ - 로그인한 클라이언트들의 정보 관리용 클래스 작성
+	클래스명 : ClientHendler
+	
+	=> Thread 상속받음
+	=> 로그인이 성공했을 때 해당 클라이언트에 대한 스래드가 작동되도록
+	   처리함. 
+	   >> ClientHendler 객체에 연결된 클라이언트의 소켓객체 추가함
+		
+	
+
+	* 받은 메세지를 다른 클라이언트들 한테 전송하는 메소드 작성
+	=> 동기화 처리함
+	public void sendAll(String sendMessage){
+		ClientHendler 의 Vector 필드에 저장된 소켓 갯수만큼
+		반복 실행하면서, 각 소켓에 대한 출력스트림을 이용해
+		각 클라이언트에게 메세지 전송함
+		>> for 문 사용함
+	}
+[문제 2]
+ - net.multi.chatting.client.TCPClientMulti 
+
+ - 처리내용 :
+	=> Thread 상속받음
+	=> main()에서 클래스 객체 생성하고, start() 호출함
+	=> main() 안에 있던 소스는 전부 다 run() 메소드 안으로 옮김
+	=> run() 메소드 내에서의 예외처리는 try ~ catch 문 사용
+
+	1. login() 메소드 추가함
+	public boolean login(){}
+		=> 키보드로 아이디, 암호를 입력받아서
+		서버로 넘겨서, 결과메세지를 받아서 메세지 문자열 분리해서
+		첫 글자가
+		=> -1이면 false 리턴함
+		=> 0이면 true 리턴함
+		** 전송할 값의 형태 : 
+			"1:아이디:암호"
+		=> main()에 프로그램 실행하면 바로 로그인 작동되게
+		   처리함 : 리턴값이 true 이면 메세지 주고받기로 진행
+		   >> 닉네임을 문자열에서 꺼내서 메세지에 추가함
+		   false 이면 프로그램 종료
+
+	2. 메세지 주고받기용 메소드 추가함
+	public void chatting(){}
+	=> 키보드로 전송메세지 입력받아서 서버로 전송처리
+	   >> 전송문자열은
+	      "2:닉네임:입력문자열"
+	=> 서버로 부터 받은 메세지 화면 출력
+	   >> 서버로 부터 받은 문자열은
+	      "1:닉네임:전송문자열"
+	   >> "닉네임:전송메세지" 만 콘솔에 출력함
+	=> 키보드 입력값이 "quit"이면, 반복을 종료하고 스트림 닫음
+	=> main() 으로 리턴함
+
+
+
+
+
+
+
+
+
+
+
+
+
+

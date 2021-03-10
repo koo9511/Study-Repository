@@ -1,0 +1,146 @@
+[컬렉션 연습]
+
+<문제 1>
+ : Set 계열 클래스와 Random 사용
+ - 클래스명 : practice1.Lotto.java
+	>> main() 메소드 포함
+ - 메소드 추가 : public static void lottoDisplay(){}
+	>> 구현내용
+	1. 1 ~ 45 사이의 정수를 중복되지 않게, 6개 발생시켜
+	2. 자동 오름차순정렬되게 처리하는 Set 계열에 보관하고 
+	3. int[]로 바꾸어 출력함.
+
+
+<문제 2>
+ - 클래스명 : practice2.Book (직렬화)
+	//Field
+	- bNo : String	//도서번호
+	- category : int   //도서분류코드(1.인문/2.자연과학/3.의료/4.기타)
+	- title : String	//책제목
+	- author : String	//저자
+
+	//기본생성자, 매개변수 있는 생성자, getters and setters 작성함
+	//toString() 오버라이딩함
+
+ - 정렬 처리를 위한 클래스 작성함 : java.util.Comparator 인터페이스 상속받음
+		=> compare() 오버라이딩함
+	//카테고리 기준 오름차순 정렬용
+	practice2.AscCategory.java
+	//카테고리 기준 내림차순 정렬용
+	practice2.DescCategory.java (리턴값을 반대로 바꿈)
+
+
+ - 관리용 클래스 : BookManager.java
+	//Field
+	- bookList : ArrayList	
+
+	//기본생성자 : bookList 객체 생성함
+	//매개변수있는 생성자 : 다른 리스트를 전달받아. 
+	//		bookList 객체의 초기값으로 사용함
+
+	//Method
+	+ addBook(book:Book) : void	 //리스트에 객체 추가
+	+ deleteBook(int index) : void //리스트에서 객체 제거
+	+ searchBook(String bTitle) : int	
+		//도서명이 일치하는 객체를 찾아 해당 인덱스를 리턴
+		//도서명이 일치하는 객체가 리스트에 없으면, -1 리턴함
+	+ printBook(index:int) : void //인덱스 위치의 객체의 정보를 출력함
+	+ displayAll():void		//목록정보 모두 출력
+	+ sortedBookList():Book[]
+		// 해당 카테고리순 오름차순정렬해서 객체배열 리턴함
+
+	+ printBookList(Book[] br) : void
+		//객체 배열 출력, for each 문 사용
+
+	
+ - 클래스명 : TestBookManager.java   >> main() 포함
+	>> menu() 메소드 추가함
+	public static void menu(){}
+
+		=> 다음 내용이 출력되게 함
+		=> BookManager 클래스 객체 생성함
+
+	*** 도서 관리 프로그램 ***
+
+	1. 새 도서 추가	//addBook(inputBook() 이 리턴한 객체) 실행
+	2. 도서정보 정렬후 출력 //sortedBookList() 실행 
+			=> Book[] 리턴받아 printBookList(Book[]) 실행
+	3. 도서 삭제	//deleteBook(삭제할 인덱스) 실행
+	4. 도서 검색출력	//searchBook(검색할 도서명) 실행 
+			=> index 리턴받아 printBook(index) 실행
+	5. 전체 출력	//displayAll() 실행
+	6. 끝내기
+
+	>>추가, 삭제, 검색에 필요한 키정보는 키보드로 입력받도록 함
+	//Book 객체의 필드값을 키보드로 입력받아 초기화하고 객체 리턴
+	+ static inputBook() : Book
+
+	//삭제 또는 검색을 위한 도서 타이틀을 키보드로 입력받아 리턴
+	+ static inputBookTitle() : String
+
+	>> 끝내기 메뉴 선택 전까지는 메뉴 반복 실행되도록 처리함
+
+<문제 3>
+ - 클래스명 : practice3.BookManagerMap.java
+	//Field
+	- booksMap : HashMap	//도서번호를 키로 사용함
+
+	//기본생성자 : 맵 객체 생성함
+	//매개변수있는 생성자 : 다른 맵을 전달받아. 
+	//		booksMap 객체의 초기값으로 생성함
+
+	//Method
+	+ putBook(book:Book) : void	//맵에 객체 추가, 도서번호를 키로 사용함
+	+ removeBook(key:String) : void	//맵에서 객체 제거
+	+ searchBook(String bTitle) : String	: entrySet() 사용
+		//도서명이 일치하는 객체의 도서번호를 리턴
+		//도서명이 객체가 맵에 없으면, null 리턴함
+	+ displayAll():void		//맵정보 모두 출력 : keySet() 사용
+	+ sortedBookMap():Book[]
+		// 해당 도서명순으로 오름차순정렬해서 객체배열 리턴함
+	+ printBookMap(Book[] br) : void
+		//객체 배열 출력, for each 문 사용
+	+ printBook(key:String) : void	//
+
+- 실행용 : practice3.TestBookManagerMap.java
+	=> 실행은 [문제 2] 와 같은 방식으로 작동되게 함
+
+[문제 4]
+ - Student 클래스 작성 : practice4.Student.java
+	//Field
+	- int sno;
+	- String sname;
+	- int kor, eng, mat, tot, avg;
+	//생성자, getter, setter, toString() 오버라이딩 처리
+
+ - 테스트 클래스 : practice4.TestProperties.java
+	main() 포함
+ - 메소드 추가 : public Student[] readFile(){}
+	//구현 내용
+	1. Properties 객체 생성하고, score.txt 파일의 내용을 읽어
+	2. 리스트 만듦
+	3. 키를 사용하여, 객체정보를 Student[] 에 저장하여 리턴함
+	  => ", " 으로 문자열 분리처리
+	  => 분리된 문자열을 각 자료형 필드의 값으로 형변환 대입 저장함
+	  => 세 과목의 합계와 평균을 구해서 각 필드에 기록함
+
+ - 메소드 추가 : public void printConsole(Student[] sr){}
+	1. 전달받은 값 출력
+	2. 각 객체의 국어합계, 영어합계, 수학합계를 구하고
+	3. 과목별 평균점수를 출력함
+ - 메소드 추가 : public void saveXMLFile(Student[] sr){}
+	1. "student.xml" 파일에 번호필드를 key로 객체가 가진 값 기록 저장함.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

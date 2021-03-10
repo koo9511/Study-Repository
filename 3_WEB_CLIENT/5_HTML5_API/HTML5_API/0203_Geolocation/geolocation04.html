@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation</title>
+    <!-- jQuery CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Modernizr CDN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <script>
+        var watcher = null;
+        var options = {
+            enableHighAccuracy : true,
+            timeout : 45000
+        };
+        
+        if(!!window.navigator.geolocation) {            
+            watcher = navigator.geolocation.watchPosition(showPosition, handleError, options);
+        } else {
+            alert('Geolocation을 지원하지 않는 브라우저입니다.');
+        }
+
+        // successCallback
+        function showPosition(position) {
+            // ★★★★ watchPosition 설정을 해제하는 메소드Navigator.geolocation.clearPosition(watchId)
+            alert('위도 : ' + position.coords.latitude + '<br>' + '경도 : ' + position.coords.longitude);
+			navigator.geolocation.clearWatch(watcher);
+        }
+        
+        // errorCallback
+        function handleError(error) {
+            // 에러처리
+        }
+    </script>
+</body>
+</html>

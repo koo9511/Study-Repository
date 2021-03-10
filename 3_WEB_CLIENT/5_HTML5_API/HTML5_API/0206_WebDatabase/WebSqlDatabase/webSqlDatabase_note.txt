@@ -1,0 +1,47 @@
+Web SQL Database
+    브라우저에 내장된 RDBMS
+    SQLite 사용
+    
+DataDbase API
+    Asynchronous API
+        데이터베이스 접근 = 백그라운드 & 비동기
+        callback 함수 이용
+    Synchronous API
+        데이터베이스 접근 = 포그라운드 + 실시간
+        메서드 호출
+        Thread에서 데이터베이스 접근 시 Worker 사용
+        
+Core Methods
+    openDatabase(string databaseName, string version, string description, number databaseSize, optional callback)
+        데이터베이스 open
+        databaseName : 데이터베이스 명
+        version : 데이터베이스 버전
+        description : 데이터베이스 설명
+        databaseSize : 데이터베이스 사이즈(byte)
+        callback : 콜백함수
+        ★ 데이터베이스를 지울 방법은 없음.
+    
+    Database.transaction(callback, errorCallback, successCallback)
+        트랜젝션 시작
+        callback : 트랜젝션 내에서 처리할 내용을 처리하는 함수
+        errorCallback : 에러 콜백함수
+        successCallback : 성공 콜백함수
+    SQLTransaction.executeSql(string sql, args, successCallback, errorCallback)
+        sql : 실행할 SQL문
+        args : SQL 구문의 ?를 대체할 값(배열)
+        successCallback : 성공 콜백함수
+        errorCallback : 에러 콜백함수
+
+SQLResult
+    SQL문을 실행한 결과 정보 객체
+    
+executeSql() 함수의 성공 콜백함수인 successCallback의 두번째 인자
+    insertId : INSERT문의 결과로 자동 생성된 ID
+    rowsAffected : UPDATE, DELETE문으로 영향을 받은 row 갯수
+    rows : SELECT문을 실행한 결과
+        rows.length : rows의 길이
+        rows.item()
+    
+Schema update
+    changeVersion(oldVersion, newVersion, callback, errorCallback, successCallback)
+        데이터베이스 버전 변경

@@ -1,0 +1,30 @@
+[클래스 객체 배열]
+
+- 클래스 자료형 객체가 여러 개 필요할 경우,
+  배열을 사용하면 편리함
+- 객체 배열은 기본 자료형 2차원배열과 구조가 같음
+	예>
+	Employee e1 = new Employee(....);
+	Employee e2 = new Employee(....);
+	.....
+	Employee e100 = new Employee(....);
+	=> 객체 배열이란, 레퍼런스변수들의 묶음이다.
+	Employee[] ear = new Employee[100];
+	//힙 메모리에 Employee 의 주소보관용 레퍼런스변수 100개를 연속할당함
+	ear[0] = new Employee(....);
+	.....
+	ear[99] = new Emplyee(....);
+	//객체를 힙에 할당하고, 그 주소를 배열 인덱스 순으로 레퍼런스에 기록함
+
+	for(int i = 0; i < ear.length; i++)
+	{
+		ear[i].메소드명(전달값);
+	}
+
+ - 객체배열의 초기화
+	예>
+	Employee[] ear = {new 생성자(...), new 생성자(...), .... };
+	Employee[] ear = new Employee[]{new 생성자(...), new 생성자(...), .... };
+
+
+

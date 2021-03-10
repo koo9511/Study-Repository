@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">이미지 - Scaling</p>
+    <!-- 원본 이미지 사이즈 -->
+    <img src="rhino.jpg" width="300" height="227" />
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        var img = new Image();
+        img.src = 'rhino.jpg';
+        img.onload = function() {
+            for(var i=0; i<2; i++) {
+                for(var j=0; j<3; j++) {
+                    // 이미지 사이즈 조정
+                    context.drawImage(img, j*50, i*30, 50, 38);
+                }
+            }
+        };
+
+    </script>
+    
+</body>
+</html>

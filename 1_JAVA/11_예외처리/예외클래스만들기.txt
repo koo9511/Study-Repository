@@ -1,0 +1,24 @@
+<사용자 정의 예외 클래스 만들기>
+1. java.lang.Exception 클래스를 상속받아야 함
+	class 예외클래스명 extends Exception
+	{}
+2. 생성자 구현함(default, 매개변수 있는 생성자)
+	public 예외클래스명(){}
+	public 예외클래스명(String message)
+	{ super(message); }
+3. 메소드 코드 중 지정한 에러상황에서 Exception 발생
+   시킴
+   .... 메소드명(...) throws 예외클래스명
+   {
+	if(에러조건제시)
+	** 예외 발생 구문
+	throw new 예외클래스명(에러메세지);
+	=> 주의 : 발생 위치에서 직접 해결하지 않음
+	=> 해당 메소드 사용위치로 넘김
+   }
+4. 해당 메소드를 호출한 쪽에서 예외 처리함.
+	: try ~ catch 구문 사용
+	try{
+		레퍼런스.메소드(..);
+	}catch(예외클래스명 레퍼런스)
+	{  처리 내용    }

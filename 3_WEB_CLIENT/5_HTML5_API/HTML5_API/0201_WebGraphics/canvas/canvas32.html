@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Transformations - transform</p>
+    <canvas id="myCanvas" width="500" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+    
+        context.fillStyle = 'skyblue';
+        context.fillRect(0,0,100,100);
+        
+        // transform(m11, m12, m21, m22, dx, dy)
+        // m11 : 수평 사이즈
+        // m12 : 수평 외곡
+        // m21 : 수직 외곡
+        // m21 : 수직 사이즈
+        // dx : 수평 이동
+        // dy : 수직 이동
+        
+        //* 수평 사이즈
+        context.transform(2,0,0,1,200,100);
+        context.fillStyle = 'orange';
+        context.fillRect(0,0,100,100);
+        // */
+        
+        /* 수평 외곡 
+        context.transform(1,0,0,2,200,100);
+        context.fillStyle = 'orange';
+        context.fillRect(0,0,100,100);
+        // */
+        
+        /* 수직 외곡 
+        context.transform(1,0.5,0,1,200,100);
+        context.fillStyle = 'orange';
+        context.fillRect(0,0,100,100);
+        // */
+        
+        /* 수평 외곡 
+        context.transform(1,0,0.5,1,200,100);
+        context.fillStyle = 'orange';
+        context.fillRect(0,0,100,100);
+        // */
+        
+        /* 혼합 
+        context.transform(1,0.2,0.3,1.2,200,100);
+        context.fillStyle = 'orange';
+        context.fillRect(0,0,100,100);
+        // */
+        
+        context.fillStyle = 'black';
+        context.font = '20px verdana';
+        context.fillText('Transform', 0, 0);
+    
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script type = "text/javascript" src="../lib/jquery.min.js">
+        </script>
+        <script type = "text/javascript" src = "../dist/jquery.indexeddb.js">
+        </script>
+        <script type = "text/javascript" src = "sampleData.js">
+        </script>
+        <script type = "text/javascript">
+            function _(msg){
+            	console.info(">>>>", msg, arguments.callee.caller.arguments);
+            }
+            
+            function ok(){
+            	console.log.apply(console, arguments)
+            }
+            
+            var start = nextTest = stop = function(){
+            
+            }
+            
+            var equal = notEqual = function(){
+            	console.info.apply(console, arguments);
+            }
+
+            function _(msg){
+                return function(){
+                    console.log(msg, arguments);
+                }
+            }
+        </script>
+        <script type = "text/javascript">
+         $.indexedDB(DB.NAME, {
+                    "version": 5,
+                    "upgrade": function(versionTransaction){
+                        _("Upgrade method called");
+                        var objectStore3 = versionTransaction.createObjectStore(DB.OBJECT_STORE_3);
+                    }
+                }).then(function(res, e){
+                    ok(true, "Database opened");
+                    equal(res.objectStoreNames.length, 3, "Number of object stores " + res.objectStoreNames.length);
+                    start();
+                    nextTest();
+                }, function(err, e){
+                    ok(false, "Could not open database");
+                    _("Opening database failed");
+                    start();
+                    nextTest();
+                }, function(res, e){
+                    ok(true, e.type + " method fired");
+                    _("Database upgrade in progress");
+                    start();
+                    stop();
+                });
+        </script>
+    </body>
+</html>

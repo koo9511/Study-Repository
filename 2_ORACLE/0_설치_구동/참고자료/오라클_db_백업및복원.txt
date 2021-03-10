@@ -1,0 +1,43 @@
+-백업(Export) :데이타와 구조를 바이너리 파일로 저장
+
+  dos>exp userid=아이디/비밀번호@전역데이타베이스명(xe) file=저장경로
+  예]  
+ 
+  1. system계정으로 전체 백업
+  
+   dos>exp userid=system/비밀번호@전역데이타베이스명 full=y file=c:\dump.dmp
+  
+  2. system 계정으로 scott 계정에 있는 DB백업
+   dos>exp userid=system/비밀번호@전역데이타베이스명 owner=scott file=c:\dump.dmp
+  
+  3. scott계정으로 자신의 모든 데이타 백업
+   dos>exp userid=scott/비밀번호@전역데이타베이스명 file=c:\dump.dmp
+
+  4. scott계정으로 emp테이블만 백업
+   dos>exp userid=scott/비밀번호@전역데이타베이스명 file=c:\dump.dmp tables=emp
+   *여러개 테이블을 동시에 받으려면 tables=(테이블1,테이블2,...)
+  
+  *백업 파일의 확장자는 보통 .dmp 혹은 .dat .bak으로 한다 한다.
+
+ -복원(Import)
+  imp 아이디/비밀번호@전역데이타베이스명 file=백업경로
+  
+  예]
+  1. system계정으로 전체 복원
+   
+   dos>imp system/비밀번호@전역데이타베이스명 file=c:\dump.dmp
+  
+  
+  2. system 계정으로 scott 계정에 있는 DB복원
+   dos>imp system/비밀번호@전역데이타베이스명 fromuser=scott touser=scott file=c:\dump.dmp
+
+  3. :scott계정으로 자신의 모든 데이타 백업
+   
+   dos>imp scott/비밀번호@전역데이타베이스명 file=file=c:\dump.dmp
+
+  4. :복원하고자하는 DB에 같은 이름의 Object가 있을때,오류를 무시하고 건너 띄고 싶을때 ignore 옵션사용
+   dos>imp 아이디/비밀번호@전역데이타베이스명 file=c:\dump.dmp ignore=y
+
+  5. system계정으로 들어가 scott에서 Export한 데이터를 scott2에게 Import
+   
+   dos>imp system/비밀번호@전역데이타베이스명 fromuser=scott touser=scott2 file=c:\dump.dmp

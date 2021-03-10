@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Transformations - translate</p>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = 'skyblue';
+        context.fillRect(10,10,100,50);
+        // translate : 원점 변경
+        context.translate(100,100);
+        context.fillRect(0,0,100,50);
+        context.fillRect(100,100,100,50);
+
+    </script>
+    
+</body>
+</html>

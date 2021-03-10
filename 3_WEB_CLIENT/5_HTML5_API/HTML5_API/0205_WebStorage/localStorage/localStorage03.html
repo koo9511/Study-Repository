@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage API - getItem()</p>
+    <script>
+        
+        if(window.localStorage) {
+
+            // localStorage getItem
+            console.log('localStorage : bookName : ' + localStorage.bookName);
+            console.log('localStorage : title : ' + localStorage['title']);
+            console.log('localStorage : author : ' + localStorage.getItem('author'));
+            
+            // sessionStorage getItem
+            console.log('sessionStorage : LoginUser : ' + sessionStorage.LoginUser);
+            console.log('sessionStorage : userId : ' + sessionStorage['userId']);
+            console.log('sessionStorage : loginDate : ' + sessionStorage.getItem('loginDate'));
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+
+    </script>
+    
+</body>
+</html>

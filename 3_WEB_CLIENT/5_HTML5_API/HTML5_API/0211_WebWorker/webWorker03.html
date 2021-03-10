@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worekr</title>
+    <!-- jQuery CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Modernizr CDN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Web Worker 통신</p>
+    <script>
+        var worker;
+        
+        // Web Worker 지원여부 확인
+        if(!!window.Worker) {            
+            worker = new Worker('myWorker.js');
+            
+            // ★★★★ Web Worker로부터 메세지 수신
+            worker.onmessage = function(event) {
+                alert(event.data);
+            };
+            
+            // ★★★★ Web Worker로 메세지 송신
+            worker.postMessage('여러분');
+            
+        } else {                
+            alert('Web Worker를 지원하지 않는 브라우저입니다.')
+        }
+
+    </script>
+</body>
+</html>

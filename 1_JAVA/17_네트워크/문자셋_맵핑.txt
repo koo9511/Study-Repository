@@ -1,0 +1,170 @@
+import java.sql.*;
+class JDBCBugWorkaround
+{   public static void main(String[] args)
+        throws ClassNotFoundException, SQLException,
+               java.io.UnsupportedEncodingException
+    {   Class.forName("com.imaginary.sql.msql.MsqlDriver");
+        Connection con = DriverManager.getConnection(
+            "jdbc:msql://" + args[0]);
+        Statement stmt = con.createStatement();
+        ResultSet rs =
+            stmt.executeQuery( toDB("SELECT * FROM student WHERE name = '김철수'") );
+        while(rs.next())
+        {
+            int id = rs.getInt("id");
+            String name = fromDB(rs.getString("name"));
+            String phone = rs.getString("phone");
+            System.out.println("id: " + id +
+                               ", name: " + name +
+                               ", phone: " + phone);
+        }
+        stmt.close();
+        con.close();
+    }
+    static String toDB(String str)
+        throws java.io.UnsupportedEncodingException
+    {   return new String( str.getBytes("KSC5601"), "8859_1" );
+    }
+    static String fromDB(String str)
+        throws java.io.UnsupportedEncodingException
+    {   return new String( str.getBytes("8859_1"), "KSC5601" );
+    }
+}
+
+
+//-----------------------------------------------------
+
+/*
+ * @(#)DB.java	1.1 98/02/25
+ *
+ * Program Type: Package
+ *
+ * Purposes: 
+ *    3. 유니코드 2.0과 유니코드 1.1, 1.2와의 한글 표현 차이를 보완한다.
+ *       (오라클 7 JDBC 드라이버의 경우)
+ *    4. KSC5601 문자를 지원하지 않고 8859-1 문자만을 지원하는 JDBC 드라이버에서 
+ *       한글이 저장, 검색되게 한다. (기타 다수 JDBC 드라이버)
+ *
+ * Background Information for Unicode 2.0 and Unicode 1.0, 1.1, 1.2 Hangul Representations:
+ *
+ *    - 유니코드 2.0 한글 영역: 0xac00 ~ 0xd7a3 (11172자)
+ *    - 유니코드 1.1의 KSC5601 대응 한글 영역: 0x3400 ~ 0x3d2d (2350자) (Unicode 1.0)
+ *    - 유니코드 1.1의 한글 보충 영역 A, B: 0x3d2e ~ 0x4dff (4306자) (Unicode 1.1, 1.2)
+ *            (참고: DB.java는 이 영역을 지원하지 않는다.)
+ *    - KSC5601 한글 영역: 0xb0a1 ~ 0xc8fe (2350자)
+ *
+ * Author: Deogtae Kim , 98/02/25
+ */
+import java.sql.*;
+class DB
+{
+    // For verfication of this package.
+    public static void main( String[] args )
+    {
+        // For conversion between Unicode 2.0 and 1.2
+        if ( ! toUni12( "a\uac00" ).equals( "a\u3400" ) ||
+             ! toUni12( "a\ud79d" ).equals( "a\u3d2d" ) ||
+             ! fromUni12( "a\u3400" ).equals( "a\uac00" ) ||
+             ! fromUni12( "a\u3d2d" ).equals( "a\ud79d" )) 
+            System.out.println( "Conversions between Unicode 1.2 and 2.0 failed." );
+        else
+            System.out.println( "Conversions between Unicode 1.2 and 2.0 are O.K." );
+        // For conversion between KSC5601 range and 8859-1 range in Unicode 2.0
+        if ( ! to8859_1( "a\uac00" ).equals( "a\u00b0\u00a1" ) ||
+             ! from8859_1( "a\u00b0\u00a1" ).equals( "a\uac00" ) )
+            System.out.println( "Conversions between KSC5601 range and 8859-1 range"
+                                + " in Unicode 2.0 failed." );
+        else
+            System.out.println( "Conversions between KSC5601 range and 8859-1 range"
+                                + " in Unicode 2.0 are O.K." );
+    }
+    // Unicode 2.0 -> Unicode 1.2
+    public static String toUni12( String uni20 )
+    {
+        int len = uni20.length();
+        char[] out = new char[len];
+        for( int i = 0; i < len; i++ )
+        {
+            char c = uni20.charAt(i);
+            if ( c < 0xac00 || 0xd7a3 < c )
+            {
+                out[i] = c;
+            } else  // 유니코드 2.0 한글 영역
+            {
+                try
+                {
+                    byte[] ksc = String.valueOf(c).getBytes("KSC5601");
+                    if ( ksc.length != 2 )
+                    {
+                        out[i] = '\ufffd';
+                        System.err.println(
+                            "Warning: Some of Unicode 2.0 hangul character was ignored." );
+                    } else
+                    {
+                        out[i] = (char) ( 0x3400 +
+                                          ((ksc[0] & 0xff) - 0xb0) * 94 +
+                                          (ksc[1] & 0xff) - 0xa1 );
+                    }
+                } catch( java.io.UnsupportedEncodingException ex )
+                {   throw new InternalError(
+                        "Fatal Error: KSC5601 encoding is not supported." );
+                }
+            }
+        }
+        return new String( out );
+    }
+    // Unicode 1.2 -> Unicode 2.0
+    public static String fromUni12( String uni12 )
+    {
+        int len = uni12.length();
+        char[] out = new char[len];
+        byte[] ksc = new byte[2];
+        for( int i = 0; i < len; i++ )
+        {
+            char c = uni12.charAt(i);
+            if ( c < 0x3400 || 0x4dff < c )
+            {
+                out[i] = c;
+            } else if ( 0x3d2e <= c ) // 유니코드 1.2 한글 보충 영역 A, B
+            {
+                System.err.println(
+                    "Warning: Some of Unicode 1.2 hangul character was ignored." );
+                out[i] = '\ufffd';
+            } else // 유니코드 1.2의 KSC5601 대응 한글 영역
+            {
+                try
+                {
+                    ksc[0] = (byte) ( (c - 0x3400) / 94 + 0xb0 );
+                    ksc[1] = (byte) ( (c - 0x3400) % 94 + 0xa1 );
+                    out[i] = new String( ksc, "KSC5601" ).charAt(0);
+                } catch( java.io.UnsupportedEncodingException ex )
+                {   throw new InternalError(
+                        "Fatal Error: KSC5601 encoding is not supported." );
+                }
+            }
+        }
+        return new String( out );
+    }
+    // KSC5601 range in Unicode 2.0 -> 8859_1 range in Unicode 2.0
+    public static String to8859_1( String ksc )
+    {   
+        try
+        {
+            return new String( ksc.getBytes("KSC5601"), "8859_1" );
+        } catch( java.io.UnsupportedEncodingException ex )
+        {   throw new InternalError(
+                "Fatal Error: KSC5601 or 8859_1 encoding is not supported." );
+        }
+    }
+    // 8859_1 range in Unicode 2.0 -> KSC5601 range in Unicode 2.0
+    public static String from8859_1( String iso8859_1 )
+    {
+        try
+        {
+            return new String( iso8859_1.getBytes("8859_1"), "KSC5601" );
+        } catch( java.io.UnsupportedEncodingException ex )
+        {   throw new InternalError(
+                "Fatal Error: KSC5601 or 8859_1 encoding is not supported." );
+        }
+    }
+}

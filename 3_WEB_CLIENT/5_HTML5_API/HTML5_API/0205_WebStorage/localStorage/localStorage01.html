@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage - 지원 확인</p>
+    <script>
+        //
+        if(window.localStorage) {
+            alert('localStorage가 지원되는 브라우저입니다.');
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+        
+        // Modernizr을 이용한 지원 확인
+        /*
+        if(Modernizr.localstorage) {
+            alert('localStorage가 지원되는 브라우저입니다.');
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+        // */
+        
+        //http://html5-demos.appspot.com/static/html5storage/index.html
+        //http://html5demos.com/
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+[객체 파일 입출력 실습문제 3]
+ - 패키지 : day20.silsub3
+
+1. 객체로 사용할 클래스 : Book.java //직렬화 처리함
+
+	* Field
+	- title:String	//도서명
+	- author:String	//저자
+	- price:int	//가격
+	- dates:Calendar	//출판날짜
+	- discountRate:double	//할인율
+
+	* Constructor
+	+ 디폴트 생성자
+	+ 매개변수 있는 생성자
+
+	* Method
+	+ Setters ans Getters 작성
+	+ toString():String		//Override
+		: 날짜에 포맷 적용함 ("yyyy'년' MM'월' dd'일 출간')
+
+2. 객체입출력 처리용 클래스 : BookManager.java
+	* Field
+	~ sc:Scanner	//초기화 객체 생성함
+
+	* default 생성자
+
+	* Method
+	+ fileSave():void
+	>> 구현내용
+		1. Book 객체 배열 선언, 5개 초기화함 //샘플데이터 임의 작성
+		2. "books.dat" 파일에 객체 기록 저장함
+		3. try with resource 문 사용할 것
+		4. "books.dat 에 저장 완료!" 출력
+
+	+ fileRead():void
+	>>구현내용
+		1. Book 객체 배열 선언 : 10개
+		2. "books.dat" 파일에서 데이터 읽어서 배열에 저장함
+		3. 객체 정보를 화면에 출력함
+		4. try with resource 문 사용할 것
+		5. "books.dat 읽기 완료!" 출력
+
+3. 테스트용 클래스 : TestBookManager.java
+	main() 포함
+	1. BookManager 클래스의 메소드 실행 테스트함

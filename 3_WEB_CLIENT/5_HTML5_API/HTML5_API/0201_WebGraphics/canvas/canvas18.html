@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">그라디언트 - createRadialGradient</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        // 그라디언트 생성
+        var radGradient = context.createRadialGradient(45,45,10,52,50,30);
+        radGradient.addColorStop(0, '#A7D30C');
+        radGradient.addColorStop(0.9, '#019F62');
+        radGradient.addColorStop(1, 'rgba(1,159,98,0)');
+        
+        context.fillStyle = radGradient;
+        context.fillRect(0,0,150,150)
+
+    </script>
+    
+</body>
+</html>

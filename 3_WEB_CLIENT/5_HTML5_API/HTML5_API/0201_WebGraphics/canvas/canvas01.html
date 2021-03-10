@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Canvas 지원 확인</p>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context;
+        if(canvas.getContext) {
+            context = canvas.getContext('2d');
+            alert('canvas가 지원되는 브라우저입니다.');
+        } else {
+            alert('canvas가 지원되지 않는 브라우저입니다.');
+        }
+        
+        // Modernizr을 이용한 지원 확인
+        /*
+        if(Modernizr.canvas) {
+            context = canvas.getContext('2d');
+            alert('canvas가 지원되는 브라우저입니다.');
+        } else {
+            alert('canvas가 지원되지 않는 브라우저입니다.');
+        }
+        // */
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+     <style>
+         svg {border:1px solid black}
+     </style>
+</head>
+<body>
+    <p id="comment">SVG 컨텐츠 재사용</p>
+    
+    <!-- SVG 컨텐츠 재사용 : defs, use element -->
+    <svg width="300" height="300">
+        
+        <!-- 재사용할 컨텐츠 정의 -->
+        <defs>
+            <g id="shapeGroup">
+                <rect x="10" y="20" width="100" height="80" stroke="red" fill="#ccc" />
+                <circle cx="120" cy="80" r="40" stroke="blue" fill="none" stroke-width="8" />
+            </g>
+        </defs>
+        
+        <!-- 재사용될 컨텐츠를 링크하여 재사용 -->
+        <use xlink:href="#shapeGroup" />
+        <use xlink:href="#shapeGroup" transform="translate(120, 150) scale(0.5)" />
+    </svg>
+
+</body>
+</html>

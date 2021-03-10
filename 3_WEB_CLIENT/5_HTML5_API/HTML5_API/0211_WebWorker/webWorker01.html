@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worker</title>
+    <!-- jQuery CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Modernizr CDN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Web Worker 지원여부 확인</p>
+    <button id="btnGeolocation">Web Worker 지원여부 확인</button>
+    <script>
+        $(function() {
+            $('#btnGeolocation').on('click', supportWebWorker);
+        });
+        
+        // 지원여부 확인
+        function supportWebWorker() {
+            // Geolocation 지원여부
+            alert(!!window.Worker);
+            
+            // Boolean으로 typecasting을 하지 않으면
+            //alert(window.navigator.geolocation);
+        }
+        
+        // Modernizr을 이용한 지원여부 확인
+        function supportWebWorkerByModernizr() {
+            alert(Modernizr.webworkers);
+        }
+    </script>
+</body>
+</html>

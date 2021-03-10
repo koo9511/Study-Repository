@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">텍스트 - textAlign</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        
+        context.strokeStyle = 'blue';
+        context.moveTo(150, 20);
+        context.lineTo(150, 170);
+        context.stroke();
+        
+        context.font ='15px verdana';
+        
+        // textAlign
+        context.textAlign = 'start';
+        context.fillText('start', 150, 60);
+        
+        context.textAlign = 'end';
+        context.fillText('end', 150, 80);
+        
+        context.textAlign = 'left';
+        context.fillText('left', 150, 100);
+        
+        context.textAlign = 'center';
+        context.fillText('center', 150, 120);
+        
+        context.textAlign = 'right';
+        context.fillText('right', 150, 140);
+
+    </script>
+    
+</body>
+</html>

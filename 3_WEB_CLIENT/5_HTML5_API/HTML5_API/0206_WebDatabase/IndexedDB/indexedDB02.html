@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">IndexedDB API 브라우저별 초기화</p>
+    <script>
+
+        //*
+        // 브라우저 벤더별 indexedDB 객체 초기화
+        // IDBFactory Object
+        window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+        console.log(window.indexedDB);
+        
+        if(!!window.indexedDB) {
+
+            // 브라우저 벤더별 IDBTransaction API 초기화
+            window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+            //console.log(window.IDBTransaction);
+            
+            // 브라우저 벤더별 IDBKeyRange API 초기화(Mozilla는 벤더 prefix 사용치 않음.)
+            window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+            //console.log(window.IDBKeyRange);
+            
+            // 브라우저 벤더별 IDBCursor API 초기화
+            window.IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+            window.IDBCursor.PREV = window.IDBCursor.PREV || "prev";
+            window.IDBCursor.NEXT = window.IDBCursor.NEXT || "next";
+
+        } else {
+            alert('IndexedDB가 지원되지 않는 브라우저입니다.');
+        }
+        // */
+
+    </script>
+    
+</body>
+</html>

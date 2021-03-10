@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Change Tag</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	/**
+	 * 대상 : div 내부 h2
+	 * 기능 : 태그 변경 (h2 => h3)
+	 * 함수 : html(), replace()
+	 */
+	function run() {
+		$('div').html().replace("h2","h3");
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(51, 51, 51); width: 155px; height: 150px; float: left; border: 1px solid rgb(34, 34, 34); background-color: rgb(102, 205, 170); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		#target<br>
+		<h2
+			style="padding: 5px; border: 1px solid rgb(119, 119, 119); background-color: rgb(221, 255, 0); background-position: initial initial; background-repeat: initial initial;">I'm
+			h2</h2>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Transformations - setTransform</p>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = "skyblue";
+        context.fillRect(0,0,250,100);
+        
+        /* transform 적용
+        context.transform(1,0.5,-0.5,1,30,10);
+        context.fillStyle = "orange";
+        context.fillRect(0,0,250,100);
+        // */
+        
+        /* setTransform 적용으로 이전 tranform matrix reset
+        context.setTransform(1,0,0,1,30,10);
+        context.fillStyle = "blue";
+        context.fillRect(0,0,250,100); 
+        // */
+    </script>
+    
+</body>
+</html>

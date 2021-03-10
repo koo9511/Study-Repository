@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Create Clone</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+/**
+ * 대상 : div
+ * 기능 : 복사 & 추가
+ * 함수 : clone(), insertAfter()
+ */
+
+	function run() {
+		$('div').clone().insertAfter('span');
+		
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(255, 255, 255); width: 180px; height: 100px; float: left; border: 1px solid rgb(34, 34, 34); background-color: rgb(34, 139, 34); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		div#target<br>
+		<br>
+		<br>
+		<span
+			style="color: rgb(255, 255, 255); background-color: rgb(255, 165, 0); margin: 10px; border: 1px solid rgb(34, 34, 34); padding: 5px; background-position: initial initial; background-repeat: initial initial;">span</span>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

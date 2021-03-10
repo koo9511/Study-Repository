@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 메뉴만들기 </title>
+  <style type="text/css">
+	.navi { 
+		list-style-type: none; 
+		height: 40px; 
+		padding: 0; 
+		margin: 0; 
+	}
+	
+	.navi li { 
+		float: left; 
+		position: relative; 
+		padding: 0; 
+		line-height: 40px; 
+		background:#600;
+	}
+	
+	.navi li a { 
+		display: block; 
+		font-family:"굴림"; 
+		font-weight:600; 
+		font-size:14px;
+		padding: 5px 25px; 
+		color: #fff;
+		text-decoration: none; 
+	}
+
+	.navi li a:hover {
+		color:#F90;
+	}
+
+	.navi li ul {
+		opacity: 0;
+		position: absolute;
+		left: 0;
+		width: 180px;
+		background: #D8AFAF;
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.navi li:hover ul {
+		opacity: 1;
+	}
+
+	.navi li ul li {
+		float: none;
+		position: static;
+		height: 0;
+		line-height: 0;
+		background: none;
+	}
+
+	.navi li:hover ul li {
+		height: 30px; 
+		line-height: 30px;
+		padding:5px 0;
+	}
+	
+	.navi li ul li a {
+		background: #D8AFAF; 
+		font-family:"굴림"; 
+		font-weight:600; 
+		font-size:14px;
+		color:#900; 
+	}
+	
+	.navi li ul li a:hover {background: #900; }
+
+	.navi li { 
+		transition: all 0.2s;
+		-webkit-transition: all 0.2s;
+		-moz-transition: all 0.2s;
+		-o-transition: all 0.2s;
+	}
+	.navi li a { 
+		transition: all 0.5s;
+		-webkit-transition: all 0.5s; 
+		-moz-transition: all 0.5s; 
+		-o-transition: all 0.5s; 
+	}
+	.navi li ul { 
+		transition: all 1s; 
+		-webkit-transition: all 1s;
+		-moz-transition: all 1s;
+		-o-transition: all 1s;
+	}
+	.navi li ul li { 
+		transition: height 0.5s;
+		-webkit-transition: height 0.5s;
+		-moz-transition: height 0.5s;
+		-o-transition: height 0.5s;
+	}
+  
+  </style>
+ </head>
+
+ <body>
+  <h2>서브 메뉴가 펼쳐지는 네비게이션 만들기</h2>
+  <hr/>
+
+  <ul class="navi">
+	<li><a href="#"> Home </a></li>
+	<li><a href="#"> 웹개발</a>
+		<ul>
+			<li><a href="#"> 웹디자인</a></li>
+			<li><a href="#"> HTML5 + CSS3</a></li>
+			<li><a href="#"> JQuery</a></li>
+			<li><a href="#"> 웹+ 모바일</a></li>
+		</ul>
+	</li>
+	<li><a href="#"> 게시판</a>
+		<ul>
+			<li><a href="#"> Q & A </a></li>
+			<li><a href="#"> 방명록</a></li>
+		</ul>
+	</li>
+	<li><a href="#"> 프로필</a></li>
+  </ul>
+</body>
+</html>

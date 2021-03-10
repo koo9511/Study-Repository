@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">라인 - lineWidth</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        for(var i=0; i<10; i++) {
+            // 라인 폭 설정
+            context.lineWidth = 1+i;
+            context.beginPath();
+            context.moveTo(5+i*14, 5);
+            context.lineTo(5+i*14, 140);
+            context.stroke();
+        }
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Create Index</p>
+    <button id="delete">1. delete IndexedDB</button><br/>
+    <button id="create">2. Create Index</button>
+    <script>
+        
+        var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;    // IDBFactory object
+        var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+        var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+        var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+            IDBCursor.PREV = IDBCursor.PREV || "prev";
+            IDBCursor.NEXT = IDBCursor.NEXT || "next";
+            
+        var dbName = 'userDB';
+        var dbVersion = 1;
+        var database;
+
+        var createIdxDB = function() {
+            var request = indexedDB.open(dbName, dbVersion);
+            
+            request.onsuccess = function(event) {
+                database = this.result;
+                alert('IndexedDB 오픈 완료');
+                database.close();
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 오픈 중 에러 발생');
+            };
+            request.onupgradeneeded = function(event) {
+                var objectStoreUser = this.result.createObjectStore('user', {keyPath:'userId', autoIncrement:true});
+                var objectStoreAdmin = this.result.createObjectStore('admin', {keyPath:'adminId', autoIncrement:true});
+                
+                // ★★★ Creating Index : 객체 저장소에 인덱스 생성
+                // versionchange 트랜잭션 내에서만 호출될 수 있음.
+                // IDBObjectStore.createIndex(string name, string keyPath, object optionalParameters); 
+                // optionalParameters : boolean unique(value 중복여부)
+                // return IDBIndex
+                objectStoreUser.createIndex('name', 'name', {unique:false});
+                objectStoreUser.createIndex('email', 'email', {unique:true});
+                objectStoreUser.createIndex('phone', 'phoneNo', {unique:true});
+                objectStoreUser.createIndex('rank', 'rank', {unique:false});
+                objectStoreAdmin.createIndex('name', 'name', {unique:false});
+                objectStoreAdmin.createIndex('email', 'email', {unique:true});
+                objectStoreAdmin.createIndex('phone', 'phoneNo', {unique:true});
+                alert('객체 저장소에 인덱스 생성 완료');
+            };
+        };
+        
+        var deleteIdxDB = function() {
+
+            var request = window.indexedDB.deleteDatabase(dbName);
+            
+            request.onsuccess = function(event) {
+                alert('IndexedDB 삭제 완료');
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 삭제 중 에러 발생');
+            };
+        };
+
+        $('#create').on('click', createIdxDB);
+        $('#delete').on('click', deleteIdxDB);
+        
+    </script>
+</body>
+</html>

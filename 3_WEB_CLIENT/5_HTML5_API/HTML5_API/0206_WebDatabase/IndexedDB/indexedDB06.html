@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Add Record</p>
+    <button id="delete">1. delete IndexedDB</button><br/>
+    <button id="create">2. add Records</button><br/>
+    <script>
+        
+        var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;    // IDBFactory object
+        var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+        var IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+        var IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+            IDBCursor.PREV = IDBCursor.PREV || "prev";
+            IDBCursor.NEXT = IDBCursor.NEXT || "next";
+
+        var dbName = 'userDB';
+        var dbVersion = 1;
+        var database;
+            
+        // ★★★ 사용자 데이터
+        var userData = [
+            {name : '이재욱', email : 'teo.lee@gmail.com', phoneNo : '010-1234-5678', rank : 1},
+            {name : '홍정희', email : 'jenny.hong@gmail.com', phoneNo : '010-4321-8765', rank : 3},
+            {name : '임병수', email : 'brian.leem@gmail.com', phoneNo : '011-6321-8765', rank : 4},
+            {name : '이준영', email : 'Jun.lee@gmail.com', phoneNo : '010-5321-8765', rank : 2}
+        ];
+        // ★★★ 관리자 데이터
+        var adminData = [
+            {name : '관리자', email : 'admin@gmail.com', phoneNo : '010-5678-1721'}
+        ];
+
+        var createIdxDB = function() {
+            var request = indexedDB.open(dbName, dbVersion);
+            
+            request.onsuccess = function(event) {
+                database = this.result;
+                alert('IndexedDB 오픈 완료');
+                database.close();
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 오픈 중 에러 발생');
+            };
+            request.onupgradeneeded = function(event) {
+
+                var objectStoreUser = this.result.createObjectStore('user', {keyPath:'userId', autoIncrement:true});
+                var objectStoreAdmin = this.result.createObjectStore('admin', {keyPath:'adminId', autoIncrement:true});
+
+                objectStoreUser.createIndex('name', 'name', {unique:false});
+                objectStoreUser.createIndex('email', 'email', {unique:true});
+                objectStoreUser.createIndex('phone', 'phoneNo', {unique:true});
+                objectStoreUser.createIndex('rank', 'rank', {unique:false});
+                objectStoreAdmin.createIndex('name', 'name', {unique:false});
+                objectStoreAdmin.createIndex('email', 'email', {unique:true});
+                objectStoreAdmin.createIndex('phone', 'phoneNo', {unique:true});
+
+                // ★★★ Adding Record : 객체 저장소에 레코드 객체 추가
+                // IDBObjectStore.add(value, optional key); 
+                for(var i=0, len=userData.length; i<len; i++) {
+                    objectStoreUser.add(userData[i]);
+                }
+                for(var i=0, len=adminData.length; i<len; i++) {
+                    objectStoreAdmin.add(adminData[i]);
+                }
+                alert('객체 저장소에 레코드 추가 완료');
+            };
+        };
+
+        var deleteIdxDB = function() {
+
+            var request = indexedDB.deleteDatabase(dbName);
+
+            request.onsuccess = function(event) {
+                alert('IndexedDB 삭제 완료');
+            };
+            request.onerror = function(event) {
+                alert('IndexedDB 삭제 중 에러 발생');
+            };            
+        };
+
+        $('#delete').on('click', deleteIdxDB);
+        $('#create').on('click', createIdxDB);
+        
+        
+    </script>
+</body>
+</html>

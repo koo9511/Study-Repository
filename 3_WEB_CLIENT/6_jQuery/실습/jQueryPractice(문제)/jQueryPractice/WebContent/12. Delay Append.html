@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Delay Append</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	/**
+ 	* 대상 : div
+	 * 기능 : 일정 시간 경과 후 문자열 삽입 
+	 * 함수 : setTimeout(), append() or text() or html()
+	 */
+
+	function run() {
+		setTimeout($('div').append('Plus'),2000);
+	}
+	
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(68, 68, 68); width: 150px; height: 190px; float: left; border: 1px solid rgb(170, 170, 170); background-color: rgb(230, 230, 250); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		#target<br>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

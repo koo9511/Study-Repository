@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    
+    <p id="comment">Audio 흐름 조작하기</p>
+    <!-- Audio 흐름 조작하기 -->
+    <audio controls>
+        <source src="vincent.ogg" type="video/ogg" />
+        <source src="vincent.mp3" type="video/mpeg" />
+        <object type="application/x-shockwave-flash" data="media/OriginalMusicPlayer.swf" width="225" height="86"> 
+            <param name="movie" value="media/OriginalMusicPlayer.swf"/>
+            <param name="FlashVars" value="mediaPath=vincent.mp3" /> 
+        </object> 
+        브라우저가 audio를 지원하지 않습니다. <a href="vincent.ogg">오디오 파일을 다운로드 하세요.</a>
+    </audio>
+    
+    <br/><br/>
+    <button id="play">재생</button>
+    <button id="stop">일시중지</button>
+    <button id="downVolume">볼륨 작게</button>
+    <button id="upVolume">볼륨 크게</button>
+    <button id="muteVolume">음소거</button>
+    
+    <script>
+
+        $('#play').on('click', function() {
+            var audio = document.getElementsByTagName('audio')[0];
+            audio.play();
+        });
+
+        $('#stop').on('click', function() {
+            var audio = document.getElementsByTagName('audio')[0];
+
+            if(audio.paused) {
+                 audio.play();
+            } else {
+                 audio.pause();
+            }
+        });
+        
+        $('#downVolume').on('click', function() {
+            var audio = document.getElementsByTagName('audio')[0];
+            audio.volume -= 0.2;
+        });
+        
+        $('#upVolume').on('click', function() {
+            var audio = document.getElementsByTagName('audio')[0];
+            audio.volume += 0.2;
+        });
+        
+        $('#muteVolume').on('click', function() {
+            var audio = document.getElementsByTagName('audio')[0];
+            audio.muted = !audio.muted;
+        });
+        
+    </script>
+    
+</body>
+</html>

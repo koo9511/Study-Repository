@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 그라데이션 메뉴 </title>
+  <style type="text/css">
+	ul.navi li { 
+		list-style-type: none; 
+		display: block; 
+		width: 8em; 
+		height: 3em;
+		float: left; 
+		text-align: center; 
+		font-family: "Lucida Grande", sans-serif; 
+		border-right: 1px #818181 solid;
+		-webkit-box-shadow: 1px 1px 1px #bbb; 
+		-moz-box-shadow:1px 1px 1px #bbb; 
+		box-shadow: 1px 1px 1px #bbb;
+		background-color: #c9c9c9; 
+		background: -webkit-gradient(linear, left top, left bottom, from(#c9c9c9), to(#848484), color-stop(0.6, #a1a1a1)); 
+		background: -moz-linear-gradient(top,#c9c9c9, #a1a1a1, #848484);
+	}
+	
+	ul.navi li a {
+		display: block;
+		padding: .8em .5em .5em .5em;
+		text-decoration: none;
+		color: #292929;
+		text-shadow: 1px 1px 0px #cccccc;
+	}
+
+	ul.navi li:hover{
+		background-color: #333333;
+		background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#4c4c4c), color-stop(0.6, #474747));
+		background: -moz-linear-gradient(top, #333333,#474747, #4c4c4c);
+	}
+
+	ul.navi li:hover > a{
+		color:#FFF; /* 글자색*/
+		text-shadow:0px 1px 0px #fff; /* 텍스트그림자*/
+	}
+
+	/* 첫번째항목의스타일*/
+	ul.navi li:first-child {
+		-webkit-border-top-left-radius: .5em; /* 왼쪽상단코너를부드럽게*/
+		-moz-border-radius-topleft: .5em;
+		border-top-left-radius: .5em;
+		-webkit-border-bottom-left-radius: .5em; /* 왼쪽하단코너를부드럽게*/
+		-moz-border-radius-bottomleft: .5em;
+		border-bottom-left-radius: .5em;
+	}
+
+	/* 마지막항목의스타일*/
+	ul.navi li:last-child {
+		-webkit-border-top-right-radius: .5em; /*오른쪽상단코너를부드럽게*/
+		-moz-border-radius-topright: .5em;
+		border-top-right-radius: .5em;
+		-webkit-border-bottom-right-radius: .5em; /* 오른쪽하단코너를부드럽게*/
+		-moz-border-radius-bottomright: .5em;
+		border-bottom-right-radius: .5em;
+	}
+  </style>
+ </head>
+
+ <body>
+  <h2>그라데이션을 이용한 메뉴</h2>
+	<hr/>
+
+	<div>
+		<ul class="navi">
+			<li class="home"><a href="#">Home</a></li>
+			<li id="html"><a href="#">HTML5</a></li>
+			<li id="css"><a href="#">CSS3</a></li>
+			<li id="jquery"><a href="#">JQuery</a></li>
+			<li id="mobile"><a href="#">Mobile</a></li>
+			<li id="profile"><a href="#">Profile</a></li>
+		</ul>
+	</div>
+ </body>
+</html>

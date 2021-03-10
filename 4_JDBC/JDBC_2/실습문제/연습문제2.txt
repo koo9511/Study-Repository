@@ -1,0 +1,66 @@
+<연습문제>
+ * 프로젝트명 : productManager
+
+ * Product 테이블 : 쿼리문 별도 저장함 
+	=> 프로젝트폴더/sql/product.sql
+
+	product_id(pk)	p_name(nn)	price(nn) 	description
+	-------------------------------------------------------------------------------------------
+	nb_ss7		삼성노트북		1570000		시리즈 7	
+ 	nb_ama4		맥북에어		1200000		xcode 4
+	pc_ibm		ibmPC		750000		windows8
+
+
+ * 프로퍼티 파일 별도 작성함 : dbserver.properties, query.properties
+ * 템플릿 별도 작성함 : src/common.JDBCTemplate.java
+	=> dao 에 import static 할 것
+ * 패키지 구성 : 	src/product.model.dto.Product.java
+		src/product.model.dao.ProductDao.java 
+
+	=> 메소드 모두 다 PreparedStatememt 사용할 것
+			: CRUD 메소드 구현함.
+			- public ArrayList<Product> selectAll()
+			- public Product selectRow(String p_id) 
+				: id로 조회
+			=> 검색할 데이터 : pc_ibm
+
+			- public Product selectName(String p_name) 
+				: name으로 조회
+			=> 검색할 이름 : '삼성'이라는 글자가 들어간 이름 정보 조회
+
+			- public int insertRow(Product p)
+			=> 새로 추가할 데이터 : 
+	product_id(pk)	p_name(nn)	price(nn) 	description
+	-------------------------------------------------------------------------------------------
+	mb_amb5		맥북프로	2000000		x mountion lion
+
+			- public int updateRow(String p_id, int price)
+		=> 수정할 데이터 : pc_ibm 의 가격을 1200000 으로 변경함
+
+			- public int deleteRow(conn, query)
+			=> 삭제할 데이터 : mb_amb5 
+
+		src/product.controller.ProductController.java
+		==> ProductService 메소드 호출
+
+		src/product.start.Run.java
+			- main() : 뷰 클래스 메뉴 메소드 호출, 
+							
+			
+		src/product.view.ProductView.java	
+		=> controller 클래스의 각 메소드 호출
+			- public void displayMenu()		
+			- public void displayList()
+			- public void displayRow()
+			- public void displayRowName()
+			- public void displayInsert()
+			- public void displayUpdate()
+			- public void displayDelete()
+
+ * 메뉴 실행 방식으로 구성함	
+ 	1. 전체 조회
+	2. 추가 : 추가후 id로 조회 확인함
+	3. 수정 : id으로 조회 후 가격 수정함
+	4. 삭제 : id로 조회 후 삭제함
+	5. 검색 : 이름으로 조회함
+	6. 끝내기

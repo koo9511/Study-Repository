@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> <!-- 브라우저가 지원하는 한글 문자 인코딩 : EUC-KR -->
+    <title>Geolocation</title>
+    <!-- jQuery CDN -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Modernizr CDN -->
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">Geolocation 지원여부 확인</p>
+    <button id="btnGeolocation">Geolocation 지원여부 확인</button>
+    <script>
+        $(function() {
+            //$('#btnGeolocation').on('click', supportGeolocation);
+			$('#btnGeolocation').on('click', supportGeolocationByModernizr);
+        });
+        
+        // 지원여부 확인
+        function supportGeolocation() {
+            // Geolocation 지원여부
+            //alert(!!window.navigator.geolocation);
+            
+            // Boolean으로 typecasting을 하지 않으면
+            alert(window.navigator.geolocation);
+        }
+        
+        // Modernizr을 이용한 지원여부 확인
+        function supportGeolocationByModernizr() {
+            alert(Modernizr.geolocation);
+        }
+    </script>
+</body>
+</html>

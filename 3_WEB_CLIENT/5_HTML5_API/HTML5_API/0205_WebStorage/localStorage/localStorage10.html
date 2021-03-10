@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage API - 용량초과</p>
+    <script>
+        
+        if(window.localStorage) {
+            localStorage.clear();
+            /*
+            for(var i=0; i<30000; i++) {
+                localStorage.setItem('title' + i, 'HTML5 Education');
+            }
+            */
+
+        } else {
+            alert('localStorage가 지원되지 않는 브라우저입니다.');
+        }
+
+    </script>
+    
+</body>
+</html>

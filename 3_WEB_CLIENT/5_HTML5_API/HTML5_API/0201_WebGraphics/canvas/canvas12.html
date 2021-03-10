@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">투명도 - globalAlpha</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        
+        context.fillStyle = '#FD0';
+        context.fillRect(0,0,75,75);
+        context.fillStyle = '#6C0';
+        context.fillRect(75,0,75,75);
+        context.fillStyle = '#09F';
+        context.fillRect(0,75,75,75);
+        context.fillStyle = '#F30';
+        context.fillRect(75,75,75,75);
+        context.fillStyle = '#FFF';
+        
+        // globalAlpha 셋팅
+        context.globalAlpha = 0.2;
+        
+        for(var i=0; i<7; i++) {
+            context.beginPath();
+            context.arc(75, 75, 10+10*i, 0, Math.PI*2, true);
+            context.fill();
+        }
+        
+    </script>
+    
+</body>
+</html>

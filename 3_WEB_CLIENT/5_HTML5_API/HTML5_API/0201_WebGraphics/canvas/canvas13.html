@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">투명도 - rgba</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = 'rgb(255,221,0)';
+        context.fillRect(0,0,150,37.5);
+        context.fillStyle = 'rgb(102,204,0)';
+        context.fillRect(0,37.5,150,37.5);
+        context.fillStyle = 'rgb(0,153,255)';
+        context.fillRect(0,75,150,37.5);
+        context.fillStyle = 'rgb(255,51,0)';
+        context.fillRect(0,112.5,150,37.5);
+
+        // 반투명 rgba
+        for (var i=0;i<10;i++){
+            context.fillStyle = 'rgba(255,255,255,'+(i+1)/10+')';
+            for (var j=0;j<4;j++){
+                context.fillRect(5+i*14,5+j*37.5,14,27.5)
+            }
+        }
+        
+    </script>
+    
+</body>
+</html>

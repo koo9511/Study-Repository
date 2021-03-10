@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        #myCanvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">Path 그리기</p>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context;
+        if(canvas.getContext) {
+            context = canvas.getContext('2d');
+            
+            context.beginPath();
+            context.moveTo(50, 50);
+            context.lineTo(100, 75);
+            context.lineTo(100, 25);
+            context.fill();
+        } else {
+            alert('canvas가 지원되지 않는 브라우저입니다.');
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Select A Option in A Select Box</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+/**
+ * 대상 : div 내부 select
+ * 기능 : 마지막 item 선택 
+ * 함수 : attr(), last()
+ */
+	function run() {
+		$('div select').last().attr('selected',true);
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(255, 255, 255); width: 150px; height: 100px; float: left; border: 1px solid rgb(34, 34, 34); background-color: rgb(245, 222, 179); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		#target<br>
+		<select size="4" data-role="none"
+			style="margin: 5px; color: rgb(34, 34, 34);">
+			<option>first</option>
+			<option>second(select me!)</option>
+			<option>third</option></select>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SVG</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+     <style>
+         svg {border:1px solid black}
+     </style>
+</head>
+<body>
+    <p id="comment">SVG Pattern</p>
+
+    <!-- pattern element -->
+    <svg width="100%" height="100%">
+        <defs>
+            <pattern id="bgPattern" patternUnits="userSpaceOnUse" width="10" height="10">
+                <polygon points="5,0 10,10 0,10"/>
+            </pattern>
+        </defs>
+        
+        <circle cx="60" cy="60" r="50" fill="url(#bgPattern)"/>
+    </svg>
+
+</body>
+</html>

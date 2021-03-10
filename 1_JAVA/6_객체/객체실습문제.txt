@@ -1,0 +1,43 @@
+<객체실습>
+프로젝트명 : oopPracticeProject
+클래스명 : com.oop.model.dto.Employee
+	- 사원정보 관리용 클래스
+- Field 작성 : 캡슐화 반드시 적용함
+	사번 : - empNo:int
+	이름 : - empName:String
+	소속부서 : - dept:String
+	직급 : - job:String
+	나이 : - age:int
+	성별 : - gender:char
+	급여 : - salary:int
+	보너스포인트 : - bonusPoint:double
+	핸드폰 : - phone:String
+	주소 : - address:String
+
+Employee 클래스의 메소드 작성
+1. 키보드입력용 메소드 : empInput()
+2. 출력용 메소드 : empOutput()
+3. 값 변경용 메소드 : setName(String newName) //이름 변경용
+  => 각 필드 값 변경용 메소드 작성
+
+* 실행용 클래스 : com.oop.run.EmpTest
+메뉴작성 : 메소드 작성
+
+=>메뉴 화면의 예
+public static void mainMenu(){}
+******* 사원 정보 관리 프로그램 ************
+
+	1. 새 사원 정보 입력  => empInput() 메소드 실행
+	2. 사원 정보 수정 => 부메뉴 나타남
+	3. 사원 정보 삭제
+	4. 사원정보 출력 =>  empOutput() 메소드 실행
+	9. 끝내기
+
+
+public static void modifyMenu(Employee e){}
+**** 사원 정보 수정 메뉴 *****
+	1. 이름 변경 => setEmpName()
+	2. 급여 변경 => setSalary()
+	3. 부서 변경 => setDept()
+	4. 직급 변경 => setJob()
+	5. 이전 메뉴로 이동 => return 처리할 것

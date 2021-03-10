@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+/*sample5.css*/
+* { margin: 0; padding: 0;}
+
+.myphoto1 {
+	position: relative;
+	left: 30px;
+	top: 30px;
+	width: 120px;
+	height: 100px;
+	padding: 10px;	 
+	background: #cbcb96;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.5);	
+	transition: all 3s linear;
+	-webkit-transition: all 3s linear;
+	-moz-transition: all 3s linear;
+	-o-transition: all 3s linear;
+}
+
+a:hover {
+	/*transform: rotate(25deg);
+	-webkit-transform: rotate(25deg);
+	-moz-transform: rotate(25deg);
+	-o-transform: rotate(25deg);
+	-ms-transform: rotate(25deg);*/
+	/*transform: scale(2, 2);
+	-webkit-transform: scale(2, 2);
+	-moz-transform: scale(2, 2);
+	-o-transform: scale(2, 2);
+	-ms-transform: scale(2, 2);*/
+	/*transform: skew(15deg, 15deg);
+	-webkit-transform: skew(15deg, 15deg);
+	-moz-transform: skew(15deg, 15deg);
+	-o-transform: skew(15deg, 15deg);
+	-ms-transform: skew(15deg, 15deg);*/
+	transform: translate(100px, 100px);
+	-webkit-transform: translate(100px, 100px);
+	-moz-transform: translate(100px, 100px);
+	-o-transform: translate(100px, 100px);
+	-ms-transform: translate(100px, 100px);
+	transition: all 2s ease-out;
+	-webkit-transition: all 2s ease-out;
+	-moz-transition: all 2s ease-out;
+	-o-transition: all 2s ease-out;
+}
+
+img[src$="_s.jpg"] {
+	opacity: 0.3;
+	border: 3px solid #000;
+}
+
+*:not(img) {
+	border: 3px dashed #f00;
+}

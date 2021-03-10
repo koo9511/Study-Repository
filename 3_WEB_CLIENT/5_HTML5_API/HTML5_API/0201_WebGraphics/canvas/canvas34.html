@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p>clip 미적용</p>
+    <canvas id="canvasWithoutClip" width="300" height="200"></canvas>
+    <p>clip 적용</p>
+    <canvas id="canvasWithClip" width="300" height="200"></canvas>
+    <script>
+        // clip 미적용
+        var canvas1 = document.getElementById('canvasWithoutClip');
+        var context1 = canvas1.getContext('2d');
+
+        context1.rect(50,50,200,100);
+        context1.stroke();
+        context1.fillStyle = 'rgba(255,0,0,0.5)';
+        context1.fillRect(0,0,150,100);
+        context1.fillStyle = 'rgba(0,0,255,0.5)';
+        context1.fillRect(150,100,150,100);
+        
+        // clip 적용
+        // clip이 적용된 이후에는 clipped된 영역으로 그리기 영역이 한정됨
+        // save(), restore() 메서드 이용
+        var canvas2 = document.getElementById('canvasWithClip');
+        var context2 = canvas2.getContext('2d');
+        
+        context2.rect(50,50,200,100);
+        context2.stroke();
+        context2.clip();
+        context2.fillStyle = 'rgba(255,0,0,0.5)';
+        context2.fillRect(0,0,150,100);
+        context2.fillStyle = 'rgba(0,0,255,0.5)';
+        context2.fillRect(150,100,150,100);
+    </script>
+    
+</body>
+</html>

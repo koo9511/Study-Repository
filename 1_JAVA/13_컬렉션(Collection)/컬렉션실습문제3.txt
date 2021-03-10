@@ -1,0 +1,49 @@
+[Properties 실습문제]
+ - 프로젝트명 : testProperties
+ - entity 클래스 : test.entity.Employee.java
+ - 실행용 클래스 : test.controller.TestProperties.java
+		(main() 포함)
+
+1. Employee 클래스 작성
+ - Field
+	- eId : int	//사번
+	- eName : String	//이름
+	- dept : String	//소속부서
+	- salary : int	//연봉
+	- bonusPoint : double	//보너스포인트
+ - Constructor : default, 매개변수가 있는 생성자 작성
+ - Method : getters & setters, toString() 메소드 오버라이딩
+
+2. TestProperties 클래스 작성
+ - main() 메소드 안에서, 
+	>> 실행용 객체 생성함
+		TestProperties test = new TestProperties();
+	>> Properties 객체 생성함
+		Properties prop = new Properties();
+	>> 아래의 순서로 메소드 실행되게 처리함
+ 		readFile(prop);
+		printConsole(prop);
+		addEmpData(prop);
+		printConsole(prop);
+		saveEmpXML(Employee[] ear);
+ - empData.txt" 파일에 사원정보 저장함
+	>> 사번을 키로 하여, 사원정보 데이터를 기술함
+	>> 예를 들면,
+	   20130412=홍길동, 기획부, 38000000, 0.2
+	>> 5명의 정보를 만들어 저장함	
+ - 메소드 작성
+	1) public void addEmpData(Properties p){}	  
+	  >> Properties 에 2개의 샘플 데이터를 추가함
+	2) public Employee[] readFile(Properties p){}
+	  >> "empData.txt" 파일을 읽어, Properties 객체에 저장하는 메소드
+	  >> 읽어들인 키와 값은 각각 Employee 객체 필드에 기록함
+	  >> Employee[] 을 리턴함
+	3) public void printConsole(Properties p){}	   
+	  >> Properties 에 저장된 리스트를 하나씩 반복 출력하는 메소드
+	4) public void saveEmpXML(Employee[] er){}   
+	  >> Employee[] 에서 각 객체별로 보너스포인트가 적용된 연봉을 계산하여,
+		"empResult.xml" 파일에 저장함
+		보너스포인트적용연봉 = 연봉 + (연봉 * 보너스포인트);
+	  >> 저장 예
+	  사번=이름, 소속부서, 연봉, 보너스포인트, 보너스포인트가 적용된 연봉
+	

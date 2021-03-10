@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Change Parent</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+/**
+ * 대상 : div 내부 span
+ * 기능 : text 변경 
+ * 함수 : text()
+ */
+
+	function run() {
+		$('div span').text("기모띠");
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(68, 68, 68); width: 180px; height: 100px; float: left; border: 1px solid rgb(34, 34, 34); background-color: rgb(175, 238, 238); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		div#target<br>
+		<br>
+		<br>
+		<span
+			style="color: rgb(240, 240, 240); background-color: rgb(255, 165, 0); margin: 10px; border: 1px solid rgb(34, 34, 34); padding: 5px; background-position: initial initial; background-repeat: initial initial;">span(change
+			me!)</span>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

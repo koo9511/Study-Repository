@@ -1,0 +1,28 @@
+<연습문제 1>
+ 클래스명 : jdbctest.common2.TestSelect
+ => main 포함
+ => employee 테이블에서 
+	사번이 100번인 직원의 이름, 입사일, 급여, 보너스포인트 조회해서
+ => 결과를 꺼내서 화면에 출력함.
+
+
+
+<연습문제 2>
+ 클래스명 : TestInsert
+ => main 메소드 사용
+ => member 테이블에 insert 쿼리문을 실행시켜, 새로운 레코드가 추가되게 함
+ => 리턴된 정수값을 출력 확인함.
+
+<연습문제 3>
+ 프로퍼티 파일 만들기 : query.properties
+  => 저장 내용
+	#CRUD 쿼리문
+	selectAll=select * from book
+	selectRow=select * from book where title='동의보감'
+	insert=insert into book values ('동의보감', '허준', sysdate, 35000)
+	update=update book set price=37000 where title='동의보감'
+	delete=delete from book where title='동의보감'
+
+ 테스트 클래스명 : test2.ReadProperties
+  => main 메소드에서 query.properties 파일을 읽고, 키만 분리 추출한 다음
+	키와 값을 각각 출력 확인함.

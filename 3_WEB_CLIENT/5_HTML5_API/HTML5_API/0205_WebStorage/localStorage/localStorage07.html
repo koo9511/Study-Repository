@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage</title>
+     <!-- jQuery CDN -->
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Modernizr CDN -->
+     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+</head>
+<body>
+    <p id="comment">localStorage StorageEvent</p>
+    key : <input type="text" id="itemKey" value="id" readonly><br/>
+    value : <input type="text" id="itemValue" value="teolee"><br/>
+    <button id="add">로컬스토리지에 아이템 추가</button>
+    <button id="remove">로컬스토리지에 아이템 삭제</button>
+    <button id="clear">로컬스토리지 전체 삭제</button>
+    
+    <script>
+        $(function() {
+            $('#add').on('click', function() {
+                localStorage.setItem($('#itemKey').val(), $('#itemValue').val());
+            });
+            $('#remove').on('click', function() {
+                localStorage.removeItem($('#itemKey').val());
+            });
+            $('#clear').on('click', function() {
+                localStorage.clear();
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>

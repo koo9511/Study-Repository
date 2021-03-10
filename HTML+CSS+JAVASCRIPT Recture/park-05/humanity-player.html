@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sppstify Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  
+  <link rel="stylesheet" type="text/css" href="humanity-player.css">
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <style>
+    /* 
+    태그 제어 ( id, class, name ) ! name = Server 작업할 때 사용
+    id = #, class = . 
+    */
+    #div_1 {
+      background-color: black;
+      color: white;
+    }
+    #div_2 {
+      background-color: white;
+    }
+    #div_3 {
+      background-color: yellow;
+    }
+
+    div.divClass {
+      width: 100px;
+      text-align: center;
+    }
+
+    #div_1 label {
+      color: yellow;
+    }
+    .button {
+      width: 200px;
+      height: 50px;
+      border-radius: 10px;
+      background-color: white;
+      font-size: 2em;
+      
+    }
+    .button:first {
+      float: left;
+    }
+    .button:nth-child(2){
+      float: right;
+    }
+  </style>
+  <script type="text/javascript">
+
+    // document.getElementById('ytplayer')// origin javascript
+    // $('#ytplayer')// jQuery
+
+    // celebrity = 0-q1KafFCLU 
+    // blueming  = D1PvIWdJ8xo
+
+    function nextSong(){
+      
+      var url = "https://www.youtube.com/embed/0-q1KafFCLU?autoplay=1" // celebrity url
+
+      $('#ytplayer').attr('src',url)
+      $('#song-title').html("Celebrity")
+
+    }
+
+    
+  </script>
+</head>
+<body>
+  <!-- id, class = 선택자(Selector) -->
+  <div class="player">
+    <!-- youtube url = https://www.youtube.com/watch?v=0-q1KafFCLU -->
+    <!-- https://youtu.be/0-q1KafFCLU -->
+
+    <h1 id="song-title" style="font-size: 3em;">Blueming</h1>
+    
+    <div style="border: 2px dashed blue; width: 100%;">
+      <div style="width: 50%; float: left;">
+        <iframe id="ytplayer" width="300" height="360" src="https://www.youtube.com/embed/D1PvIWdJ8xo?autoplay=1"></iframe>
+      </div>
+      <div style="width: 50%; float: right;">
+        <div>
+          이 곡은 <br>
+          재즈에용 <br>
+          asdasd <br>
+        </div>
+      </div>
+      
+
+    </div>
+    <br><b><br>
+    <div style="width: 640px;">
+      <button id="prev-btn" class="btn button">Prev</button>
+      <button id="next-btn" class="btn button" onclick="nextSong()" >Next</button>
+      <!-- onclick = 클릭할 때 ( 마우스를 뗄 때 ) 발생하는 함수 지정 -->
+    </div>
+    <div id="comment" style="margin-top: 20px;">
+      <h3>comment</h3>
+      <input type="text" style="width: 100%;">
+    </div>
+    <!-- <div id="div_1" class="divClass"> 
+      <label>Hello</label><br>
+    </div>
+    <br>
+    <div id="div_2" class="divClass">
+      <label>world</label>
+    </div>
+    <br>
+    <div id="div_3" class="divClass">
+      <label>hyper text</label>
+    </div> <br> -->
+
+
+
+    <!-- input = enter 키 사용 불가 (짧은 글 입력) -->
+    <!-- <input type="text" class="divClass" name="user_id">  -->
+    <!-- <input type="text" class="divClass" name="user_pw"> -->
+
+    <!-- textarea = 장문의 글 작성시 사용 -->
+    <!-- <textarea id="" cols="30" rows="10">
+
+    </textarea> -->
+  <script src="musicplayer.js"></script>
+</body>
+</html>

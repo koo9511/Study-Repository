@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>자바스크립트 연습2</title>
+  <script type="text/javascript" src="js/test.js"></script>
+ </head>
+ <body onload="testFunc1();">
+  <h2>별도로 작성된 자바스크립트 소스 파일(*.js)을 사용하는 경우</h2>
+  <h3>자바스크립트의 값을 출력하는 방법</h3>
+  <ol>
+	<li>브라우저에 이 문서를 읽어 들일 때(loading) testFunc1() 함수가 실행됩니다. 브라우저 화면에 경고창이 나타납니다.</li>
+	<li>html 문서 body 안에 직접 출력하는 경우</li>
+  </ol>
+<hr>
+<script type="text/javascript">
+<!--
+	document.write("자바스크립트에서 직접 body에 기록");
+//-->
+</script>
+<hr>
+<input type="number" id="num1"> + <input type="number" id="num2"> = <p id="result" style="border:1px solid black;background:yellow;">더하기 결과</p>
+<input type="button" value="계산하기" onclick="calculate();">
+ </body>
+</html>

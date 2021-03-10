@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        canvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">텍스트 - fillText</p>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        
+        // fillText
+        context.font = 'bold italic 30px verdana';
+        context.fillStyle = 'black';
+        context.fillText('HTML5 Education', 5, 30);
+
+    </script>
+    
+</body>
+</html>

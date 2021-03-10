@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <style>
+        #myCanvas {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <p id="comment">quadraticCurveTo 메서드</p>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context;
+        if(canvas.getContext) {
+            context = canvas.getContext('2d');
+            
+            context.beginPath();
+            context.moveTo(75, 25);
+            context.quadraticCurveTo(25, 25, 25, 62.5);
+            context.quadraticCurveTo(25, 100, 50, 100);
+            context.quadraticCurveTo(50, 120, 30, 125);
+            context.quadraticCurveTo(60, 120, 65, 100);
+            context.quadraticCurveTo(125, 100, 125, 62.5);
+            context.quadraticCurveTo(125, 25, 75, 25);
+            
+            context.stroke();
+        } else {
+            alert('canvas가 지원되지 않는 브라우저입니다.');
+        }
+    </script>
+    
+</body>
+</html>

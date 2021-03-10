@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="kr">
+<head>    
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <style>
+        html {height:100%}
+        body {height:100%; margin:0; padding:0}
+        #map {height:100%}
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=DAUM_MAPS_DEMO_APIKEY" charset="utf-8"></script>
+    <script>
+        var map;
+        var positionValue = [];       
+		
+
+        $(function() {
+            if(!!window.navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    positionValue.push(position.coords.latitude);
+                    positionValue.push(position.coords.longitude);
+                });
+            } else {                
+                alert('Geolocation을 지원하지 않는 브라우저입니다.');
+            }
+            
+            $('#btnGeolocation').on('click', searchPositionDaumMap);
+        });
+
+        // 다음 맵에서 위치 확인
+        function searchPositionDaumMap() {
+            var position = new daum.maps.LatLng(positionValue[0], positionValue[1]);
+            var options = {
+                center : position,
+                level : 4,
+                mapTypeId: daum.maps.MapTypeId.HYBRID
+            };
+            var marker = new daum.maps.Marker({
+                position : position
+            });
+            var infowindow = new daum.maps.InfoWindow({
+                content: 'HTML5 교육장'
+            });
+            
+            map = new daum.maps.Map(document.getElementById('map'), options);
+            marker.setMap(map);
+            infowindow.open(map, marker);
+        }
+    </script>
+</head>
+<body>
+    <button id="btnGeolocation">다음 맵에서 내 위치 확인</button>
+    <div id="map"></div>
+</body>
+</html>

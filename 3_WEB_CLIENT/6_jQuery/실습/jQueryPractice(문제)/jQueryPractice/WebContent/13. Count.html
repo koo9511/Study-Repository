@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Count</title>
+<script src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	/**
+ 	* 대상 : div 내부 div
+	 * 기능 : div 개수 출력 
+	 * 함수 : alert(), find(), size(), length
+	 */
+
+	function run() {
+		
+		 var count = $('div').find('div').length;
+		 
+		 alert(count + "개");
+	}
+</script>
+
+</head>
+
+<body>
+	<div id="target"
+		style="color: rgb(68, 68, 68); width: 150px; height: 190px; float: left; border: 1px solid rgb(204, 204, 204); background-color: rgb(230, 230, 250); margin: 10px; padding: 5px; background-position: initial initial; background-repeat: initial initial;">
+		#target<br>
+		<br>
+		<div class="child"
+			style="background-color: rgb(147, 112, 219); border: 1px solid rgb(136, 136, 136); width: 60px; margin: 5px; padding: 2px; color: rgb(238, 238, 238); background-position: initial initial; background-repeat: initial initial;">.child</div>
+		<div class="child"
+			style="background-color: rgb(147, 112, 219); border: 1px solid rgb(136, 136, 136); width: 60px; margin: 5px; padding: 2px; color: rgb(238, 238, 238); background-position: initial initial; background-repeat: initial initial;">.child</div>
+		<div class="child"
+			style="background-color: rgb(147, 112, 219); border: 1px solid rgb(136, 136, 136); width: 60px; margin: 5px; padding: 2px; color: rgb(238, 238, 238); background-position: initial initial; background-repeat: initial initial;">.child</div>
+		<div class="child"
+			style="background-color: rgb(147, 112, 219); border: 1px solid rgb(136, 136, 136); width: 60px; margin: 5px; padding: 2px; color: rgb(238, 238, 238); background-position: initial initial; background-repeat: initial initial;">.child</div>
+		<div class="child"
+			style="background-color: rgb(147, 112, 219); border: 1px solid rgb(136, 136, 136); width: 60px; margin: 5px; padding: 2px; color: rgb(238, 238, 238); background-position: initial initial; background-repeat: initial initial;">.child</div>
+	</div>
+	<input type="button" value="run" onclick="run()" />
+</body>
+</html>

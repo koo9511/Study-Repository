@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+var server = "";
+var worker;
+var ws;
+var move = 0;
+var canvas;
+var line;
+var horse1;
+var horse2;
+var horse3;
+var horse4;
+var gra;
+var workerFlag = false;
+var flag = false;
+var selectedHorse = new Array;
+var my;
+var enterCount = 0;
+var blackFlag=false;
+var redFlag=false;
+var yellowFlag=false;
+var pinkFlag=false;
+var startFlag = false;
+var myIP = "";
+	window.onload = function() {
+
+		if (window.WebSocket) {
+			if (typeof (Worker) == "undefined") {
+				document.getElementById("msgCon").innerHTML += "웹워커를 지원하지않는 브라우저 입니다.";
+				return;
+			}
+			canvas = document.getElementById("c");
+			line = canvas.getContext("2d");
+			horse1 = document.getElementById("horse1")
+			horse2 = document.getElementById("horse2")
+			horse3 = document.getElementById("horse3")
+			horse4 = document.getElementById("horse4")
+			line.moveTo(1000, 0);
+			line.lineTo(1000, 600);
+			line.lineWidth = 7;
+			gra = line.createLinearGradient(0, 600, 0, 0);
+			gra.addColorStop(0, "aqua");
+			gra.addColorStop(0.4, "yellow");
+			gra.addColorStop(1, "green");
+			line.strokeStyle = gra;
+			line.stroke();
+			line.font = "20px broadway";
+			line.fillText("Finish line", 1000, 300)
+			line.drawImage(horse1, 0, 0, 100, 100);
+			line.drawImage(horse2, 0, 150, 100, 100);
+			line.drawImage(horse3, 0, 300, 100, 100);
+			line.drawImage(horse4, 0, 450, 100, 100);
+
+		} else {
+			alert("웹소켓을 지원하지 않는 브라우저 입니다.");
+			return false;
+		}
+		
+		
+		$.ajax({
+			type: "POST",
+			contentType: "application/x-www-form-urlencoded",
+			//dataType: "html",
+			url: './ajaxTest.jsp',
+			//data: $("#regForm").serialize(),
+			error: function (jqXHR, textStatus, errorThrown) {
+				alert(textStatus + " / " +errorThrown);
+			},
+			//complete : function(data) { // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.   },
+			success: function (data){
+				myIP=data;
+				conServer(myIP);		
+				
+			}
+		});
+		
+		
+		
+		
+	}
+	
+function conServer(myIP){
+	
+	ws = new WebSocket("ws://"+myIP+":8000");
+	ws.onopen = function() {
+		console.log("웹 소켓 서버 접속을 환영합니다.");
+	}
+
+	ws.onmessage = function(e) {
+	console.log(e.data);
+		if (e.data.search("@@") != -1) {
+			var data = e.data
+			selectedHorse = data.split("@@");
+			selectedHorse.shift();
+		} else if (e.data == "초기화") {
+			selectedHorse = new Array;
+			location.reload();
+		}  else if (e.data.search("!@#") != -1) {
+			var comData = e.data.split("!@#");
+			
+			for ( var i = 0; i < selectedHorse.length; i++) {
+					
+					switch (selectedHorse[i]){
+					case "black" : blackFlag=true;break;
+					case "red" : redFlag=true;break;
+					case "yellow" : yellowFlag=true;break;
+					case "pink" : pinkFlag=true;break;
+					}
+				}
+			
+			if(!blackFlag)
+				line.drawImage(horse1, comData[0], 0, 100, 100);
+			if(!redFlag)
+				line.drawImage(horse2, comData[1], 150, 100, 100);
+			if(!yellowFlag)
+				line.drawImage(horse3, comData[2], 300, 100, 100);
+			if(!pinkFlag)
+				line.drawImage(horse4, comData[3 ], 450, 100, 100);
+			
+			if(comData[0] >= 900 || comData[1] >= 900 || comData[2] >= 900 || comData[3] >= 900){
+				alert("게임이 끝났습니다. 게임을 초기화 시킵니다.");
+				init();
+				
+			}
+			
+			
+		}else if(e.data=="workerStart"){
+			workerFlag=true;
+		}
+	}
+
+	ws.onclose = function(e) {
+		console.log("close");
+		alert("서버가 열리지 않았습니다.접속이 되지 않았습니다. 게임을 실행할 수 없습니다.");
+		return;
+
+	}
+}	
+
+function init() {
+	ws.send("init");
+	window.reload;
+	}
+
+	function comStart() {
+
+	if (!workerFlag) {
+		workerFlag = true;
+		worker = new Worker("./running_worker.js");
+	} else {
+		return;
+	}
+	worker.onmessage = function(e) {
+		ws.send("workerStart");
+		ws.send(e.data);
+	}
+
+	}
+
+	//function closeWorker() {
+
+//		worker.terminate();
+
+	//}
+
+	function tsearch(e) {
+	if (e.keyCode == 13) {
+		comStart();
+
+	} 
+
+	}
+	
+</script>
+</head>
+<body style="padding-left: 10px;" onkeyup="return tsearch(event);">
+<p>enter키를 누르면 게임을 시작합니다.</p>
+<div id="msgCon"></div>
+<canvas id="c" width=1300 height=600 style="border:1px solid #999999;">
+</canvas>
+<img src="./horse.jpg" style="display: none" id="horse1">
+<img src="./horse1.jpg" style="display: none" id="horse2">
+<img src="./horse2.jpg" style="display: none" id="horse3">
+<img src="./horse3.jpg" style="display: none" id="horse4">
+<div id="distance"></div>
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>

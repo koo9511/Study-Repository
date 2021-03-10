@@ -1,0 +1,146 @@
+<GUI : Graphic User Interface>
+ : window 창을 통해서, 명령어들을 실행시키는 구조
+ - 자바 SE (jdk) 를 가지고 만들 수 있는 프로그램의 종류
+	* console 용 application : main() 메소드에 의해 실행됨
+		=> 윈도우의 command 프롬프트에서 실행됨
+			(dos 화면 => console 창)
+		=> 기본 입출력은 키보드/모니터 만 사용할 수 있음
+
+	* applet : Applet 클래스를 상속받아서 만들어진 클래스
+		=> 웹브라우저에서 실행되는 프로그램
+		=> html 태그 <applet>, <object> 로 실행됨
+		=> main() 이 없음
+
+	* window 용 application : main() 메소드에 의해 실행됨
+		=> 프로그램이 실행될 때 메인 윈도우 창이 화면에 
+		   나타남
+		=> 윈도우 창안에 구성요소들을 만들어 나감
+		   * 컨테이너(Container) : 컴포넌트들을 담을 객체들
+		   * 컴포넌트(Component) : 윈도우 창에 보여질 아이템들
+
+<AWT : Abstract Window Toolkit>
+ => 윈도우를 구성하고, 작동하기 위한 도구들
+ => 미완성 상태로 제공되고 있음
+ => 마우스나 키보드 동작(이벤트) 처리에 대한 메소드들이 모두 다 미완성임.
+ => java.awt 패키지 들이 도구들을 제공함
+	: os 가 제공하는 컴포넌트를 사용함
+	>> os 환경이 바뀌면 윈도우 창의 구성요소의 모양이 바뀜
+ 
+ => javax.swing 패키지의 도구들을 제공함
+	: java 가 제공하는 컴포넌트를 사용함
+	>> awt 의 단점을 보완해서 추가된 패키지임.
+	>> 클래스명 앞에 J를 붙여서 AWT와 구분하였음.
+
+<작업순서>
+
+1. 컨테이너 객체 생성함
+2. 배치방식을 컨테이너에 셋팅함
+3. 컴포넌트 객체 생성함
+4. 지정된 배치방식에 따라 컨테이너에 컴포넌트 배치함
+5. 컴포넌트에 마우스나 키보드 반응에 대한 이벤트 처리함 
+
+
+<윈도우용 에플리케이션 작성 순서>
+1. 최상위 컨테이너 객체를 생성함
+ >> JFrame, JDialog, JApplet
+ >> 첫번째 : JFrame 을 상속받음
+	ex>
+	import javax.swing.*;
+
+	class 클래스명 extends JFrame{
+	  public 클래스명()
+	  {
+		super("MyMemo");
+	  }
+
+	  public static void main(String[] ar)
+	  {
+		new 클래스명();
+	  }
+	}
+
+
+
+    두번째 : 상속받지 않고, 객체생성함
+	ex>
+	import javax.swing.*;
+
+	class 클래스명 {
+	  public static void main(String[] ar)
+	  {
+		JFrame mainFrame = new JFrame("MyMemo");		
+	  }
+	}
+
+   세번째 : JFrame 상속받은 클래스 작성하고, 실행용 클래스가 실행
+	ex>
+	class 클래스명 extends JFrame{
+	  public 클래스명()
+	  {
+		super();
+	  }
+	}
+
+	class 실행클래스
+	{
+ 	  public static void main(String[] ar)
+	  {
+		클래스명 레퍼런스 = new 클래스명();
+	  }
+	}
+
+2. 윈도우 프레임에 대한 세부 속성을 지정
+	setLocation(x, y)
+	setSize(width, height)
+	setBounds(x, y, width, height)
+	setTitle(String title)
+	setIconImage(IconImage)
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+	setVisible(true)
+	setResizable(true)
+
+3. 윈도우에 컴포넌트 배치방식을 지정함
+	ㅇㅇㅇLayout 클래스에 대한 객체 생성함
+	setLayout(레이아웃레퍼런스);
+
+
+4. 배치할 컴포넌트 객체 생성하고, 컴포넌트 객체에 대한 세부속성 변경
+	JButton 	//버튼
+	JLabel	//윈도우 상에 출력될 글자
+	JTextField //한 줄짜리 글자 입력 상자
+	ImageIcon //버튼이나 레이블의 글자와 함께 아이콘을 표시할 때 사용
+	JTextArea
+	JCheckBox
+	JList
+	JSlider
+	JSpinner
+	JTable
+
+
+
+5. 컴포넌트를 해당 윈도우(컨테이너)에 배치함
+	=> add(컴포넌트레퍼런스);
+
+6. 각 컴포넌트에 이벤트를 적용함
+	=> java.awt.event 패키지에 있는 클래스와 인터페이스들이 사용됨
+	=> 마우스 동작 처리 : 클릭, 드래그앤드롭, 더블클릭, 롤오버
+	=> 키보드 동작 처리 : 키누름, 값입력, 기능키 + 문자/숫자키 누름
+	=> 목록 선택/변경 동작 처리 : 목록 선택했을 때, 선택을 변경했을 때
+	=> 윈도우 동작 처리 : 윈도우 창이 열릴 때, 닫힐 때, 위치변경시,
+			크기변경시
+	=> 컴포넌트레퍼런스.addoooooListener(현재컨테이너레퍼런스);
+
+7. 동작처리에 대한 oooooListener 인터페이스에 대한 이벤트 처리용 메소드 오버라이딩함
+	=> 이벤트 발생한 컴포넌트에 대한 동작 처리함
+
+
+
+
+
+
+
+
+
+
+
+

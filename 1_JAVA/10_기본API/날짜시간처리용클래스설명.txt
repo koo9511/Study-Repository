@@ -1,0 +1,51 @@
+<Date/Calendar/SimleDateFormat>
+ : 날짜, 시간 정보를 처리할 때 사용
+ => java.util 패키지 에서 제공됨
+
+<Date 클래스>  -------------------------------------------------------------------
+ * 생성자 : 2개만 사용가능 (나머지는 Deprecated 임)
+  예)
+	Date today = new Date();
+	//시스템으로 부터 현재 날짜, 시간 정보를 가져와서 기본값으로 사용 
+	Date when = new Date(123456789L);
+	//Long 형 정수값을 가지고 날짜, 시간 계산함
+	//1970년 1월 1일 0시 0분 0초를 기준으로 함.
+
+ * 메소드의 대부분은 jdk 1.1 이후부터 Deprecated 되어 있음.
+	=> Calendar 클래스 또는  GregorianCalendar 클래스 사용 권장함
+
+ * Date 의 날짜, 시간 정보를 원하는 format 으로 출력을 원하면,
+   java.text.SimpleDateFormat 클래스를 이용함.
+  예)
+	Date today = new Date();
+
+	SimpleDateFormat ft = new SimpleDateFormat("yyyy-mm-dd");
+	String ft_today = ft.format(today);
+	//today 에 포맷을 적용한 결과를 문자열로 리턴받음.
+
+
+<Calendar / GregorianCalendar> ----------------------------------------
+ * 생성
+	Calendar today = Calendar.getInstance();
+	//생성자가 protected 임. new 에 사용 못함.
+	GregorianCalendar today = new GregorianCalendar();
+	//Calendar 의 후손(파생) 클래스임.
+
+ * 년, 월, 일, 시, 분, 초 정보를 필드(멤버변수)를 이용하여, 각각 다룰 수 있음.
+  예)
+	int year = today.get(Calendar.YEAR);
+	int month = today.get(Calendar.MONTH) + 1;
+	int date = today.get(Calendar.DATE);
+	int ampm = today.get(Calendar.AM_PM);
+	int hour = today.get(Calendar.HOUR);
+	int min = today.get(Calendar.MINUTE);
+	int sec = today.get(Calendar.SECOND);
+		
+	String sAmPm = (ampm == Calendar.AM) ? "오전" : "오후";
+		
+	System.out.printf("%d년 %d월 %d일 %s %d시 %d분 %d초", 
+			year, month, date, sAmPm, hour, min, sec);
+
+
+
+

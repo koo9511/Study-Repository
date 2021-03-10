@@ -1,0 +1,326 @@
+<이벤트 처리>
+ : windows 와 같은 GUI 프로그램들을 
+  이벤트 구동 프로그래밍(Event driven programming)라고 함
+	=> 이벤트가 발생해야 명령/기능이 실행되는 프로그램
+
+  컴포넌트/컨테이너 ---> 이벤트감지센서를 붙임 
+		   컴포넌트레퍼런스.add이벤트명Listener(이벤트핸들러);
+
+	---> 지정된 이벤트리스너가 해당 이벤트를 감지하면, 자동으로
+	    해당 이벤트처리객체로 연결되면서, 이벤트가 발생한 객체의 
+	    정보를 넘김
+
+<이벤트 처리 클래스 == 이벤트 핸들러 작성방법>
+ 1. 별도의 클래스로 작성
+	=> 먼저 해당 컴포넌트에 리스너 연결처리
+
+	   컴포넌트레퍼런스.add이벤트명Listener(new 
+			이벤트핸들러클래스명(컴포넌트 전달함));
+
+	=> 별도의 이벤트핸들러 클래스 작성
+		: 반드시 해당 이벤트에 대한 인터페이스를 상속 받아야 함
+	   class 클래스명 implements 이벤트명Listener
+	   {
+		컴포넌트 필드 선언;
+
+		public 생성자(컴포넌트 전달받음)
+		{}
+
+		//해당 인터페이스의 추상메소드들 모두 오버라이딩함
+		@Override
+		public 반환자료형 동작메소드명(이벤트명Event 레퍼런스)
+		{
+		    //해당 이벤트가 발생한 객체를 골라내서
+			원하는 동작 처리 구문 작성함.
+		}
+	   }
+
+
+
+ 2. 내부 클래스로 작성
+	=> 컴포넌트에 이벤트리스너 연결하기
+	   컴포턴트레퍼런스.add이벤트Listener(new 이벤트핸들러클래스명());
+
+	=> 현재 클래스 안에 이벤트핸들러 클래스 작성함
+
+	public class 클래스명 extends JFrame
+	{
+		//Field 선언
+
+		//Constructor 작성
+
+		class 이벤트핸들러클래스명 implements 이벤트인터페이스
+		{
+			@Override
+			public 반환자료형 동작메소드명(이벤트클래스명 레퍼런스)
+			{
+			  //해당 이벤트가 발생된 객체의 정보를 
+			  //알아내서 원하는 동작처리 구문 작성함
+			}
+		}
+	}
+
+
+ 3. 무명(익명, Anoymous) 클래스로 작성
+	: 해당 이벤트에 대한 인터페이스를 상속받지 않는다.
+
+	3.1 이벤트리스너 객체 생성 방식
+	  => 해당 컴포넌트에 원하는 이벤트리스너 연결할 때 만들어줌
+
+	컴포넌트레퍼런스.add이벤트Listener(무명클래스 작성함);
+
+	=> 무명 클래스 작성법
+	컴포넌트레퍼런스.add이벤트Listener(new 이벤트인터페이스명(){
+		@Override
+		public 반환자료형 동작메소드명(이벤트클래스 레퍼런스)
+		{
+		  해당 컴포넌트에 대한 동작 처리 구문 작성함
+		}
+
+		/** 사용하지 않는 메소드에 대해서도 다 재구현해야 함 **/
+	});
+
+	=> 사용할 동작 메소드에 대해서만 오버라이딩해서 재작성하는 방법
+		: 해당 이벤트인터페이스를 상속받아서, 추상메소드들을
+		  오버라이딩 처리해서 완성시켜놓은 Adapter 클래스들을
+		  사용하면 됨 >> 메소드 안에 내용은 없음
+
+	컴포넌트레퍼런스.add이벤트Listener(new 이벤트Adapter(){
+		/** 사용할 동작메소드만 오버라이딩함 **/
+		@Override
+		public 반환자료형 동작메소드명(이벤트클래스 레퍼런스)
+		{
+		  해당 컴포넌트에 대한 동작 처리 구문 작성함
+		}
+	});
+
+
+	3.2 EventHendler 클래스 작성 방식
+	  : 아주 간단한 이벤트리스너 처리에 사용됨.
+	  >> 버튼 클릭과 같은 동작처리 등에 주로 사용될 수 있음
+	  >> 추상메소드를 하나만 제공하는 인터페이스에 주로 사용함
+	  >> 일반 메소드를 이벤트 처리용 메소드로 사용할 수 있음.
+
+	컴포넌트레퍼런스.add이벤트Listener(
+	   (이벤트인터페이스)java.beans.EventHandler.create(				이벤트인터페이스명.class, 
+		프레임레퍼런스, "실행할메소드명"));
+
+	=> 의미
+		프레임레퍼런스.실행할메소드명();
+
+	=> 메소드 작성함
+		public 반환자료형 실행할메소드명()
+		{
+			동작처리 구문 작성함
+		}
+
+ 4. 프레임을 구성하는 클래스에 해당 이벤트인터페이스를 같이 상속받음
+
+	public class 클래스명 extends JFrame 
+			implements 이벤트인터페이스
+	{
+	  //컴포넌트에 대한 필드 선언
+
+	  //생성자 작성 
+	  public 생성자()
+	  {
+		//프레임 구성, 컴포넌트 생성 및 배치
+
+		//컴포넌트에 이벤트리스너 연결하기
+		컴포넌트레퍼런스.add이벤트명Listener(this);
+	  }
+
+	  //상속받은 이벤트인터페이스의 추상메소드 오버라이딩함
+	  @Override
+	  public 반환자료형 동작메소드명(이벤트클래스명 레퍼런스)
+	  {
+		//해당 이벤트가 발생한 객체를 골라내서
+		//원하는 동작처리에 대한 구문 작성함
+	  }
+	
+	}
+
+//--------------------------------------------------------------------------------------
+[ Event의 종류 ]
+
+* java.awt.event 패키지 ------------------------------------
+
+- ActionEvent, 
+  1. actionPerformed(ActionEvent) 
+- AdjustmentEvent, 
+  1. djustmentValueChanged(AdjustmentEvent)
+- ComponentEvent,
+  1. componentMoved(ComponentEvent) 
+  2. componentHidden(ComponentEvent) (no 1.0 equivalent) 
+  3. componentResized(ComponentEvent) (no 1.0 equivalent) 
+  4. componentShown(ComponentEvent) (no 1.0 equivalent) 
+- ContainerEvent, 
+  1. componentAdded(ContainerEvent) 
+  2. componentRemoved(ContainerEvent) 
+- FocusEvent, 
+  1. focusGained(FocusEvent) 
+  2. focusLost(FocusEvent) 
+- InputEvent, 
+- ItemEvent, 
+  1. itemStateChanged(ItemEvent) 
+- KeyEvent,
+  1. public void keyReleased(KeyEvent e) 
+  2. public void keyTyped(KeyEvent e) 
+  3. public void KeyPressed(KeyEvent e) 
+- MouseEvent, 
+  1. public void mousePressed(MouseEvent e)
+  2. public void mouseReleased(MouseEvent e) 
+  3. public void mouseClicked(MouseEvent e) 
+  4. public void mouseEntered(MouseEvent e) 
+  5. public void mouseExited(MouseEvent e) (no 1.0 equivalent) 
+- MouseMotionListener
+  1. mouseDragged(MouseEvent) 
+  2. mouseMoved(MouseEvent) 
+- PaintEvent, 
+- TextEvent, 
+  1. textValueChanged(TextEvent) 
+- WindowEvent
+  1. windowClosing(WindowEvent) 
+  2. windowOpened(WindowEvent) 
+  3. windowIconified(WindowEvent) 
+  4. windowDeiconified(WindowEvent) 
+  5. windowClosed(WindowEvent) (no 1.0 equivalent) 
+  6 . windowActivated(WindowEvent) (no 1.0 equivalent) 
+  7. windowDeactivated(WindowEvent) (no 1.0 equivalent) 
+
+- hi-level event listener와 low-level listener의 리스트
+
+	3가지의 hi-level event listener interface
+  	  1. ActionListener
+  	  2. AdjustmentListener
+	  3. ItemListener
+
+- 6가지의 low-level event listener interface
+	  1. ComponentListener
+	  2. FocusListener
+	  3. KeyListener
+	  4. MouseListener
+	  5. MouseMotionListener
+	  6. WindowListener
+
+- TextListener와 ContainerListener가 추가
+
+
+* javax.swing.event 패키지 -------------------------------------------------
+
+- AncestorListener
+- CaretListener
+- CellEditorListener
+- ChangeListener
+- DocumentEvent
+- DocumentEvent.ElementChange
+- DocumentListener
+- HyperlinkListener
+- InternalFrameListener
+- ListDataListener
+- ListSelectionListener
+- MenuDragMouseListener
+- MenuKeyListener
+- MenuListener
+- MouseInputListener
+- PopupMenuListener
+- RowSorterListener
+- TableColumnModelListener
+- TableModelListener
+- TreeExpansionListener
+- TreeModelListener
+- TreeSelectionListener
+- TreeWillExpandListener
+- UndoableEditListener
+
+
+--------------------------------------------------------------------------------
+[WindowAdapter] Frame에서 windowClosing처리예제
+
+WindowAdapter를 사용한 예제입니다.
+Adapter를 사용할 경우에는 자신에게 필요한 Event처리부분만을 구현해 주면 됩니다.
+Adapter인터페이스에 이미 다른 것들이 모두 구현되어 있습니다.
+
+import java.awt.*;
+import java.awt.event.*;
+
+class dukciEventQueueTest{ 
+public static void main(String[] args){ 
+Frame f = new Frame();
+f.addWindowListener( new WindowAdapter() { 
+	//Frame을 Event 항목에 추가
+	public void windowClosing(WindowEvent ev) { 
+	//Event항목 중에 windowClosing()사용
+	System.exit(0); // Frame 종료
+	// 혹은 f.dispose();
+	}
+});
+f.setSize(300, 300);
+f.setVisible(true);
+}
+} 
+
+
+마우스 이벤트 발생 위치 알아내기
+--------------------------------------------------------------------------------
+MouseListener에서 마우스 이벤트 발생 위치 알아내기
+
+public void mousePressed(MouseEvent e){
+	if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+	 System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+	 System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+	 System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+	}
+}
+public void mouseClicked(MouseEvent e){
+	if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+	 System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+	 System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+	 System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+	}
+}
+public void mouseReleased(MouseEvent e){
+	if(e.getModifiers() == InputEvent.BUTTON1_MASK) {
+	 System.out.println("Mouse 왼쪽 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON2_MASK) {
+	 System.out.println("Mouse 중앙 at " + e.getX() + "," + e.getY());
+	}
+	if(e.getModifiers() == InputEvent.BUTTON3_MASK) {
+	 System.out.println("Mouse 오른쪽 at " + e.getX() + "," + e.getY());
+	}
+}
+public void mouseEntered(MouseEvent e){
+	System.out.println("프레임 안으로 들어옴");
+}
+public void mouseExited(MouseEvent e){
+	System.out.println("프레임 밖으로 나감");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

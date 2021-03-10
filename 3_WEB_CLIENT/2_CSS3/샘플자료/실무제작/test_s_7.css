@@ -1,0 +1,32 @@
+* {margin:0;padding:0}
+body {width:750px;margin:0 auto;font-family: Georgia, serif;color:#CCC;line-height: 150%;background:#333;padding-top:20px;position:relative}
+
+#header {font-size:150%;position:relative;padding-top:15px;top:-10px}
+#header h6 {font-weight:normal;display:inline}
+
+a {color:#FF9900;text-decoration:none;padding:0}
+
+#header, #header a:link {color:#333;border-bottom:none;letter-spacing:0.3em}
+
+#header, .article {background:#666;padding:1em;
+	-webkit-border-top-left-radius:1em;
+	-webkit-border-top-right-radius:1em;
+}
+
+h1 {font-size:3em;line-height:150%;font-family:Arial, sans-serif;letter-spacing:-1px}
+h1 a {border:none}
+h2 {font-size: 1em}
+
+aside {position:absolute;top:110px;left:60%;width:37%;background-color:#333;padding:15px;color:#CCC}
+
+aside h4 {font-size:138%}
+
+aside ul, aside p {list-style-type:none;}
+aside a, aside a:active, aside a:visited {color:#CCC}
+
+h4 {font-family:Arial, sans-serif;}
+
+p, ul {margin:5px 0; padding:0 10px}
+hr {border:1px solid #222;margin:1em 0;clear:both}
+.article {padding-top:20px;width:55%}
+footer {-webkit-border-bottom-left-radius:30em;background:#666;height: 30em;width:55%;margin-bottom:35px;padding:1em;text-align:right}

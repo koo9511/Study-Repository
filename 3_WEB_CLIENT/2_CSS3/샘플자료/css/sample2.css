@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+/*css3연습2.html 에 적용하는 샘플 스타일시트*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+div.rounded {
+	background-color: #ffff99;
+	width: 250px;
+	border: thin double #c90;
+	padding: 10px;
+	line-height: 20px;
+	border-top-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	-webkit-border-top-right-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-radius-topright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-o-border-top-right-radius: 15px;
+	-o-border-bottom-left-radius: 15px;
+}
+
+.circle1 {
+	width: 200px;
+	height: 200px;
+	background-color: #ff9900;
+	border-radius: 100px;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	-o-border-radius: 100px;
+	text-align: center;
+	vertical-align: baseline;
+}
+
+.circle2 {
+	width: 200px;
+	height: 200px;
+	background-color: #ffffff;
+	border: 3px solid #ff6600;
+	border-radius: 100px;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	-o-border-radius: 100px;
+}
+
+.half1 {
+	position: absolute;
+	top: 600px;
+	left: 100px;
+	background-color: #060;
+	width: 100px;
+	height: 200px;
+	border-radius: 200px 0 0 200px;
+	-webkit-border-radius: 200px 0 0 200px;
+	-moz-border-radius: 200px 0 0 200px;
+	-o-border-radius: 200px 0 0 200px;
+}
+
+.half2 {
+	position: absolute;
+	top: 600px;
+	left: 400px;
+	background-color: #060;
+	width: 200px;
+	height: 100px;
+	border-radius: 100px 100px 0 0;
+	-webkit-border-radius: 100px 100px 0 0;
+	-moz-border-radius: 100px 100px 0 0;
+	-o-border-radius: 100px 100px 0 0;
+}
+
+.quater1 {
+	position: absolute;
+	top: 900px;
+	left: 100px;
+	background-color: #0099ff;
+	width: 200px;
+	height: 200px;
+	border-radius: 200px 0 0 0;
+	-webkit-border-radius: 200px 0 0 0;
+	-moz-border-radius: 200px 0 0 0;
+	-o-border-radius: 200px 0 0 0;
+}
+
+.quater2 {
+	position: absolute;
+	top: 900px;
+	left: 400px;
+	background-color: #0099ff;
+	width: 200px;
+	height: 200px;
+	border-radius: 0 0 0 200px;
+	-webkit-border-radius: 0 0 0 200px;
+	-moz-border-radius: 0 0 0 200px;
+	-o-border-radius: 0 0 0 200px;
+}
+
+.grad {
+	width: 300px;
+	padding: 10px;
+	border: 8px solid #000;
+	-moz-border-top-colors: #900 #C60 #F60 #F90 #FC0;
+	-moz-border-right-colors: #900 #C60 #F60 #F90 #FC0;
+	-moz-border-bottom-colors: #900 #C60 #F60 #F90 #FC0;
+	-moz-border-left-colors : #900 #C60 #F60 #F90 #FC0;
+}
+
+.mybox {
+	border-width: 6px 12px 6px 12px; 
+	width: 300px;
+	padding: 20px;
+	-moz-border-image: url("../images/ph1_s.jpg") 6 12 6 12 stretch stretch;
+	-webkit-border-image: url("../images/ph1_s.jpg") 6 12 6 12 stretch stretch;
+	border-image: url("../images/ph1_s.jpg") 6 12 6 12 stretch stretch;
+}
+
+.resize {
+	width: 300px;
+	height: 100px;
+	padding: 5px;
+	border: 2px solid #000;
+	overflow: hidden;
+	resize: both;
+}
+
+a img:hover {
+	box-shadow: 0 5px 10px rgba(0,0,0,0.6);
+	-moz-box-shadow:0 5px 10px rgba(0,0,0,0.6);
+	-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.6);
+}
+
+.text1 {
+	color: #006600;
+	font-size: 25pt;
+	font-family: 휴먼모음T Arial sans-serif;
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.text2 {
+	color: #006600;
+	font-size: 25pt;
+	font-family: Arial Black sans-serif;
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+div.tshadow {
+	width: 300px;
+	height: 100px;
+	text-align: center;
+	background-color: #5a5a5a;
+}
+
+div.tshadow h1#ts1 {
+	color: #000;
+	text-shadow: 1px 1px 1px #fff;
+}
+
+div.tshadow h1#ts2 {
+	color: #fff;
+	text-shadow: 1px 1px 1px #000;
+}
+
+div.tshadow2 {
+	width: 300px;
+	height: 100px;
+	text-align: center;
+	background-color: #000;
+}
+
+div.tshadow2 h1#ts3 {
+	color: #000;
+	text-shadow:0 0 4px #ccc, 
+		0 -5px 4px #ff3, 
+		2px -10px 6px #fd3, 
+		-2px -15px 11px #f80, 
+		2px -19px 18px #f20;
+}
+
+div:target {
+	color: #00f;
+}
