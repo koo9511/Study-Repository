@@ -1,0 +1,399 @@
+EL(Expression Language) 태그란? //---------------------------------------
+ : 표현식에 사용되는 언어
+ => jsp 파일 내에서 필요할 경우 사용함...
+    * jsp 에서의 표현식 <%= 변수명 또는 계산식 %>
+      - EL 을 바꿔서 사용할 수 있음....
+        ${ 변수명 또는 계산식 }
+
+
+jsp 에서 java 코드를 넣을 수 있지만, 
+디자이너 들이 드림위버등 으로 수정하다 보면 코드가 엉망으로 꼬일수가 있다!
+그렇게 때문에 자바 코드 부분을 대치 할 수 있는 el 태그를 쓰는 것이다!
+
+  => jsp 에서 이것을  추가
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	- c라는 곳에 인스턴스가 선언됨
+
+	** 자바 방식으로 표현을 바꾸면
+	import jsp.jstl.core;
+
+	core c = new core();
+	c.메서드명(처리내용)  또는 c.필드명  사용
+	=> EL 에서는 c:메서드명(처리내용) 또는 c:필드명 표현이 바뀜
+
+* EL 사용방법
+	${이름}  //이름이 붙여진 값을 출력
+	${이름 + 계산식}   //이름이 값에 계산을 해서 출력
+	${이름:메서드(값)}	//자바의 정적(static) 메서드 실행후 결과값 출력
+
+ => ${이름} 의미
+    : getAttribute(이름) 을 의미함 : 저장된 영역에서 이름에 대한 값을 가져옴
+    - pageContext 영역  > request 영역 > session 영역 > application 영역
+     (JspContext 클래스)   (ServletRequest) (HttpSession) (ServletContext)
+      ${pagescope.이름}   ${requestscope.이름} ${sessionscope.이름}  ${applicationscope.이름} 
+
+
+ => ${param.이름}  == <%= request.getParameter("이름") %>
+ => ${paramValues.["이름"][0]} == <%= request.getParameterValues("이름")[index] %>
+     또는 ${paramValues.이름[0]}
+
+* EL 연산자(Operator)
+ - 산술 : +, -, *, / 또는 div, % 또는 mod 
+ - 비교 : < 또는 lt, > 또는 gt, <= 또는 le, >= 또는 ge, == 또는 eq, 
+	!= 또는 ne
+ - 논리 : && 또는 and, || 또는 or, ! 또는 not
+ - 조건(삼항) : 조건 ? 참 : 거짓
+ - 엠프티 : empty
+	사용 : ${empty 이름} - 값이 비었으면(없으면) true
+			  - 값이 있으면 false
+
+ - 대괄호, 마침표 : [](배열), .(~안에, ~아래에)
+ - 괄호 : ()
+ 
+** jsp 에서 request 영역의 정보 꺼내서, 출력시키는 과정
+1. import 사용할 빈즈클래스명;
+2. 레퍼런스 선언
+3. 레퍼런스 = (빈즈클래스명)request.getParameter("PRODUCT");
+4. <%= 레퍼런스.get필드명() %>
+
+** EL 로 처리
+${저장이름.필드명}
+
+//----------------------------------------------------------------------------
+<문제>
+1. menu.jsp : 메뉴항목 추가  - "상품검색"
+	=> 상품검색 클릭 : main 프레임에 상품정보 출력
+	=> 연결 서블릿 : product 
+			(controller.ProductServlet)
+	=> 상품정보 담을 엔티티 작성 : entity.ProductEntity 
+	=> 출력뷰 : productList.jsp
+		
+	=> db에 테이블 추가 : product 
+			(상품코드, 상품이름, 가격, 상품정보)
+
+
+
+
+
+
+
+
+도트(.)연산자 //------------------------------------------------------------------------
+
+1.도트 연산자 왼쪽은 반드시 맵 또는 빈이여야 한다.
+  (맵 인스턴스, 빈 인스턴스를 말함) 
+
+	${person.name}   //person은 java.util.Map과 bean을 가르킴
+ 
+
+2.표현식에서 도트 연산자 오른쪽은 반드시 맵의 키 값이거나 빈프로퍼티여야 한다.
+
+	${person.name}   //person이 빈일경우 getName(),setName()
+ 
+
+3.오른쪽에 오는 값은 식별자로 일반적인 자바 명명규칙을 따라야 한다.
+
+	*자바 예약어는 사용 못함
+ 
+
+[]연산자 출력하기(배열활용,EL태그가 자동 배열처리 확인코드) //----------------
+    ${nul1}<br/>//공백(사실 null은 0으로 처리된다고 봐야한다)
+    ${'4'+1 }<br/>//5
+    ${"4"+1 }<br/>//5
+
+
+[]연산자 일 경우 //---------------------------------------------
+
+왼편에 맵, 빈, 배열, 리스트 변수가 올 수 있다.
+
+	${musicList["something"]   	//가장 기본적 표현 
+				//""를 붙여서 사용하는게 좋다.
+
+	* musicList는 java.util.Map, bean, java.util.List, 
+	  배열 일 수가 있다는 말
+ 
+
+[]연산자 안의 값이 문자열이라면 
+이건 맵 키, 빈 프로퍼티, 또는 리스트나, 배열 인덱스가 될 수 있다.
+
+	${musicList["something"]
+
+ 	Map<String, String> musicList = new HashMap<String, String>();
+  	musicList.put("Ambient", "zero 7");
+	//이 코드라면 something은 Ambient(key값)를 말한다. 
+
+
+	p=1234 	//p는 맵, 1234는 value.
+	//이것도 맵 이다.
+
+--------------------------------------------------------------------------------
+ELTestServlet.java   //제네릭 활용
+---------------------------------------------------------------------------------- 
+
+package foo.bar;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ELTestServlet
+ */
+public class ELTestServlet extends HttpServlet {
+ private static final long serialVersionUID = 1L;
+ protected void proccess(HttpServletRequest request, HttpServletResponse response) 
+ throws ServletException, IOException //-------------------
+{
+  Map<String, String> musicMap = new HashMap<String, String>();
+  musicMap.put("Ambient", "zero 7");
+  musicMap.put("Stuff", "tkakaha 7");
+  musicMap.put("DJ", "YS");
+  musicMap.put("India", "carae");
+ 
+  request.setAttribute("musicMap",musicMap);
+  request.getRequestDispatcher("result.jsp").forward(request, response);
+  
+}
+ 
+ 
+protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+ throws ServletException, IOException //-------------------------
+{
+  proccess(request, response);
+  
+}
+
+ 
+protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+ throws ServletException, IOException //----------------------------
+{
+  proccess(request, response);
+ }
+
+}
+
+
+--------------------------------------------------------------------------------
+reuslt.jsp  키값을 이용해 출력
+-----------------------------------------------------------------------------------
+ 
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.util.HashMap"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+1
+<%
+ HashMap<String,String>musicMap1 = 
+	(HashMap<String,String>)request.getAttribute("musicMap");
+%>
+::<%=musicMap1.get("India") %><br/>
+1
+::${musicMap.Ambient}
+::${musicMap1.DJ}<br/>
+::${musicMap1["DJ"]}
+<br/>
+/////////////////////////////////////////////////////<br/>
+::${musicMap.DJ}   
+//setAttribute안해도 musicMap으로 키를 잡은게 있어서 이렇게도 쓸 수 있다.
+<br/>
+::${musicMap["DJ"]}<br/>
+
+<br/>
+</body>
+</html> 
+
+
+--------------------------------------------------------------------------------
+ArrayServlet.java    //Arraylist 배열을 활용한 서블릿
+----------------------------------------------------------------------------------
+
+package foo.bar;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ArrayServlet
+ */
+public class ArrayServlet extends HttpServlet {
+ private static final long serialVersionUID = 1L;
+
+protected void proccess(HttpServletRequest request, HttpServletResponse response) 
+ throws ServletException, IOException  //----------------------------
+{
+  java.util.ArrayList favoriteFood = new java.util.ArrayList();
+
+  favoriteFood.add("kim ji hyu");
+  favoriteFood.add("lee san dyd");
+  favoriteFood.add("kkk dsadf sf");
+  favoriteFood.add("dddd ddddd");
+
+  request.setAttribute("favoriteFood", favoriteFood);
+  request.getRequestDispatcher("/result2.jsp").forward(request, response);
+  
+}
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException  //------------------------- 
+{
+  proccess(request, response);
+ }
+
+ /**
+  * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+  */
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException //---------------------------------
+{
+  proccess(request, response);
+ }
+
+}
+
+
+
+--------------------------------------------------------------------------------
+result2.jsp  일일히 캐스팅을 하지 않고 인덱스번호를 통해 출력 할 수 있다.
+------------------------------------------------------------------------------------
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+::${favoriteFood}<br/>//전체출력
+::${favoriteFood[0]}<br/>
+::${favoriteFood["1"]}<br/>
+</body>
+</html>
+
+
+--------------------------------------------------------------------------------
+배열을 잡지 않아도 EL태그가 자동배열 처리되는걸 확인 할 수 있는코드 
+--------------------------------------------------------------------------------
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+ request.setCharacterEncoding("EUC-KR");
+%>
+<form action = "Testbean.jsp" method="post">
+Name : <input type="text" name ="name"><br/>
+ID# : <input type="text" name ="empID"><br/>
+First food : <input type="text" name="food"><br>
+second food : <input type="text" name="food"><br/>
+<input type="submit"><br><br><br><br>
+</br></br></br></br>
+Request para name is : ${param.name }<br/>
+Request para empID is : ${param.empID }<br/>
+Request para food is : ${param.food }<br>
+Request para first food is : ${paramValues.food[0]}<br>
+Request para secod food is : ${paramValues.food[1]}<br>
+Request para name is : ${paramValues.name[0]}<br>
+
+</input>
+</form>
+</body>
+</html>
+
+
+--------------------------------------------------------------------------------
+CookieServlet.java   쿠키생성 서블릿
+--------------------------------------------------------------------------------
+package foo.bar;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class CookieServelt
+ */
+public class CookieServelt extends HttpServlet {
+ private static final long serialVersionUID = 1L;
+ protected void process(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException //-----------------------------------
+{
+  Cookie cookie = new Cookie("userName", "냐냐냐");
+  response.addCookie(cookie);
+
+ }
+
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException //--------------------------------------
+{
+  process(request, response);  
+ }
+
+ /**
+  * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+  */
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+ throws ServletException, IOException //---------------------------------
+{
+  process(request, response);
+ }
+
+}
+
+
+
+
+--------------------------------------------------------------------------------
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+
+<%@page import="java.net.URLDecoder"%><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%   
+  Cookie[] cookie = request.getCookies();
+
+  for(int i=0; i<cookie.length; i++)
+  {
+   	if((cookie[i].getName()).equals("userName"))
+	{
+    	  out.println(URLDecoder.decode(cookie[i].getValue(),"EUC-KR"));
+   	}
+  }
+%> 
+// 스크립릿을 이용한 쿠키 출력
+${cookie.userName.value} 
+//EL태그를 이용한 쿠키출력.  
+</body>
+</html>
+

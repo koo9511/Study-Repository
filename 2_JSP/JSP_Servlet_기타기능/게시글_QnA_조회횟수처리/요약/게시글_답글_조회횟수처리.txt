@@ -1,0 +1,402 @@
+[게시글(Board) 답글 또는 Q&A 처리 및 조회횟수 처리]
+
+**************************************************************
+1. application 설계 방식 결정
+
+ 1.1. MVC 디자인 패턴으로 Model1 방식일 경우
+				<웹 서버의 웹컨테이너>
+		  서비스 요청	
+	클라이언트  ----------------▶	JSP 가 요청을 받음  ◀--------
+	웹브라우저	 ◀----------------		▼		|
+		  서비스 응답	DAO 가 db 로직 처리	|
+					+	------------
+        			DTO 에 처리결과 저장 
+
+	=> 작업기간이 가장 짧음(소규모 프로젝트에 적용하면 적합)
+
+
+ 1.2. MVC 디자인 패턴으로 Model2 방식일 경우(A)
+		       <웹 서버의 웹컨테이너>
+	    서비스 요청	
+   클라이언트  -----------▶ Servlet이 요청 받음 ◀▶ DAO가 db 로직 처리 
+   웹브라우저			▼		+
+	    ◀----------  JSP 가 결과 받아서	  DTO 에 처리결과 저장
+	   결과페이지 응답	  값 출력처리				
+        		 
+
+ 1.3. MVC 디자인 패턴으로 Model2 방식일 경우(B)
+		       <웹 서버의 웹컨테이너>
+	    서비스 요청	
+   클라이언트  -----------▶ Front Controller(또는 Filter)가 요청받음
+   웹브라우저		     ▼
+		      Servlet이 전송값 받음 ◀▶ DAO가 db 로직 처리 
+   			     ▼		          +
+	    ◀----------  JSP 가 결과 받아서	    DTO 에 처리결과 저장
+	  결과페이지 응답	값 출력처리				
+        		 
+
+ 1.4. MVC 디자인 패턴으로 Model2 방식일 경우(C)
+		       <웹 서버의 웹컨테이너>
+	    서비스 요청   FirstController	   action 처리 클래스인
+   클라이언트  -----------▶ Servlet이 요청받음  ◀▶ Command 가 전달받음
+   웹브라우저		     ▼			 ▼▲
+	    ◀----------  JSP 가 결과 받아서     DAO가 db 로직 처리 
+   	  결과페이지 응답	값 출력처리    	         +
+	    	   			   DTO 에 처리결과 저장
+	 					
+
+**************************************************************
+2. database 설계
+   : application 에서 가장 중요한 부분임. (프로젝트의 성능을 결정함)
+   - 테이블과의 관계 구성 및 테이블 컬럼 구성이 가장 중요한 결정 부분임.
+   - 쿼리문 작성에 따라 처리시간에 차이가 생김.
+   - 프로젝트에 별도의 폴더를 만들고, 스키마 생성 쿼리문 따로 저장해 둠
+	예> 프로젝트/SQL/파일명.sql
+
+ <회원 테이블과 게시글 테이블의 예> ------------------------------------------
+
+ -- 회원 테이블의 스키마 샘플 (참고로 컬럼명은 단어사이에 _ 를 많이 사용함)
+ -- dto 클래스의 필드(property)와 구분하기 위함(필드는 다음 단어의 첫글자 대문자)
+
+ CREATE TABLE MEMBER(
+	MEMBER_ID	VARCHAR2(15),
+	MEMBER_PW	VARCHAR2(13),
+	MEMBER_NAME	VARCHAR2(15),
+	MEMBER_AGE	NUMBER,
+	MEMBER_GENDER	VARCHAR2(5),
+	MEMBER_EMAIL	VARCHAR2(30),
+	CONSTRAINT PK_MEMID PRIMARY KEY(MEMBER_ID)
+ );
+
+ -- 게시글 테이블 스키마 샘플
+ CREATE TABLE BOARD(
+	BOARD_NUM	NUMBER,		-- 글번호
+	BOARD_ID	VARCHAR2(20),	-- 작성자 아이디
+	BOARD_SUBJECT	VARCHAR2(50),	-- 글제목
+	BOARD_CONTENT	VARCHAR2(2000),	-- 글내용
+	BOARD_FILE	VARCHAR2(50),	-- 첨부파일
+	BOARD_RE_REF	NUMBER,		-- 답글일 경우, 원글 번호
+	BOARD_RE_LEV	NUMBER,	
+	-- 원글은 0, 원글의 답글은 1, 답글의 답글은 2로 처리함
+	BOARD_RE_SEQ	NUMBER,
+
+	-- 원글은 0, 답글의 번호 1 부터 시작
+	-- 원글일 경우 번호가 3이면, REF 0, LEV 0, SEQ 0 이 됨.
+	-- 원글 3번의 첫번째 답글은 NUM 4, REF 3, LEV 1, SEQ 1 이 됨
+
+	BOARD_READCOUNT	NUMBER,	-- 글보기한 횟수
+	BOARD_DATE	DATE,		-- 작성 또는 수정 날짜
+	CONSTRAINT pk_bonum PRIMARY KEY(BOARD_NUM)
+ );
+
+ -- 회원 아이디와 게시글 작성자 아이디를 외래 참조키로 지정함
+ -- 회원 탈퇴시 작성자 아이디는 널(NULL) 처리함
+
+ ALTER TABLE BOARD
+ ADD CONSTRAINT fk_board_id FOREIGN KEY(board_id) REFERENCES  member(member_id) ON DELETE SET NULL;
+
+ -- 답글 번호를 위한 시퀀스 생성할 수도 있음.
+ CREATE SEQUENCE seq_renum
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ NOCACHE
+ NOCYCLE;
+
+ ---------------------------------------------------------------------------------
+ - 샘플 데이터 insert 해 놓음
+
+
+**************************************************************
+3. MVC 디자인패턴으로 Model2의 C방식으로 구현한 경우
+
+ 3.1. First Controller 구현 (패키지 : src/board.controller)
+
+   - 먼저 web.xml 에 퍼스트 컨트롤러 서블릿 등록함
+	=> *.bo(또는 *.do 등 .뒤의 단어는 임의대로 지정함)의 형태로 
+	  요청되는 모든 액션은 모두 first controller로 연결 처리되게 설정함
+
+ <예> --------------------------------------------------------------------------------
+ <servlet>
+   <servlet-name>BoardFrontController</servlet-name>
+   <servlet-class>board.controller.BoardFrontController</servlet-class>
+ </servlet>
+ <servlet-mapping>
+   <servlet-name>BoardFrontController</servlet-name>
+   <url-pattern>*.bo</url-pattern>
+ </servlet-mapping>
+
+ <servlet>		
+   <servlet-name>MemberFrontController</servlet-name>
+   <servlet-class>member.controller.MemberFrontController</servlet-class>
+ </servlet>
+ <servlet-mapping>
+   <servlet-name>MemberFrontController</servlet-name>
+   <url-pattern>*.me</url-pattern>
+ </servlet-mapping>
+
+ ---------------------------------------------------------------------------------------
+
+ - Front Controller Servlet 만들기
+	=> 클라이언트가 요청한 서비스에 대한 실제 액션을 연결해 주는 역할을 함.
+	** 액션(action) : 실제 서비스 요청을 처리할 자바 클래스를 말함.
+	=> 각 커맨드별로 처리되는 액션 클래스의 내용중 중복되는 코드는 
+		프론트 컨트롤러에 작성하여 중복을 줄여줌.
+	=> 서블릿에서 하나의 클래스 타입으로 각 커맨드별 액션 클래스들을 
+	   다루기 위해 클래스를 하나 작성함 (예 : ActionForward 클래스)
+	=> 서블릿에서 각 커맨드별 액션 클래스들을 하나의 메소드로 실행할 수 
+	   있도록 하기 위해, 해당 메소드를 추상메소드로 가진 인터페이스도
+	   별도로 작성함 (예 : Action 인터페이스의 execute() 메소드)
+	=> 각 커맨드별 액션 클래스들은 준비된 인터페이스를 상속받도록 하고
+	   추상메소드를 오버라이딩하여, 실제 처리 내용을 메소드 안에 작성함.
+
+************************************************
+ <application 실행 흐름 예>
+
+ 클라이언트	 list.bo   board에 대한 Front Controller 가 요청받음
+ 게시글 목록보기 요청 --------▶ 전달된 커맨드를 추출하여(/list.bo) 
+	▲		 해당 액션처리용 클래스(BoardListAction)의
+ 액션이 리턴한 뷰를 	 ◀-------	 객체 생성하고 실행(execute)시킴
+ 응답 처리함		 		▼▲
+			 BoardListAction의 execute()에서
+			 전달된 request 파라메터 값 추출하고
+			 BoardDao의 selectList() 메소드 호출하고 
+			 쿼리 실행 결과를 받아서, 뷰를 지정해서 리턴함
+			 		▼▲
+			 BoardDao의 selectList() 에서
+	Board 사용   +	 db 연결하고, board 테이블에 대한 전체 조회
+			 쿼리문 작성해서 실행시키고, 조회결과를 
+			 컬렉션에 담아서 성공/실패에 대한 결과 리턴함
+
+
+************************************************
+
+
+ 3.2. Command별 액션 클래스 구현 (패키지 : src/board.action)
+	=> 실질적인 비즈니스 로직 처리를 위한 클래스임.
+	=> 클라이언트 요청에 대한 액션을 취하는 클래스라고 보면 됨
+	=> 전송된 값 추출해서 dao로 전달하고, 처리된 결과를 받아서 뷰 선택함.
+
+   - 하나의 클래스 타입으로 여러 액션 커맨드 클래스들을 다루기 위한
+	클래스를 작성한다.
+    	클래스명 : ActionForward.java
+
+ <ActionForward 소스 구현 예> -------------------------------------------------
+ package board.action;
+
+ public class ActionForward {
+	//sendRedirect() 사용이면 true, forward() 사용이면 false 지정용 필드
+	private boolean isRedirect=false;
+	//선택한 뷰 파일의 경로 저장용 필드
+	private String viewPath=null;
+
+	public ActionForward(){}
+	
+	public boolean isRedirect(){
+		return isRedirect;
+	}
+	
+	public String getViewPath(){
+		return viewPath;
+	}
+	
+	public void setRedirect(boolean b){
+		isRedirect=b;
+	}
+	
+	public void setViewPath(String view){
+		viewPath=view;
+	}
+}
+
+ -------------------------------------------------------------------------------------
+
+
+   - 여러 액션 클래스들을 하나의 메소드로 모두 실행하기 위하여 
+	인터페이스를 작성함 
+	인터페이스명 : Action.java
+
+ <Action 인터페이스 소스 구현 예 > ---------------------------------------------
+
+ package board.action;
+
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse; 
+
+ public interface Action {
+	public ActionForward execute(HttpServletRequest request, 
+		HttpServletResponse response) throws Exception;
+ }
+
+ -------------------------------------------------------------------------------------
+
+ - 게시글 전체 목록 조회 액션
+	클래스명 : BoardListAction.java
+
+
+ - 게시글 상세보기 액션
+
+
+ - 게시글 조회횟수 증가처리 
+
+
+ - 게시글 추가 액션
+
+
+ - 게시글 답글달기 액션
+
+
+ - 게시글 수정 액션
+
+
+ - 답글 수정 액션
+
+
+ - 게시글 삭제 액션
+
+
+ - 답글 삭제 액션
+
+
+ - 게시글 제목별 조회 액션
+
+
+ - 게시글 작성자 아이디별 조회 액션
+ 
+
+
+ 3.3. Model의 DAO 구현
+
+
+
+ 3.4. Model의 DTO 구현
+	=> board 테이블 컬럼에 맞추어 필드 구성함
+	=> default 생성자와 필요한 매개변수 있는 생성자 작성함
+	=> 각 필드에 대한 getter and setter 작성함
+
+
+ <예> ---------------------------------------------------------------------------------
+ package board.model.vo;
+
+ import java.sql.Date;
+
+ public class Board implements java.io.Serializable{
+   private int boardNum;
+   private String boardId;
+   private String boardSubject;
+   private String boardContent;
+   private String boardFile;
+   private int boardReRef;
+   private int boardReLev;
+   private int boardReSeq;
+   private int boardReadCount;
+   private Date boardDate;
+	
+   public Board(){}
+
+   public Board(int boardNum, String boardId, String boardSubject,
+		String boardContent, String boardFile, int boardReRef,
+		int boardReLev, int boardReSeq, int boardReadCount, 
+		Date boardDate) {
+	super();
+	this.boardNum = boardNum;
+	this.boardId = boardId;
+	this.boardSubject = boardSubject;
+	this.boardContent = boardContent;
+	this.boardFile = boardFile;
+	this.boardReRef = boardReRef;
+	this.boardReLev = boardReLev;
+	this.boardReSeq = boardReSeq;
+	this.boardReadCount = boardReadCount;
+	this.boardDate = boardDate;
+   }
+
+   public int getBoardNum() {
+	return boardNum;
+   }
+
+   public void setBoardNum(int boardNum) {
+	this.boardNum = boardNum;
+   }
+
+   public String getBoardId() {
+	return boardId;
+   }
+
+   public void setBoardId(String boardId) {
+	this.boardId = boardId;
+   }
+
+   public String getBoardSubject() {
+	return boardSubject;
+   }
+
+   public void setBoardSubject(String boardSubject) {
+	this.boardSubject = boardSubject;
+   }
+
+   public String getBoardContent() {
+	return boardContent;
+   }
+
+   public void setBoardContent(String boardContent) {
+	this.boardContent = boardContent;
+   }
+
+   public String getBoardFile() {
+	return boardFile;
+   }
+
+   public void setBoardFile(String boardFile) {
+	this.boardFile = boardFile;
+   }
+
+   public int getBoardReRef() {
+	return boardReRef;
+   }
+
+   public void setBoardReRef(int boardReRef) {
+	this.boardReRef = boardReRef;
+   }
+
+   public int getBoardReLev() {
+	return boardReLev;
+   }
+
+   public void setBoardReLev(int boardReLev) {
+	this.boardReLev = boardReLev;
+   }
+
+   public int getBoardReSeq() {
+	return boardReSeq;
+   }
+
+   public void setBoardReSeq(int boardReSeq) {
+	this.boardReSeq = boardReSeq;
+   }
+
+   public int getBoardReadCount() {
+	return boardReadCount;
+   }
+
+   public void setBoardReadCount(int boardReadCount) {
+	this.boardReadCount = boardReadCount;
+   }
+
+   public Date getBoardDate() {
+	return boardDate;
+   }
+
+   public void setBoardDate(Date boardDate) {
+	this.boardDate = boardDate;
+   }
+
+   //필요할 경우 toString() 메소드 오버라이딩함.	
+ }
+
+---------------------------------------------------------------------------------------
+
+4. 실행 확인
+
+
+
