@@ -1,0 +1,57 @@
+ MVC 디자인 패턴
+
+ - M : Model
+	=> 비즈니스 로직(DB 연결, 쿼리를 실행, 트랜젝션 관리)을 담당
+	=> 클래스
+	=> 비즈니스 로직을 담당할 클래스 + 데이터 저장용 클래스
+	=> DAO(DataBase Access Object) 
+		+ 
+	   DTO(Data Transfer Object) == DO(Domain Object)
+				     VO(Value Object)
+				     Entity
+				     Beans
+	=> 작성 : 프로젝트/src/패키지 단위로 *.java 
+	   저장 : 프로젝트/web/WEB-INF/classes/*.class
+		** 이클립스에서 프로젝트 생성 후에 바로 
+		속성(properties)에서 Java Build Path 항목에 있는 
+		'source'에서 수정함
+
+ - V : View
+	=> 화면 UI 담당
+	=> 클라이언트 브라우저 상에 출력될 페이지
+	=> html, jsp
+	=> 프로젝트/web 폴더 아래에 위치함
+		** 필요할 경우 하위 폴더 작성해서 사용함
+		web/images/*.jpg, *.gif, *.png
+		web/css/*.css
+		web/js/*.js
+		web/ajax/*.js, *.xml, *.json
+
+
+ - C : Controller
+	=> 웹 서비스 요청 처리를 담당
+	=> Servlet 클래스
+	=> 작성 : 프로젝트/src/패키지 구성후, 패키지 아래에 *.java
+	   저장 : 프로젝트/web/WEB-INF/classes/패키지 단위로 *.class
+	=> web.xml 파일에서 서블릿 클래스와 서블릿 매핑 정보를 관리함
+	   톰켓 7에서는 web.xml 파일은 프로젝트 생성시 선택할 수 있음
+	   --> web.xml 파일이 없을 경우에는 각 서블릿 클래스에서
+	      @WebServlet 어노테이션으로 관리함.
+
+
+  *** 해당 어플리케이션(context)의 contents directory 로 정한 폴더
+	아래에 모든 파일, 클래스 들이 위치해 있어야 함 ***
+
+
+
+
+
+
+
+
+
+
+
+
+
+

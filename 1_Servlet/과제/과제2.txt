@@ -1,0 +1,83 @@
+[서블릿 DAY3 과제]
+
+* 프로젝트명 : intranetProject
+	context root : test2
+	content directory : web
+	web.xml 생성함
+	클래스 output folder : WEB-INF/classes
+* 사용할 테이블 : EMPLOYEE
+* db script 파일 저장 위치 : intranetProject/sql 폴더 아래에 둠
+* 테이블에 대한 VO 작성 : 클래스명 emp.model.vo.Employee.java
+	- 필드는 테이블 컬럼명과 자료형에 맞추어 선언함
+	- 생성자 : 기본, 매개변수
+	- getter & setter
+	- toString() Overriding
+* dao 클래스 작성 : emp.model.dao.EmployeeDao.java
+	- 로그인 처리용 메소드 : 사번과 이름으로 로그인 체크함
+	  public Employee loginCheck(String empId, String empName)
+	- 전체 직원 조회 : 키는 직원의 사번임.
+	  public HashMap<String, Employee> selectAll()
+	- 이름으로 검색 조회 : 키는 직원의 사번임.
+	  public HashMap<String, Employee> selectName(String empName)
+	- 새 직원정보 등록
+	  public int insertEmployee(Employee e)
+	- 직원정보 수정 
+	  : 전화번호, 직급, 부서, 급여, 보너스포인트, 결혼유무만 수정
+	  public int updateEmployee(Employee e) //사번을 가지고 수정함
+	- 직원정보 삭제 : 사번으로 삭제
+	  public int deleteemployee(String empId)
+
+* controller : 패키지 emp.controller
+	- 로그인 처리용 (url-pattern : elogin)
+	  EmpLoginServlet.java
+		: 사번과 이름을 전달받아, loginCheck()로 전달함
+		dao 가 리턴한 결과를 세션에 저장하고, 뷰 선택
+		성공시 : loginSuccess.jsp
+		실패시 : loginFail.html (시작페이지로 이동 기능 포함)
+	  단, 사번과 이름이 "admin"이면, 사원정보 전체보기 컨트롤로 실행함
+	- 사원정보 전체보기 (url-pattern : elist)
+	  EmpListServlet.java
+		: Employee 테이블의 모든 행을 읽어와서 뷰에 출력시킴
+		성공시 : listView.jsp
+		실패시 : listFail.html (시작페이지로 이동 기능 포함)
+	- 새 직원 등록 (url-pattern : einsert)
+	  EmpInsertServlet.java
+	  : 직원 정보를 모두 form 의 input 을 통해 입력받아 추가함
+	  => 입사날짜는 Date 형으로 sysdate 처리함
+	- 직원정보 수정 (url-pattern : eupdate)
+	  EmpUpdateServlet.java
+	  : 사번과 수정할 항목들을 전달받아, 변경처리함
+	- 직원정보 삭제 (url-pattern : edelete)
+	  EmpDeleteServlet.java
+	  : 사번을 전달받아 삭제 처리함
+	- 이름으로 검색 (url-pattern : esearch)
+	  EmpNameSearchServlet.java
+	- 로그아웃 (url-pattern : elogout)
+	  EmpLogoutServlet.java
+
+* view : web 폴더 아래에 저장함
+	- welcome file : index.html 로 함
+		>> 로그인 폼 작성함 (target: _self)
+	- loginSuccess.jsp
+		>> 해외사업부 3팀 대리 홍길동 이라고 출력되게 함
+		>> 사원정보 상세 보기 : 링크 설정함 (target : _self)
+			링크 파일 : empDetailView.jsp
+		>> 시작 페이지로 이동 : 링크 설정함
+		>> 로그아웃 : 링크설정함
+			- elogout 컨트롤러 연결함, 사번 전달함
+	- empDetailView.jsp
+		>> 로그인시 세션에 저장된 정보를 form에 출력 처리함
+		>> 수정하기 : 전송버튼 클릭시 연결되게 함
+			- 연결 컨트롤러 : eupdate
+	- listView.jsp
+		>> admin 으로 로그인시 출력되는 페이지임
+		>> 검색 필드와 전송버튼 폼 추가
+		  : 연결 컨트롤러 - esearch
+		>> table에 사번, 이름, 성별, 부서코드, 직급코드 출력 처리함
+		>> 사번 클릭시, 직원정보 상세보기 페이지 나타나게 링크함
+		>> admin 으로 로그인시에만
+			'삭제하기' 나타나게 함
+		>> 삭제하기 클릭시, 'edelete'로 사번 넘겨 삭제 처리함	
+
+
+
