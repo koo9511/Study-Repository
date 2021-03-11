@@ -1,0 +1,237 @@
+<표준액션>
+ : XML 기술을 이용하여 기존의 JSP 문법을 확장하는 메커니즘 제공
+ - 확장된 문법은 XML 태그 형태를 띠고 있음. 
+	: 액션태그(action tag)라고 부름 또는 액션(action) 이라고 함.
+ - 어떤 동작을 수행하는 역할을 함.
+
+ - 표준액션과 커스텀액션 둘로 나누어 짐.
+    * 표준액션(standard action) : jsp 페이지에 바로 사용함
+    * 커스텀액션(custom action) : 별도의 라이브러리를 설치해야 함
+		- 인터넷에서 다운로드 받을 수도 있고, 직접 만들어 사용가능 
+		- 인터넷에서 다운 받을 수 있는 커스텀 액션 라이브러리로
+		  JSTL(jsp 표준 태그 라이브러리) 이 있음
+		  (JSP Standard Tag Library)
+
+ - 표준액션은 모든 태그 이름 앞에 jsp 접두어가 붙음
+   커스텀액션은 그 밖의 접두어가 붙음.
+
+	예>
+	표준액션의 경우
+	<jsp:include page="/product/productList.jsp" />
+	동일한 jsp 문법은
+	 <%@ include file="/product/productList.jsp" %>
+
+	커스텀액션의 경우
+	<c:set var="cnt" value="0" />
+
+ - HTML 태그와 비슷하지만, 웹브라우저에서 실행되는 것이 아니라,
+   웹 컨테이너에서 실행되고 결과만 브라우저로 보낸다는 것이 
+   html과 다름.
+
+
+=> 표준 액션 종류 ------------------------------------------------------
+
+ * <jsp:include page="파일명.확장자" />
+==> <%@ include file="파일명.확장자" %>
+
+ * <jsp:forward page="파일명.확장자" />
+==> <% 
+	request.getRequestDispatcher("파일명.확장자").forward(request, response);
+	%>
+
+
+=> 자바 빈(Bean == vo == dto == 엔티티) 사용 표준 액션 -------------------------------------
+
+ * <jsp:useBean id="레퍼런스" class="사용할 빈즈클래스명" />
+  => 자바 문법 사용시 같은 표현식
+	빈즈클래스명 레퍼런스 = new 생성자();
+
+ * <jsp:getProperty name="레퍼런스" property="필드명" />
+  => 자바 문법 사용시 같은 표현식
+	<%= 레퍼런스.get필드명() %>
+
+ * <jsp:setProperty name="레퍼런스" property="필드명" 
+	value="저장 또는 변경할 값" 
+	param="클라이언트로 부터 넘어온 값" />
+
+	=> param="클라이언트로 부터 넘어온 값"  과 동일한 자바소스는
+	   예> param="AGE"
+              자바소스로 바꾸면
+		Integer.parseInt(request.getParamater("AGE"))
+
+  => 자바 문법 사용시 같은 표현식
+	레퍼런스.set필드명(저장 또는 변경할 값);
+
+
+※ request 영역이나 session 영역에 빈즈(엔티티)를 저장하거나 사용하려면 
+   빈즈 사용 선언시에 미리 지정함...
+
+   <jsp:useBean id="레퍼런스" class="사용할 빈즈클래스명" scope="request 또는 session 또는 application"/>
+
+
+<문제> : 표준 액션 사용 문제 =================================
+1. input.html 작성
+	: form 태그 사용해서 이름, 나이, 전화번호 입력 받음
+
+2. 폼의 정보를 받을 파일은 receive.jsp
+	: 표준 액션을 사용해서, 넘어온 값들 빈즈에 저장하고,
+	 request 영역에 저장함
+	- 보관한 값 출력 확인을 위해 다음 파일로 페이지 넘김
+	  result.jsp 
+
+3. 빈즈용 클래스는 entity.TestBean.java 작성
+	: 멤버변수, 생성자, setter, getter 메서드 작성
+
+4. result.jsp 에서 request 에 저장된 정보 꺼내서 출력되게 작성
+
+//=======================================================
+ input.html
+//----------------------------------------------------------------------------------
+	<html>
+	<head>
+		<title> 표준액션 연습용 파일 </title>
+	</head>
+	<body>
+		<form action="receive.jsp" method="post">
+		   이름 : <input type="text" name="NAME" />
+		   나이 : <input type="text" name="AGE" />
+		   전화번호 : <input type="text" name="PHONE" />
+		   <input type="submit" value="전송하기" />
+		</form>
+	</body>
+	</html>
+
+
+//=======================================================
+ receive.jsp
+//----------------------------------------------------------------------------------
+   <%@ page language="java" contentType="text/html;charset=euc-kr" %>
+   <%@ import "entity.TestBean" %>
+
+   <jsp:useBean id="test" class="entity.TestBean" scope="request">
+	<jsp:setProperty name="test" property="username" param="NAME" />
+	<jsp:setProperty name="test" property="userage" param="AGE" />
+	<jsp:setProperty name="test" property="userphone" param="PHONE" />
+   </jsp:useBean>
+
+   <html>
+	<body>
+	  넘겨진 값들을 request 영역에 저장하였습니다...<br/>
+	  결과 출력 페이지로 바로 넘어값니다...<br/>
+
+	<jsp:forward page="result.jsp" />
+	</body>
+   </html>
+
+
+
+//======================================================
+ result.jsp
+//----------------------------------------------------------------------------------
+   <%@ page language="java" contentType="text/html;charset=euc-kr" %>
+
+   <jsp:useBean id="test" class="entity.TestBean" scope="request" />
+
+   <html>
+	<body>
+	<h1> 입력되어 넘어온 값 확인 페이지 </h1>
+
+	저장된 이름 : <jsp:getProperty name="test" property="username" />
+	<br/>
+	저장된 나이 : <jsp:getProperty name="test" property="userage" />
+	<br/>
+	저장된 전화번호 : <jsp:getProperty name="test" property="userphone" />
+	<br/>
+	</body>
+   </html>
+
+
+
+
+//======================================================
+ TestBean.java
+//---------------------------------------------------------------------------------
+
+public class TestBean
+{
+	//Field -----------
+	private String username;
+	private int userage;
+	private String userphone;
+
+	//Constuctor ----------
+	public TestBean()
+	{}
+
+	//setter and getter ---------------
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getUserage() {
+		return userage;
+	}
+
+	public void setUserage(int userage) {
+		this.userage = userage;
+	}
+
+	public String getUserphone() {
+		return userphone;
+	}
+
+	public void setUserphone(String userphone) {
+		this.userphone = userphone;
+	}		
+
+}
+
+//****************************************************
+=> 플러그인 사용 표준 액션 ----------------------------------------------
+
+ * <jsp:plugin type="applet" code="클래스명.class" width="가로크기"
+	height="세로크기" />
+
+==> <applet class="클래스명.class" width="" height=""></apple>
+      html 태그가 있음
+
+
+=> JSP 스크립팅 문법을 대신하는 표준액션 -----------------------------
+
+ * <jsp:scriptlet>	   <%  스크립트릿
+	지역변수 초기화 또는
+	제어 처리문 작성
+   </jsp:scriptlet>       %> 과 동일함
+
+
+ * <jsp:expression>    <%= 표현식
+	출력값 또는 변수 또는 계산식
+   </jsp:expression>    %> 과 동일함
+
+
+ * <jsp:declaration>   <%!  선언부
+	멤버변수 선언 또는 메서드 작성
+   </jsp:declaration>    %> 과 동일함
+
+
+ * <jsp:directive.page contentType="text/html;charset=euc-kr" />
+	: <%@ page contentType="text/html;charset=euc-kr" %>
+		과 동일함
+
+
+   <jsp:directive.include  file="파일명.확장자" />
+	: <%@ include file="파일명.확장자" %> 와 동일함
+
+
+
+
+
+
+
+
+
+

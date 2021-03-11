@@ -1,0 +1,51 @@
+[웹 애플리케애션 개발 방법론]
+
+1. MVC 디자인패턴의 모델1 방식
+  VIEW  -------------------------> jsp 가 컨트롤러 ----> Model
+  html or jsp   요청         서버쪽              java
+
+2. MVC 디자인 패턴의 모델2 방식
+  A 방식>
+  VIEW ---------------------> CONTROLLER ----------> MODEL
+  html or jsp  요청       Servlet               java
+* db 연결, 트랜잭션 처리, 닫기 처리 : jdbcTemplage 클래스 이용
+
+  B 방식>
+  뷰와 컨트롤러는 동일하게 작성 ----------> MODEL
+				  service : connection 요청, 트랜잭션, 닫기
+				  dao : 쿼리문 작성, 실행, 결과 처리
+				  dto(vo) : 컬럼값 저장용
+  => 스프링 프레임워크가 사용하는 방식임
+  => db 연결처리 : 톰켓의 dbcp(database connection pooling) 사용
+	web/META-INF/context.xml 의  Resource 사용
+
+  C 방식>
+	VIEW ---------------> First(Front) Controller ---> 각 기능별 서블릿 연결
+	html, jsp  요청     Servlet                  Servlet
+
+  D 방식>
+	VIEW ---------------> Front Controller ---> 각 기능별 처리 클래스 연결
+	html, jsp          Servlet			java
+
+
+	Model : service ---> dao + dto
+	
+
+ 3. 스프링 프레임워크를 사용하는 방식
+	VIEW ------------> Front Controller ---> 각 기능(action)별 처리 
+	html, jsp        xml		   java
+	공통모듈 : jspf
+
+	Model
+	service ---> dao + bean(dto)
+   => db 연결처리 + 쿼리문 작성 : 마이바티스(jdbc 프레임워크) 사용
+			둘 다 xml 파일로 작성해서 사용함
+
+
+
+
+
+
+
+
+

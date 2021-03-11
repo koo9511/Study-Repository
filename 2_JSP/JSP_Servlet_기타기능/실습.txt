@@ -1,0 +1,21 @@
+[게시글 삭제하기 : delete.bo]
+ => 댓글이 있는 글을 삭제할 경우, 댓글도 함께 삭제되게 함.
+ => BoardDeleteAction.java
+ => BoardDao의 deleteBoard(num) 
+
+[게시글 수정하기 : modify.bo]
+ => BoardModifyAction.java
+ => BoardDao의 updateBoard(Board b)
+ => 제목, 내용, 첨부파일, 날짜는 수정한 날짜로 업데이트함
+ => 업데이트 성공시 바로 목록 출력됨
+
+[새 게시글 추가하기 : insert.bo]
+ => 전체목록보기 페이지 윗부분에 '새 게시글 추가' 항목 표시함
+	./board/boardInsertForm.jsp 링크함
+ => BoardInsertAction.java
+ => BoardDao insertBoard(Board b)
+
+[답글 쓰기 : reply.bo]
+ => BoardReplyAction.java
+ => BoardDao replyBoard(Board b)
+ => 답글에는 파일첨부 기능 없음
