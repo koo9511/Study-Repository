@@ -1,0 +1,10 @@
+[실습]
+ 새 프로젝트 : testJSPProject
+	content directory : web
+	context root : tjsp
+	web.xml 추가 >> ID 속성 수정
+		>> welcome-file : index.jsp 
+ 서버 추가 : 이름 - jsp 연습용 >> 프로젝트와 연결
+	포트 : 8505, 8800, 8909
+ 문자인코딩, 클래스패스, 드라이브 추가 처리
+ => 브라우저에서 실행 확인  
