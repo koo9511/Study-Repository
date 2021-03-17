@@ -1,0 +1,29 @@
+[Servlet DAY 2 과제]
+
+ 1. 프로젝트 아래에 sql 폴더 추가함
+	=> users 테이블 작성과 관련된 쿼리문을 저장한 users.sql 파일 저장함
+
+ 2. 회원가입 페이지(memberInsert.html) 에서
+	=> jQuery Ajax를 사용하여 '중복체크' 버튼 클릭시 입력된 아이디를
+	   서버로 보내어, 중복된 아이디가 있는지 검사하게 함
+	=> 전송방식 : post, 연결 컨트롤러 : dupleCheck
+	=> 서블릿클래스 web.xml 에 등록함
+	   (@WebServlet 어노테이션 주석 처리함)
+	   url-pattern : /dupleCheck 
+	   Servlet-class : user.controller.DuplicateIdCheckServlet
+	=> response 할 값 : 아이디 중복이면 true
+			  아이디 중복이 아니면 false
+	=> 회원가입페이지에서 responseText가 true 이면,
+	   alert 출력 : "이미 사용중인 아이디 입니다. 다시 입력하십시오."
+	    >> 아이디값 select() 함
+	   flase 이면 "사용 가능한 아이디입니다." 출력되게 함
+	    >> 암호 입력칸을 focus() 함
+
+ 3. 회원가입 페이지에서
+	=> 주소 입력 필드 수정함
+	   : 우편번호 입력칸과 우편번호 검색 버튼 추가
+	=> 우편번호 검색 버튼 클릭시, 새 창이 뜨고 
+	     새 창에 동이름 입력필드 나타남, 옆에 검색하기 버튼 추가
+	=> 다음 카카오 등에서 제공되는 API를 가져다 사용해도 됨...
+
+	

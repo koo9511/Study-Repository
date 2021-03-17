@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+
+	<display-name>Model2-Member</display-name>
+	<servlet>
+		<servlet-name>BoardFrontController</servlet-name>
+		<servlet-class>net.board.action.BoardFrontController</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		MemberFrontController</display-name>
+		<servlet-name>MemberFrontController</servlet-name>
+		<servlet-class>
+		net.member.action.MemberFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BoardFrontController</servlet-name>
+		<url-pattern>*.bo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MemberFrontController</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+</web-app>

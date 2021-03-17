@@ -1,0 +1,21 @@
+<Requset시 한글 깨짐 현상>
+ 1. 일반적으로 웹 페이지간의 request시
+	request.setCharacterEncoding ("EUC-KR"); 
+  를 사용하여 한글로 다시 복원 할 수 있지만, 
+
+ 2. tomcat을 사용하는 경우 브라우저에서 날라온 post/get로 전달되는 한글이 
+   ISO8859-1로 넘어오는 경우가 있어 한글이 깨지는 경우가 있다. 
+   이 경우 eclipse에 추가시킨 tomcat 서버 폴드의 server.xml 파일을 수정해 주면 된다. 
+   사용되어질 포트의 connector에 (URIEncoding="KSC5601") 추가 시켜 주면 된다. 
+
+	예)
+	<Connector connectionTimeout="20000" 
+		port="8080" protocol="HTTP/1.1" redirectPort="8443" 
+		URIEncoding="KSC5601"/> 
+
+ 3. 문자열 값에 한글 인코딩 처리를 직접하는 경우 : 일일이 다 처리해야 함
+	예)
+	String name = request.getParameter("name")
+	if(name != null){
+		name = new String(name.getBytes("8859-1"), "euc-kr");
+	}
