@@ -46,6 +46,31 @@
     .button:nth-child(2){
       float: right;
     }
+
+    #playlist {
+      text-align: center;
+      height: 275px;
+      overflow-y: auto;
+      /* overflow
+        auto : 컨텐츠가 범위를 벗어날 때에만 스크롤 생성
+        scroll : 컨텐츠가 범위를 벗어나는 것에 상관 없이 스크롤 생성
+        visible : 컨텐츠가 범위를 벗어나도 벗어난 컨텐츠를 그대로 표시
+        hidden : 컨텐츠가 범위를 벗어나면 벗어난 컨텐츠를 안보이게함
+      */
+    }
+
+    .playlist-btn {
+      width: 70%;
+      height: 30px;
+      border-radius: 5px;
+      margin-top: 3px;
+    }
+
+    .song-active {
+      background-color: #444444;
+      color: white;
+    }
+
   </style>
   <script type="text/javascript">
 
@@ -57,26 +82,31 @@
 
     // type = prev or next
     function nextSong(type){
+
+      // id = song-0
+      // index = 0
+
+      // song-0
+      $('.song-active').removeClass('song-active') // song-active 클래스를 모두 지우고
+      $('#song-'+type).addClass('song-active') // 파라미터로 넘어온 버튼에만 적용
       
-      var c_url = "https://www.youtube.com/embed/0-q1KafFCLU?autoplay=1" // celebrity url
-      var s_url = "https://www.youtube.com/embed/K_7To_y9IAM?autoplay=1" // sparkle url
-
-      // alert(type)
-
-      if(type == "prev"){
-        $('#ytplayer').attr('src',s_url)
-        $('#song-title').html("Sparkle")
-      } 
-
-      else if(type == "next"){
-        $('#ytplayer').attr('src',c_url)
-        $('#song-title').html("Celebrity")
-      } 
       
-      else {
+      var s_url = "https://www.youtube.com/embed/K_7To_y9IAM?autoplay=1" // sparkle 
+      var c_url = "https://www.youtube.com/embed/0-q1KafFCLU?autoplay=1" // celebrity 
+      var b_url = "https://www.youtube.com/embed/tXV7dfvSefo?autoplay=1"  //벚꽃엔딩
+      var j_url = "https://www.youtube.com/embed/gdZLi9oWNZg?autoplay=1" // dynamite
+      
+      var songList = new Array(s_url, c_url, b_url, j_url)
+
+      $('#ytplayer').attr('src',songList[type])
+
+      switch(type){
+          case 0 : $('#song-title').html("Sparkle"); break;
+          case 1 : $('#song-title').html("Celebrity"); break;
+          case 2 : $('#song-title').html("벚꽃엔딩"); break;
+          case 3 : $('#song-title').html("Dynamite"); break;
       }
 
-      // return false; //end
       random_bg_color()
     }
 
@@ -123,12 +153,27 @@
 
       <!-- padding : 안쪽 여백 -->
       <!-- margin : 바깥쪽 여백 -->
-      <div style="width: 315px; float: right; height: 100%; margin-right: 10px;">
-          <h2 id="song-title">제목</h2>
-          <p id="song-content">텍스트를 적어요 <br>
-            텍스트를 적어요 <br>
-            텍스트를 적어요 <br>
-          </p>
+      <div style="width: 315px; float: right; height: 100%;">
+          <h2 id="song-title">Playlist</h2>
+          
+          <div id="playlist">
+            <button type="button" id="song-0" class="playlist-btn" onclick="nextSong(0)">Sparkle</button>
+            <button type="button" id="song-1" class="playlist-btn" onclick="nextSong(1)">Celebrity</button>
+            <button type="button" id="song-2" class="playlist-btn" onclick="nextSong(2)">벚꽃엔딩</button>
+            <button type="button" id="song-3" class="playlist-btn" onclick="nextSong(3)">Dynamite</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+            <button type="button" class="playlist-btn">empty</button>
+          </div>
+          
       </div>
       <style>
         /*    .text = class,  #text = id        */
