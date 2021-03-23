@@ -4,6 +4,8 @@ body
     margin: auto;
 }
 
+.dark {}
+
 .pic{
   display: block;
   margin-left: auto;
