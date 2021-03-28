@@ -1,8 +1,11 @@
+
+
 body {
     background-color: rgb(135, 182, 242);
   
     /* Smoothly transition the background color */
     transition: background-color .5s;
+    font-family: 'Hind Madurai', sans-serif;
   }
   
   .player {

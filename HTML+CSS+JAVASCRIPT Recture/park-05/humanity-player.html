@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sppstify Player</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="humanity-player.css">
-  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script  src="jquery.min.js"></script>
+  
   <style>
     /* 
     태그 제어 ( id, class, name ) ! name = Server 작업할 때 사용
@@ -46,7 +48,6 @@
     .button:nth-child(2){
       float: right;
     }
-
     #playlist {
       text-align: center;
       height: 275px;
@@ -71,40 +72,53 @@
       color: white;
     }
 
+    #description {
+      width: 640px;
+      height: 350px;
+      background-color: #202020;
+      color: white;
+      position: fixed;
+      border-radius: 5px;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    #desc-content {
+
+    }
+
   </style>
   <script type="text/javascript">
 
     // document.getElementById('ytplayer')// origin javascript
     // $('#ytplayer')// jQuery
 
-    // celebrity = 0-q1KafFCLU 
-    // blueming  = D1PvIWdJ8xo
+    var s_url = "https://www.youtube.com/embed/K_7To_y9IAM?autoplay=1" // sparkle 
+    var c_url = "https://www.youtube.com/embed/f3I3Sxw1IGs?autoplay=1" // celebrity 
+    var b_url = "https://www.youtube.com/embed/v8oqbWrP1QY?autoplay=1"  //벚꽃엔딩
+    var j_url = "https://www.youtube.com/embed/_QGIzmtIr3E?autoplay=1" // dynamite
 
-    // type = prev or next
+    var songList = new Array(s_url, c_url, b_url, j_url)
+
+    // document -> page 로드가 끝났을 때 ( 페이지 표시하기 직전 )
+    // window -> page 를 다 그리고 난 후
+
+    $(document).ready(function(){
+      // nextSong(0)
+    })
+
     function nextSong(type){
-
-      // id = song-0
-      // index = 0
-
-      // song-0
+      
       $('.song-active').removeClass('song-active') // song-active 클래스를 모두 지우고
       $('#song-'+type).addClass('song-active') // 파라미터로 넘어온 버튼에만 적용
       
-      
-      var s_url = "https://www.youtube.com/embed/K_7To_y9IAM?autoplay=1" // sparkle 
-      var c_url = "https://www.youtube.com/embed/0-q1KafFCLU?autoplay=1" // celebrity 
-      var b_url = "https://www.youtube.com/embed/tXV7dfvSefo?autoplay=1"  //벚꽃엔딩
-      var j_url = "https://www.youtube.com/embed/gdZLi9oWNZg?autoplay=1" // dynamite
-      
-      var songList = new Array(s_url, c_url, b_url, j_url)
-
       $('#ytplayer').attr('src',songList[type])
 
       switch(type){
           case 0 : $('#song-title').html("Sparkle"); break;
-          case 1 : $('#song-title').html("Celebrity"); break;
-          case 2 : $('#song-title').html("벚꽃엔딩"); break;
-          case 3 : $('#song-title').html("Dynamite"); break;
+          case 1 : $('#song-title').html("Keep Changing the World"); break;
+          case 2 : $('#song-title').html("Just the Two of Us"); break;
+          case 3 : $('#song-title').html("Melting"); break;
       }
 
       random_bg_color()
@@ -124,60 +138,82 @@
       document.body.style.background = bgColor; 
     }
 
+
+      // return false; //end
+      random_bg_color()
+    
+
+    function random_bg_color() { 
+      // Get a random number between 64 to 256 
+      // (for getting lighter colors) 
+      let red = Math.floor(Math.random() * 256) + 64; 
+      let green = Math.floor(Math.random() * 256) + 64; 
+      let blue = Math.floor(Math.random() * 256) + 64; 
+      
+      // Construct a color withe the given values 
+      let bgColor = "rgb(" + red + ", " + green + ", " + blue + ")"; 
+      
+      // Set the background to the new color 
+      document.body.style.background = bgColor; 
+    }
+
+    function description_over(){
+      $('#description').fadeIn()
+    }
+
+    function description_out(){
+      $('#description').fadeOut()
+    }
+
   </script>
 </head>
 <body>
   <!-- id, class = 선택자(Selector) -->
   <div class="player">
-    <!-- youtube url = https://www.youtube.com/watch?v=0-q1KafFCLU -->
-    <!-- https://youtu.be/0-q1KafFCLU -->
 
-    <!-- 
-    margin: 0px 1px 0px 0px;
-    위, 오른쪽, 아래, 왼쪽 
-
-    margin-left : 10px; -> margin: 0px 0px 0px 10px; - 왼쪽
-    margin-right  !      margin: 0px 10px 0px 10px; - 왼쪽, 오른쪽
-                         margin: 10px; - 전체
-  -->
-    <h1 id="song-title" style="font-size: 3em;">Sparkle</h1>
+    <h1 id="song-title" style="font-size: 3em; cursor: help;" onmouseover="description_over()" onmouseout="description_out()">Sparkle</h1>
     
     <!-- box-shadow : length > (x, y, blur, spread), inset(선택하면 안쪽에 그림자), color -->
 
     <div id="main-contents">
-      <div style="width: 315px; float: left;">
+
+      <!-- 곡 정보 표시 용 -->
+      <div id="description" hidden>
+        <p id="desc-content">sd</p>
+      </div>
+      <!--                 -->
+
+      <div class="contents" style="width: 315px; float: left;">
         <iframe id="ytplayer" width="315" height="360" src="https://www.youtube.com/embed/K_7To_y9IAM?autoplay=1"></iframe>
       </div>
 
-
-
       <!-- padding : 안쪽 여백 -->
       <!-- margin : 바깥쪽 여백 -->
-      <div style="width: 315px; float: right; height: 100%;">
-          <h2 id="song-title">Playlist</h2>
+      <div class="contents" style="width: 315px; float: right; height: 100%; margin-right: 10px;">
+        <h2 class="song-title">Playlist</h2>
           
-          <div id="playlist">
-            <button type="button" id="song-0" class="playlist-btn" onclick="nextSong(0)">Sparkle</button>
-            <button type="button" id="song-1" class="playlist-btn" onclick="nextSong(1)">Celebrity</button>
-            <button type="button" id="song-2" class="playlist-btn" onclick="nextSong(2)">벚꽃엔딩</button>
-            <button type="button" id="song-3" class="playlist-btn" onclick="nextSong(3)">Dynamite</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-            <button type="button" class="playlist-btn">empty</button>
-          </div>
-          
+        <div id="playlist">
+          <button type="button" id="song-0" class="playlist-btn song-active" onclick="nextSong(0)">Sparkle</button>
+          <button type="button" id="song-1" class="playlist-btn" onclick="nextSong(1)">Keep Changing the World</button>
+          <button type="button" id="song-2" class="playlist-btn" onclick="nextSong(2)">Just the Two of Us</button>
+          <button type="button" id="song-3" class="playlist-btn" onclick="nextSong(3)">Melting</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+          <button type="button" class="playlist-btn">empty</button>
+        </div>
       </div>
       <style>
         /*    .text = class,  #text = id        */
-        #song-title {
+        #song-title,
+        .song-title {
           text-align: center;
         }
 
@@ -208,22 +244,21 @@
         }
 
         /* hover : 마우스를 올렸을 때 */
-        #main-contents:hover {
-          /* width: 700px;
+        /* #main-contents:hover {
+          width: 700px;
           height: 400px;
           transition: 300ms;
-          background-color: black; */
-        }
+        } */
 
-        /* active : 마우스를 클릭하고 있을 때 */
+        /* active : 마우스를 클릭하고 있을 때
         #main-contents:active {
           /* background-color: inherit; */
           /* box-shadow: 4px 4px 4px inset #444; */
-        }
+        /* }  */
 
         /* visited : 마우스를 클릭 하고난 후 */
         #main-contents:visited {
-          /* border-color: purple !important; */
+          border-color: purple !important;
         }
       </style>
 
@@ -232,39 +267,49 @@
 
     </div>
     <br><b><br>
+    
+    <script>
+      function changeSong(text) {
+
+        // id = song-?
+
+        var now_id = $('.song-active').attr('id')
+        var index = now_id.substr(5,1)
+
+        // alert("ID : " + now_id +", Index : " + index)
+
+        if(text == "prev") {
+          index = Number(index)-1
+        } else {
+          index = Number(index)+1
+        }
+
+        if(index < 0){
+          alert('이전 곡이 없습니다.')
+          return false
+        }
+
+        if(index > 3){
+          alert('다음 곡이 없습니다.')
+          return false
+        }
+
+
+
+        nextSong(index)
+
+      }
+    </script>
+
     <div style="width: 640px;">
-      <button id="prev-btn" class="btn button" onclick="nextSong('prev')">Prev</button>
-      <button id="next-btn" class="btn button" onclick="nextSong('next')">Next</button>
-      <!-- onclick = 클릭할 때 ( 마우스를 뗄 때 ) 발생하는 함수 지정 -->
+      <button id="prev-btn" class="btn button" onclick="changeSong('prev')">Prev</button>
+      <button id="next-btn" class="btn button" onclick="changeSong('next')">Next</button>
+      <!— onclick = 클릭할 때 ( 마우스를 뗄 때 ) 발생하는 함수 지정 —>
     </div>
     <div id="comment" style="margin-top: 20px;">
       <h3>comment</h3>
       <input type="text" style="width: 100%;">
     </div>
-
-
-    <!-- <div id="div_1" class="divClass"> 
-      <label>Hello</label><br>
-    </div>
-    <br>
-    <div id="div_2" class="divClass">
-      <label>world</label>
-    </div>
-    <br>
-    <div id="div_3" class="divClass">
-      <label>hyper text</label>
-    </div> <br> -->
-
-
-g
-     <!-- input = enter 키 사용 불가 (짧은 글 입력) 
-     <input type="text" class="divClass" name="user_id">  
-     <input type="text" class="divClass" name="user_pw"> 
-
-     textarea = 장문의 글 작성시 사용 
-     <textarea id="" cols="30" rows="10">
-
-    </textarea>  -->
-  <script src="musicplayer.js"></script>
+    <script src="http://www.youtube.com/player_api"></script>
 </body>
 </html>
