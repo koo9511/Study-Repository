@@ -40,7 +40,5 @@ $ git push origin master
 
 -끝-
 
-exit
-
 
 
