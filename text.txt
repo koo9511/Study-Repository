@@ -37,8 +37,3 @@ Revert한 변경사항들을 커밋한다.
 $ git commit -m 'Revert "Commit C, B, A"'
 1-2. 푸쉬하기
 $ git push origin master
-
-
-
-
-
