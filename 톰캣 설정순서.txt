@@ -1,0 +1,102 @@
+JAVA EE로 설정
+뷰에서 SERVERS 꼭 필요하고 따로 빼놓음 NAVIGATOR 밑에
+OTHERS 에서 GENERAL 가면 PROBLEMS
+
+WINDOW - > PREFERENCES -> SERVER -> RUNTIME ENVIRONMENTS -> ADD -> Tomcat 8.5 
+-> BROWSE -> 압축푼 톰캣폴더 선택 -> FINISH 
+
+동일하게 html test server (사용 용도로 이름 명명), 위치는 그대로 톰캣  -> 추가로 등록하는법
+---------------------
+
+한글 안깨지게 
+---------
+JAVA
+----
+GENERAL -> WORKSPACE -> MS949 INTO UTF-8 + APPLY
+GENERAL -> EDITROS -> TEXT EDITORS _> SPELLING -> UTF-8(DEFAULT 값) + APPLY
+JSON -> JSON FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
+WEB -> CSS FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
+WEB -> HTML FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
+WEB -> JSP FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
+-----------
+
+SERVERS 구역에서 오른쪽 클릭 -> NEW SERVER -> SERVER RUNTIME ENVIRONMENT : HTML TEST SERVER
+SERVER NAME은 ECLIPSE 안에서 보여지는 SERVER 이름 
+-> HTML TEST SERVER로 변경 -> NEXT -> FINISH
+
+SERVER 이름 DOUBLE CLICK -> OVERVIEW 화면 나오면서 설정 페이지 등장
+-> PORTS 3개 모두 변경 EX) 8555, 8888, 8999 (꼭 이 숫자로 하지 않아도 됨) 될 수 있으면 2000번 이후로
+SERVER OPTIONS -> 첫번째 항목 꼭 체크 (SERVE MODULES WITHOUT PUBLISHING)
+
+------------------- 포트번호 기억하고 모두 저장 후 창 닫기---
+서버 실행해보고 중단할 때 DESTROYING 어쩌구 나오면 종료됨
+
+서버 실행 후 NAVIGATOR나 PROJECT EXPLORER에 관련 파일들 생성됨
+
+* SERVERS 폴더는 절.대.보.존.해 (BUT 나중에 없애야할 때는 직접 없애야 함)
+--------서버 세팅 끝--------
+
+FILE -> NEW ->DYNAMIC WEB PROJECT로 새로운 프로젝트 생성
+ex) testHTMLProject
+
+★바로 finish 누르지 말것★
+Target runtime에서 현재 사용하고 있는 톰캣 표시됨 
+JAVA EE가 톰캣이 제공하는 기능
+이 부분이 NONE으로 표시되는 경우 프로젝트 에러가 발생
+NONE이 표시되면 반드시 톰캣을 설정해주어야함
+실습에서는 html test server 선택
+
+WEB MODULE VERSION 은 SERVLET의 버전을 뜻함
+
+NEXT -> 자바관련 설정
+
+기본 OUTPUT FOLDER 설정 : 프로젝트 만들고 나서 설정해줘야함
+그래서 일단 NEXT
+
+마지막 부분 중요
+★체크박스 GENERATE 블라블라 꼭 체크★
+WEB.XML을 만들라는 명령 -> ★배치 관리자 역할 = 여러 자바 클래스들의 존재를 관리하는 역할임★
+-> 이 부분은 꼭 다룰 수 있어야함
+CONTENT DIRECTORY : 어떤 파일이건 간에 이 곳에 저장한다.
+so 컨텐츠 저장할 디렉토리 이름 -> web으로 수정
+CONTEXT ROOT : 프로젝트명 그대로 써도 되지만
+CONTEXT = WEB APPLICATION, SO 보안상의 이유로
+웹에서는 가짜 이름 ex) 도메인 을 사용하기 때문에 변경
+여기선 testh 로 명명.
+THEN FINISH
+
+PROJECT EXPLORER 확인해보면
+WEB 폴더 안에 모든 CONTENTS들 들어갈 예정
+이 구조는 절.대.고.정.해
+
+JAVA RESOURCES
+밑 SRC에서 자바관련 작업하면됨
+
+NAVIGATOR 에서는 다르게 보여지는데 이쪽이 좀 더 편하게 쓸 수 있다 이말이야~
+
+★엄청 중요한 작업임★
+컴파일 된 JAVA CLASS도 WEB밑에 있어야 한다. 그래야 CLASS 실행 가능
+근데 NAVIGATOR 확인해보면 CLASSES 폴더가 WEB 하위폴더에 없고 BUILD 폴더 내에 있음 
+->이러면 안됨 SO 경로수정
+PROJECT 속성 변경 필요 - > 프로젝트 오른쪽 클릭 -> PROPERTIES ->
+클래스 만들어지는 위치 수정해야함 -> JAVA BUILD PATH
+4개 탭중 SOURCE
+JAVA는 만드는 것 자체는 아무곳에서 만들어도 ㅇㅋ
+컴파일 된 클래스의 위치가 중요
+DEFAULT OUTPUT FOLDER : 이게 저장되는 클래스 위치 -> BROWSE
+WEB.XML이 있는 위치에 CLASS가 있어야함
+그래야 CLASS의 존재확인 후 배치 가능
+WEB-INF 선택 -> CREATE NEW FOLDER -> classes -> classes 선택후 ok
+ex testHTMLProject/web/WEB-INF/classes 경로 확인 후 Apply
+
+testHTMLProject의 build폴더는 삭제
+
+
+
+
+
+
+
+
+
+
