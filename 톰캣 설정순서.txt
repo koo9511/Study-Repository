@@ -90,6 +90,3 @@ WEB-INF 선택 -> CREATE NEW FOLDER -> classes -> classes 선택후 ok
 ex testHTMLProject/web/WEB-INF/classes 경로 확인 후 Apply
 
 testHTMLProject의 build폴더는 삭제
-
-
-
