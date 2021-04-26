@@ -74,7 +74,7 @@ JAVA RESOURCES
 
 NAVIGATOR 에서는 다르게 보여지는데 이쪽이 좀 더 편하게 쓸 수 있다 이말이야~
 
-★엄청 중요한 작업임★
+★엄청 중요한 작업★
 컴파일 된 JAVA CLASS도 WEB밑에 있어야 한다. 그래야 CLASS 실행 가능
 근데 NAVIGATOR 확인해보면 CLASSES 폴더가 WEB 하위폴더에 없고 BUILD 폴더 내에 있음 
 ->이러면 안됨 SO 경로수정
