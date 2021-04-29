@@ -37,7 +37,6 @@ SERVER OPTIONS -> 첫번째 항목 꼭 체크 (SERVE MODULES WITHOUT PUBLISHING)
 --------서버 세팅 끝--------
 
 FILE -> NEW ->DYNAMIC WEB PROJECT로 새로운 프로젝트 생성
-ex) testHTMLProject
 
 ★바로 finish 누르지 말것★
 Target runtime에서 현재 사용하고 있는 톰캣 표시됨 
