@@ -69,7 +69,7 @@ WEB 폴더 안에 모든 CONTENTS들 들어갈 예정
 이 구조는 절.대.고.정
 
 JAVA RESOURCES
-밑 SRC에서 자바관련 작업하면됨
+
 
 NAVIGATOR 에서는 다르게 보여지는데 이쪽이 좀 더 편하게 쓸 수 있다 이말이야~
 
