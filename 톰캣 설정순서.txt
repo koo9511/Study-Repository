@@ -46,7 +46,7 @@ JAVA EE가 톰캣이 제공하는 기능
 NONE이 표시되면 반드시 톰캣을 설정해주어야함
 실습에서는 html test server 선택
 
-WEB MODULE VERSION 은 SERVLET의 버전을 뜻함
+WEB MODULE VERSION 은 SERVLET의 버전
 
 NEXT -> 자바관련 설정
 
