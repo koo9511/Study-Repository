@@ -64,9 +64,6 @@ CONTEXT = WEB APPLICATION, SO 보안상의 이유로
 여기선 testh 로 명명.
 THEN FINISH
 
-PROJECT EXPLORER 확인해보면
-WEB 폴더 안에 모든 CONTENTS들 들어갈 예정
-
 JAVA RESOURCES
 
 
