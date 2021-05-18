@@ -84,6 +84,6 @@ WEB.XML이 있는 위치에 CLASS가 있어야함
 WEB-INF 선택 -> CREATE NEW FOLDER -> classes -> classes 선택후 ok
 ex testHTMLProject/web/WEB-INF/classes 경로 확인 후 Apply
 
-testHTMLProject의 build폴더 삭제
+testHTMLProject의 build폴더 Delete
 
 
