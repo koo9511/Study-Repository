@@ -50,7 +50,7 @@ WEB MODULE VERSION 은 SERVLET의 버전
 
 NEXT -> 자바관련 설정
 
-기본 OUTPUT FOLDER 설정 : 프로젝트 만들고 나서 설정해줘야함
+기본 OUTPUT FOLDER 설정 : 프로젝트 만들고 나서 설정
 
 마지막
 ★체크박스 GENERATE ... 꼭 체크★
