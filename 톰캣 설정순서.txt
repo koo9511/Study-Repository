@@ -6,7 +6,7 @@ WINDOW - > PREFERENCES -> SERVER -> RUNTIME ENVIRONMENTS -> ADD -> Tomcat 8.5
 -> BROWSE -> 압축푼 톰캣폴더 선택 -> FINISH 
 
 동일하게 html test server (사용 용도로 이름명), 위치는 그대로 톰캣  -> 추가로 등록
-------------------
+-----------------
 
 한글 Encoding
 ------------
