@@ -76,8 +76,7 @@ NAVIGATOR 에서는 다르게 보여지는데 이쪽이 좀 더 편하게 쓸 �
 PROJECT 속성 변경 필요 - > 프로젝트 오른쪽 클릭 -> PROPERTIES ->
 클래스 만들어지는 위치 수정해야함 -> JAVA BUILD PATH
 4개 탭중 SOURCE
-JAVA는 만드는 것 자체는 아무곳에서 만들어도 
-컴파일 된 클래스의 위치가 중요
+JAVA는 만드는 것 자체는 아무곳에서 만들어도 컴파일 된 클래스의 위치가 중요
 DEFAULT OUTPUT FOLDER : 이게 저장되는 클래스 위치 -> BROWSE
 WEB.XML이 있는 위치에 CLASS가 있어야함
 그래야 CLASS의 존재확인 후 배치 가능
