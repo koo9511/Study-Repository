@@ -34,7 +34,7 @@ SERVER OPTIONS -> 첫번째 항목 꼭 체크 (SERVE MODULES WITHOUT PUBLISHING)
 서버 실행 후 NAVIGATOR나 PROJECT EXPLORER에 관련 파일들 생성됨
 
 * SERVERS 폴더는 절.대.보.존.해 (BUT 나중에 없애야할 때는 직접 없애야 함)
---------서버 세팅 끝--------
+--------서버 세팅 끝-------
 
 FILE -> NEW ->DYNAMIC WEB PROJECT로 새로운 프로젝트 생성
 
