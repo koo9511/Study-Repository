@@ -84,6 +84,7 @@ ex testHTMLProject/web/WEB-INF/classes 경로 확인 후 Apply
 
 testHTMLProject의 build폴더 Delete 
 
+작업 진도
 
 
 
