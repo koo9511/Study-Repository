@@ -28,6 +28,8 @@ SERVER 이름 DOUBLE CLICK -> OVERVIEW 화면 나오면서 설정 페이지 등�
 -> PORTS 3개 모두 변경 EX) 8555, 8888, 8999 (꼭 이 숫자로 하지 않아도 됨) 될 수 있으면 2000번 이후로
 SERVER OPTIONS -> 첫번째 항목 꼭 체크 (SERVE MODULES WITHOUT PUBLISHING)
 
+
+
 ------------------ 포트번호 기억하고 모두 저장 후 창 닫기
 서버 실행해보고 중단할 때 DESTROYING 어쩌구 나오면 종료됨
 
