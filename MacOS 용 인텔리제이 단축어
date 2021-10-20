@@ -655,7 +655,7 @@ control + option + H : 메소드 계층 구조 보기 ( 이거는 잘 모르겠�
 option + space : 매소드 (함수) 내용 보기 ( 자주사용 ) 
 
 
-
+command + N : 자동생성
 
 출처 : https://okky.kr/article/605046
 
