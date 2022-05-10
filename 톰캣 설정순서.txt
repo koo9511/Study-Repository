@@ -1,102 +1,90 @@
-JAVA EE·Î ¼³Á¤
-ºä¿¡¼­ SERVERS ²À ÇÊ¿äÇÏ°í µû·Î »©³õÀ½ NAVIGATOR ¹Ø¿¡
-OTHERS ¿¡¼­ GENERAL °¡¸é PROBLEMS
-
+JAVA EEë¡œ ì„¤ì •
+ë·°ì—ì„œ SERVERS ê¼­ í•„ìš”í•˜ê³  ë”°ë¡œ ë¹¼ë†“ìŒ NAVIGATOR ë°‘ì—
+OTHERS ì—ì„œ GENERAL ê°€ë©´ PROBLEMS
+ 
 WINDOW - > PREFERENCES -> SERVER -> RUNTIME ENVIRONMENTS -> ADD -> Tomcat 8.5 
--> BROWSE -> ¾ĞÃàÇ¬ ÅèÄ¹Æú´õ ¼±ÅÃ -> FINISH 
+-> BROWSE -> ì••ì¶•í‘¼ í†°ìº£í´ë” ì„ íƒ -> FINISH 
 
-µ¿ÀÏÇÏ°Ô html test server (»ç¿ë ¿ëµµ·Î ÀÌ¸§ ¸í¸í), À§Ä¡´Â ±×´ë·Î ÅèÄ¹  -> Ãß°¡·Î µî·ÏÇÏ´Â¹ı
----------------------
+ë™ì¼í•˜ê²Œ html test server (ì‚¬ìš© ìš©ë„ë¡œ ì´ë¦„ëª…), ìœ„ì¹˜ëŠ” ê·¸ëŒ€ë¡œ í†°ìº£  -> ì¶”ê°€ë¡œ ë“±ë¡
+-----
+í•œê¸€ Encoding
 
-ÇÑ±Û ¾È±úÁö°Ô 
----------
+----
 JAVA
 ----
 GENERAL -> WORKSPACE -> MS949 INTO UTF-8 + APPLY
-GENERAL -> EDITROS -> TEXT EDITORS _> SPELLING -> UTF-8(DEFAULT °ª) + APPLY
+GENERAL -> EDITROS -> TEXT EDITORS _> SPELLING -> UTF-8(DEFAULT ê°’) + APPLY
 JSON -> JSON FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
 WEB -> CSS FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
 WEB -> HTML FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
 WEB -> JSP FILES -> ENCODING : ISO 10646/UTF-8 + APPLY
------------
+------
 
-SERVERS ±¸¿ª¿¡¼­ ¿À¸¥ÂÊ Å¬¸¯ -> NEW SERVER -> SERVER RUNTIME ENVIRONMENT : HTML TEST SERVER
-SERVER NAMEÀº ECLIPSE ¾È¿¡¼­ º¸¿©Áö´Â SERVER ÀÌ¸§ 
--> HTML TEST SERVER·Î º¯°æ -> NEXT -> FINISH
+SERVERS êµ¬ì—­ì—ì„œ ì˜¤ë¥¸ìª½ í´ë¦­ -> NEW SERVER -> SERVER RUNTIME ENVIRONMENT : HTML TEST SERVER
+SERVER NAMEì€ ECLIPSE ì•ˆì—ì„œ ë³´ì—¬ì§€ëŠ” SERVER ì´ë¦„ 
+-> HTML TEST SERVERë¡œ ë³€ê²½ -> NEXT -> FINISH
 
-SERVER ÀÌ¸§ DOUBLE CLICK -> OVERVIEW È­¸é ³ª¿À¸é¼­ ¼³Á¤ ÆäÀÌÁö µîÀå
--> PORTS 3°³ ¸ğµÎ º¯°æ EX) 8555, 8888, 8999 (²À ÀÌ ¼ıÀÚ·Î ÇÏÁö ¾Ê¾Æµµ µÊ) µÉ ¼ö ÀÖÀ¸¸é 2000¹ø ÀÌÈÄ·Î
-SERVER OPTIONS -> Ã¹¹øÂ° Ç×¸ñ ²À Ã¼Å© (SERVE MODULES WITHOUT PUBLISHING)
+SERVER ì´ë¦„ DOUBLE CLICK -> OVERVIEW í™”ë©´ ë‚˜ì˜¤ë©´ì„œ ì„¤ì • í˜ì´ì§€ ë“±ì¥
+-> PORTS 3ê°œ ëª¨ë‘ ë³€ê²½ EX) 8555, 8888, 8999 (ê¼­ ì´ ìˆ«ìë¡œ í•˜ì§€ ì•Šì•„ë„ ë¨) ë  ìˆ˜ ìˆìœ¼ë©´ 2000ë²ˆ ì´í›„ë¡œ
+SERVER OPTIONS -> ì²«ë²ˆì§¸ í•­ëª© ê¼­ ì²´í¬ (SERVE MODULES WITHOUT PUBLISHING)
 
-------------------- Æ÷Æ®¹øÈ£ ±â¾ïÇÏ°í ¸ğµÎ ÀúÀå ÈÄ Ã¢ ´İ±â---
-¼­¹ö ½ÇÇàÇØº¸°í Áß´ÜÇÒ ¶§ DESTROYING ¾îÂ¼±¸ ³ª¿À¸é Á¾·áµÊ
+------------------ í¬íŠ¸ë²ˆí˜¸ ê¸°ì–µí•˜ê³  ëª¨ë‘ ì €ì¥ í›„ ì°½ ë‹«ê¸°
+ì„œë²„ ì‹¤í–‰í•´ë³´ê³  ì¤‘ë‹¨í•  ë•Œ DESTROYING ì–´ì©Œêµ¬ ë‚˜ì˜¤ë©´ ì¢…ë£Œë¨
+ì„œë²„ ì‹¤í–‰ í›„ NAVIGATORë‚˜ PROJECT EXPLORERì— ê´€ë ¨ íŒŒì¼ë“¤ ìƒì„±ë¨
 
-¼­¹ö ½ÇÇà ÈÄ NAVIGATOR³ª PROJECT EXPLORER¿¡ °ü·Ã ÆÄÀÏµé »ı¼ºµÊ
+* SERVERS í´ë”ëŠ” ì ˆ.ëŒ€.ë³´.ì¡´.í•´ (BUT ë‚˜ì¤‘ì— ì—†ì• ì•¼í•  ë•ŒëŠ” ì§ì ‘ ì—†ì• ì•¼ í•¨)
+--------ì„œë²„ ì„¸íŒ… ë-------
 
-* SERVERS Æú´õ´Â Àı.´ë.º¸.Á¸.ÇØ (BUT ³ªÁß¿¡ ¾ø¾Ö¾ßÇÒ ¶§´Â Á÷Á¢ ¾ø¾Ö¾ß ÇÔ)
---------¼­¹ö ¼¼ÆÃ ³¡--------
+FILE -> NEW ->DYNAMIC WEB PROJECTë¡œ ìƒˆë¡œìš´ í”„ë¡œì íŠ¸ ìƒì„±
 
-FILE -> NEW ->DYNAMIC WEB PROJECT·Î »õ·Î¿î ÇÁ·ÎÁ§Æ® »ı¼º
-ex) testHTMLProject
+â˜…ë°”ë¡œ finish ëˆ„ë¥´ì§€ ë§ê²ƒâ˜…
+Target runtimeì—ì„œ í˜„ì¬ ì‚¬ìš©í•˜ê³  ìˆëŠ” í†°ìº£ í‘œì‹œë¨ 
+JAVA EEê°€ í†°ìº£ì´ ì œê³µí•˜ëŠ” ê¸°ëŠ¥
+ì´ ë¶€ë¶„ì´ NONEìœ¼ë¡œ í‘œì‹œë˜ëŠ” ê²½ìš° í”„ë¡œì íŠ¸ ì—ëŸ¬ê°€ ë°œìƒ
+NONEì´ í‘œì‹œë˜ë©´ ë°˜ë“œì‹œ í†°ìº£ì„ ì„¤ì •í•´ì£¼ì–´ì•¼í•¨
+ì‹¤ìŠµì—ì„œëŠ” html test server ì„ íƒ
 
-¡Ú¹Ù·Î finish ´©¸£Áö ¸»°Í¡Ú
-Target runtime¿¡¼­ ÇöÀç »ç¿ëÇÏ°í ÀÖ´Â ÅèÄ¹ Ç¥½ÃµÊ 
-JAVA EE°¡ ÅèÄ¹ÀÌ Á¦°øÇÏ´Â ±â´É
-ÀÌ ºÎºĞÀÌ NONEÀ¸·Î Ç¥½ÃµÇ´Â °æ¿ì ÇÁ·ÎÁ§Æ® ¿¡·¯°¡ ¹ß»ı
-NONEÀÌ Ç¥½ÃµÇ¸é ¹İµå½Ã ÅèÄ¹À» ¼³Á¤ÇØÁÖ¾î¾ßÇÔ
-½Ç½À¿¡¼­´Â html test server ¼±ÅÃ
+WEB MODULE VERSION ì€ SERVLETì˜ ë²„ì „
 
-WEB MODULE VERSION Àº SERVLETÀÇ ¹öÀüÀ» ¶æÇÔ
+NEXT -> ìë°”ê´€ë ¨ ì„¤ì •
 
-NEXT -> ÀÚ¹Ù°ü·Ã ¼³Á¤
+ê¸°ë³¸ OUTPUT FOLDER ì„¤ì • : í”„ë¡œì íŠ¸ ë§Œë“¤ê³  ë‚˜ì„œ ì„¤ì •
 
-±âº» OUTPUT FOLDER ¼³Á¤ : ÇÁ·ÎÁ§Æ® ¸¸µé°í ³ª¼­ ¼³Á¤ÇØÁà¾ßÇÔ
-±×·¡¼­ ÀÏ´Ü NEXT
+ë§ˆì§€ë§‰
 
-¸¶Áö¸· ºÎºĞ Áß¿ä
-¡ÚÃ¼Å©¹Ú½º GENERATE ºí¶óºí¶ó ²À Ã¼Å©¡Ú
-WEB.XMLÀ» ¸¸µé¶ó´Â ¸í·É -> ¡Ú¹èÄ¡ °ü¸®ÀÚ ¿ªÇÒ = ¿©·¯ ÀÚ¹Ù Å¬·¡½ºµéÀÇ Á¸Àç¸¦ °ü¸®ÇÏ´Â ¿ªÇÒÀÓ¡Ú
--> ÀÌ ºÎºĞÀº ²À ´Ù·ê ¼ö ÀÖ¾î¾ßÇÔ
-CONTENT DIRECTORY : ¾î¶² ÆÄÀÏÀÌ°Ç °£¿¡ ÀÌ °÷¿¡ ÀúÀåÇÑ´Ù.
-so ÄÁÅÙÃ÷ ÀúÀåÇÒ µğ·ºÅä¸® ÀÌ¸§ -> webÀ¸·Î ¼öÁ¤
-CONTEXT ROOT : ÇÁ·ÎÁ§Æ®¸í ±×´ë·Î ½áµµ µÇÁö¸¸
-CONTEXT = WEB APPLICATION, SO º¸¾È»óÀÇ ÀÌÀ¯·Î
-À¥¿¡¼­´Â °¡Â¥ ÀÌ¸§ ex) µµ¸ŞÀÎ À» »ç¿ëÇÏ±â ¶§¹®¿¡ º¯°æ
-¿©±â¼± testh ·Î ¸í¸í.
+â˜…ì²´í¬ë°•ìŠ¤ GENERATE ... ê¼­ ì²´í¬â˜…
+WEB.XMLì„ ë§Œë“¤ë¼ëŠ” ëª…ë ¹ -> â˜…ë°°ì¹˜ ê´€ë¦¬ì ì—­í•  = ì—¬ëŸ¬ ìë°” í´ë˜ìŠ¤ë“¤ì˜ ì¡´ì¬ë¥¼ ê´€ë¦¬í•˜ëŠ” ì—­í• ì„â˜…
+-> ì´ ë¶€ë¶„ì€ ê¼­ ë‹¤ë£° ìˆ˜ ìˆì–´ì•¼í•¨
+CONTENT DIRECTORY : ì–´ë–¤ íŒŒì¼ì´ê±´ ê°„ì— ì´ ê³³ì— ì €ì¥í•œë‹¤.
+so ì»¨í…ì¸  ì €ì¥í•  ë””ë ‰í† ë¦¬ ì´ë¦„ -> webìœ¼ë¡œ ìˆ˜ì •
+CONTEXT ROOT : í”„ë¡œì íŠ¸ëª… ê·¸ëŒ€ë¡œ ì¨ë„ ë˜ì§€ë§Œ
+CONTEXT = WEB APPLICATION, SO ë³´ì•ˆìƒì˜ ì´ìœ ë¡œ
+ì›¹ì—ì„œëŠ” ê°€ì§œ ì´ë¦„ ex) ë„ë©”ì¸ ì„ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— ë³€ê²½
+ì—¬ê¸°ì„  testh ë¡œ ëª…ëª….
 THEN FINISH
 
-PROJECT EXPLORER È®ÀÎÇØº¸¸é
-WEB Æú´õ ¾È¿¡ ¸ğµç CONTENTSµé µé¾î°¥ ¿¹Á¤
-ÀÌ ±¸Á¶´Â Àı.´ë.°í.Á¤.ÇØ
-
 JAVA RESOURCES
-¹Ø SRC¿¡¼­ ÀÚ¹Ù°ü·Ã ÀÛ¾÷ÇÏ¸éµÊ
-
-NAVIGATOR ¿¡¼­´Â ´Ù¸£°Ô º¸¿©Áö´Âµ¥ ÀÌÂÊÀÌ Á» ´õ ÆíÇÏ°Ô ¾µ ¼ö ÀÖ´Ù ÀÌ¸»ÀÌ¾ß~
-
-¡Ú¾öÃ» Áß¿äÇÑ ÀÛ¾÷ÀÓ¡Ú
-ÄÄÆÄÀÏ µÈ JAVA CLASSµµ WEB¹Ø¿¡ ÀÖ¾î¾ß ÇÑ´Ù. ±×·¡¾ß CLASS ½ÇÇà °¡´É
-±Ùµ¥ NAVIGATOR È®ÀÎÇØº¸¸é CLASSES Æú´õ°¡ WEB ÇÏÀ§Æú´õ¿¡ ¾ø°í BUILD Æú´õ ³»¿¡ ÀÖÀ½ 
-->ÀÌ·¯¸é ¾ÈµÊ SO °æ·Î¼öÁ¤
-PROJECT ¼Ó¼º º¯°æ ÇÊ¿ä - > ÇÁ·ÎÁ§Æ® ¿À¸¥ÂÊ Å¬¸¯ -> PROPERTIES ->
-Å¬·¡½º ¸¸µé¾îÁö´Â À§Ä¡ ¼öÁ¤ÇØ¾ßÇÔ -> JAVA BUILD PATH
-4°³ ÅÇÁß SOURCE
-JAVA´Â ¸¸µå´Â °Í ÀÚÃ¼´Â ¾Æ¹«°÷¿¡¼­ ¸¸µé¾îµµ ¤·¤»
-ÄÄÆÄÀÏ µÈ Å¬·¡½ºÀÇ À§Ä¡°¡ Áß¿ä
-DEFAULT OUTPUT FOLDER : ÀÌ°Ô ÀúÀåµÇ´Â Å¬·¡½º À§Ä¡ -> BROWSE
-WEB.XMLÀÌ ÀÖ´Â À§Ä¡¿¡ CLASS°¡ ÀÖ¾î¾ßÇÔ
-±×·¡¾ß CLASSÀÇ Á¸ÀçÈ®ÀÎ ÈÄ ¹èÄ¡ °¡´É
-WEB-INF ¼±ÅÃ -> CREATE NEW FOLDER -> classes -> classes ¼±ÅÃÈÄ ok
-ex testHTMLProject/web/WEB-INF/classes °æ·Î È®ÀÎ ÈÄ Apply
-
-testHTMLProjectÀÇ buildÆú´õ´Â »èÁ¦
 
 
+NAVIGATOR ì—ì„œëŠ” ë‹¤ë¥´ê²Œ ë³´ì—¬ì§€ëŠ”ë° ì´ìª½ì´ ì¢€ ë” í¸í•˜ê²Œ ì“¸ ìˆ˜ ìˆë‹¤ ì´ë§ì´ì•¼~
 
+â˜…ì—„ì²­ ì¤‘ìš”í•œ ì‘ì—…â˜…
+ì»´íŒŒì¼ ëœ JAVA CLASSë„ WEBë°‘ì— ìˆì–´ì•¼ í•œë‹¤. ê·¸ë˜ì•¼ CLASS ì‹¤í–‰ ê°€ëŠ¥
+ê·¼ë° NAVIGATOR í™•ì¸í•´ë³´ë©´ CLASSES í´ë”ê°€ WEB í•˜ìœ„í´ë”ì— ì—†ê³  BUILD í´ë” ë‚´ì— ìˆìŒ 
+->SO ê²½ë¡œìˆ˜ì •
+PROJECT ì†ì„± ë³€ê²½ í•„ìš” - > í”„ë¡œì íŠ¸ ì˜¤ë¥¸ìª½ í´ë¦­ -> PROPERTIES ->
+í´ë˜ìŠ¤ ë§Œë“¤ì–´ì§€ëŠ” ìœ„ì¹˜ ìˆ˜ì •í•´ì•¼í•¨ -> JAVA BUILD PATH
+4ê°œ íƒ­ì¤‘ SOURCE
+JAVAëŠ” ë§Œë“œëŠ” ê²ƒ ìì²´ëŠ” ì•„ë¬´ê³³ì—ì„œ ë§Œë“¤ì–´ë„ ì»´íŒŒì¼ ëœ í´ë˜ìŠ¤ì˜ ìœ„ì¹˜ê°€ ì¤‘ìš”
+DEFAULT OUTPUT FOLDER : ì´ê²Œ ì €ì¥ë˜ëŠ” í´ë˜ìŠ¤ ìœ„ì¹˜ -> BROWSE
+WEB.XMLì´ ìˆëŠ” ìœ„ì¹˜ì— CLASSê°€ ìˆì–´ì•¼í•¨
+ê·¸ë˜ì•¼ CLASSì˜ ì¡´ì¬í™•ì¸ í›„ ë°°ì¹˜ ê°€ëŠ¥
+WEB-INF ì„ íƒ -> CREATE NEW FOLDER -> classes -> classes ì„ íƒí›„ ok
+ex testHTMLProject/web/WEB-INF/classes ê²½ë¡œ í™•ì¸ í›„ Apply
 
+testHTMLProjectì˜ buildí´ë” Delete 
 
-
-
+ì‘ì—… ì§„ë„
 
 
 
